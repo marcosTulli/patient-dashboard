@@ -1,8 +1,12 @@
 'use client';
-import React from 'react';
+import { redirect } from 'next/navigation';
 
-const Home = () => {
-  return <div>Welcome!</div>;
-};
+export default function Home() {
+  const isAuthenticated = false;
 
-export default Home;
+  if (!isAuthenticated) {
+    redirect('/auth');
+  }
+
+  return <h1>HOME</h1>;
+}

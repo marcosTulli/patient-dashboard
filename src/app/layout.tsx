@@ -1,6 +1,7 @@
-import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { Providers } from '@/providers';
+import { Metadata } from 'next';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -13,21 +14,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Patient administration',
-  description: 'Manage pate next app',
+  title: 'Patient Management',
+  description: 'Patient list administrator',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ height: '100%' }} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        style={{ height: '100%' }}
       >
-        {children}
+        <Providers>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
