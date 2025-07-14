@@ -7,7 +7,7 @@ export const getFormSchema = (mode: AccessTypes) => {
     password: yup.string().min(6).required(),
   };
   return yup.object(
-    mode === AccessTypes.login 
+    mode === AccessTypes.signup 
       ? {
           ...base,
           name: yup.string().min(2).required(),

@@ -1,7 +1,10 @@
+// RootLayout.tsx
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/providers';
 import { Metadata } from 'next';
+import NavigationMenu from '@/components/common/Navigation/Menu';
+import Footer from '@/components/common/Footer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,21 +17,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Patient Management',
-  description: 'Patient list administrator',
+  title: 'Patients Dashboard',
+  description: 'Administer patients',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" style={{ height: '100%' }} suppressHydrationWarning>
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ height: '100%' }}
+        className={`min-h-screen flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <main>{children}</main>
+          <NavigationMenu />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
         </Providers>
       </body>
     </html>

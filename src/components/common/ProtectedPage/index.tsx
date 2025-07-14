@@ -2,6 +2,7 @@
 
 import { routes } from '@/config/routes';
 import { useUser } from '@/hooks/auth';
+import { Box } from '@mui/joy';
 import React from 'react';
 
 type ProtectedPageProps = {
@@ -23,5 +24,5 @@ export function ProtectedPage({
     return null;
   }
 
-  return <>{children}</>;
+  return <Box padding={2}>{children}</Box>;
 }
