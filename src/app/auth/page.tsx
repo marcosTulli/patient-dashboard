@@ -1,6 +1,7 @@
 'use client';
 
-import { useLogin } from '@/hooks/auth/';
+import { useLogin, useSignup } from '@/hooks/auth/';
+import { SignupRequest } from '@/models/auth';
 import { LoginRequest } from '@/models/auth/login';
 import { useAuthTokenStore } from '@/store/auth-token';
 
@@ -24,11 +25,20 @@ import * as React from 'react';
 export default function AuthPage() {
   const [mode, setMode] = React.useState<'login' | 'signup'>('login');
   const { accessToken, login, isPending } = useLogin();
+
+  const {
+    accessToken: signupToken,
+    signup,
+    isPending: signupPending,
+  } = useSignup();
+
   const { setAuthToken } = useAuthTokenStore();
   const searchParams = useSearchParams();
 
   const redirectTo = searchParams.get('redirect') || '/';
   const router = useRouter();
+
+  // LOGIN PART
   const [form, setForm] = React.useState<LoginRequest>({
     email: '',
     password: '',
@@ -48,6 +58,7 @@ export default function AuthPage() {
       router.replace(redirectTo);
     }
   }, [accessToken, setAuthToken, router, redirectTo]);
+
   React.useEffect(() => {
     if (accessToken) {
       setAuthToken(accessToken);
@@ -59,6 +70,49 @@ export default function AuthPage() {
     const { email, password } = form;
     await login({ email, password });
   };
+
+  // LOGIN PART
+
+  // SIGNUP
+
+  const [signUpForm, setSignupForm] = React.useState<SignupRequest>({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const updateSignupName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSignupForm((prev) => ({ ...prev, name: e.target.value }));
+  };
+
+  const updateSignupEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSignupForm((prev) => ({ ...prev, email: e.target.value }));
+  };
+
+  const updateSignupPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSignupForm((prev) => ({ ...prev, password: e.target.value }));
+  };
+
+  React.useEffect(() => {
+    if (signupToken) {
+      setAuthToken(signupToken);
+      router.replace(redirectTo);
+    }
+  }, [signupToken, setAuthToken, router, redirectTo]);
+
+  React.useEffect(() => {
+    if (signupToken) {
+      setAuthToken(signupToken);
+    }
+  }, [signupToken, setAuthToken]);
+
+  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password, name } = signUpForm;
+    await signup({ name, email, password });
+  };
+
+  // SIGN UP
 
   return (
     <Box
@@ -73,7 +127,7 @@ export default function AuthPage() {
         sx={{ width: 400, bgcolor: 'background.surface' }}
       >
         <CardContent>
-          {!isPending ? (
+          {!isPending || !signupPending ? (
             <>
               <Typography level="h4" textAlign="center" mb={2}>
                 {mode === 'login' ? 'Admin Login' : 'Create Account'}
@@ -115,19 +169,45 @@ export default function AuthPage() {
                 </TabPanel>
 
                 <TabPanel value="signup">
-                  <form onSubmit={(e) => e.preventDefault()}>
+                  <form onSubmit={handleSignup}>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Name</FormLabel>
+                      <Input
+                        onChange={updateSignupName}
+                        value={signUpForm.name}
+                        type="name"
+                        name="name"
+                        required
+                      />
+                    </FormControl>
+
                     <FormControl sx={{ mb: 2 }}>
                       <FormLabel>Email</FormLabel>
-                      <Input type="email" required />
+                      <Input
+                        onChange={updateSignupEmail}
+                        value={signUpForm.email}
+                        type="email"
+                        name="email"
+                        required
+                      />
                     </FormControl>
+
                     <FormControl sx={{ mb: 2 }}>
                       <FormLabel>Password</FormLabel>
-                      <Input type="password" required />
+                      <Input
+                        onChange={updateSignupPassword}
+                        value={signUpForm.password}
+                        type="password"
+                        name="password"
+                        required
+                      />
                     </FormControl>
-                    <FormControl sx={{ mb: 2 }}>
+
+                    {/* <FormControl sx={{ mb: 2 }}>
                       <FormLabel>Confirm Password</FormLabel>
                       <Input type="password" required />
-                    </FormControl>
+                    </FormControl> */}
+
                     <Button type="submit" fullWidth>
                       Create Account
                     </Button>
