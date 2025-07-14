@@ -1,9 +1,9 @@
 'use client';
 
 import { useLogin, useSignup } from '@/hooks/auth/';
+import useAuthToken from '@/hooks/auth/token';
 import { SignupRequest } from '@/models/auth';
 import { LoginRequest } from '@/models/auth/login';
-import { useAuthTokenStore } from '@/store/auth-token';
 
 import {
   Box,
@@ -32,7 +32,7 @@ export default function AuthPage() {
     isPending: signupPending,
   } = useSignup();
 
-  const { setAuthToken } = useAuthTokenStore();
+  const { setAuthToken } = useAuthToken();
   const searchParams = useSearchParams();
 
   const redirectTo = searchParams.get('redirect') || '/';
