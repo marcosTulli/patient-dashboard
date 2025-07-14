@@ -2,7 +2,7 @@
 
 import { routes } from '@/config/routes';
 import { useUser } from '@/hooks/auth';
-import { Box } from '@mui/joy';
+import { Box, CircularProgress } from '@mui/joy';
 import React from 'react';
 
 type ProtectedPageProps = {
@@ -17,7 +17,18 @@ export function ProtectedPage({
   const { isAuthenticated, isReady } = useUser({ redirectTo });
 
   if (!isReady) {
-    return <p>Loading...</p>;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress size="lg" />
+      </Box>
+    );
   }
 
   if (!isAuthenticated) {
