@@ -1,0 +1,55 @@
+import { IDeleteRequestParams, IGetRequestParams, IPatchRequestParams, IPostRequestParams } from "@/models";
+import { getRequest } from "./get";
+import { postRequest } from "./post";
+import { patchRequest } from "./patch";
+import { deleteRequest } from "./delete";
+
+class HttpClient {
+  private jsonHeaders: Record<string, string> = {
+    "Content-Type": "application/json;charset=UTF-8",
+    "x-api-key": process.env.NEXT_PUBLIC_API_KEY || "",
+  };
+
+  private buildHeaders(customHeaders?: Record<string, string>) {
+    return {
+      ...this.jsonHeaders,
+      ...(customHeaders || {}),
+    };
+  }
+
+  public async get<T>(params: IGetRequestParams): Promise<T> {
+    const headers = this.buildHeaders(params.headers);
+    return getRequest<T>({
+      ...params,
+      headers,
+    });
+  }
+
+  public async post<T>(params: IPostRequestParams): Promise<T> {
+    const headers = this.buildHeaders(params.headers);
+    return postRequest<T>({
+      ...params,
+      headers,
+    });
+  }
+
+  public async patch<T>(params: IPatchRequestParams): Promise<T> {
+    const headers = this.buildHeaders(params.headers);
+    return patchRequest<T>({
+      ...params,
+      headers,
+    });
+  }
+
+  public async delete<T>(params: IDeleteRequestParams): Promise<T> {
+    const headers = this.buildHeaders(params.headers);
+    return deleteRequest<T>({
+      ...params,
+      headers,
+    });
+  }
+}
+
+const HttpClientInstance = new HttpClient();
+
+export default HttpClientInstance;
