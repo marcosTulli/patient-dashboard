@@ -1,5 +1,8 @@
 'use client';
 
+import { useLogin } from '@/hooks/auth/';
+import { LoginRequest } from '@/models/auth/login';
+
 import {
   Box,
   Button,
@@ -14,10 +17,41 @@ import {
   Tab,
   TabPanel,
 } from '@mui/joy';
-import { useState } from 'react';
+import * as React from 'react';
 
 export default function AuthPage() {
-  const [mode, setMode] = useState<'login' | 'signup'>('login');
+  const [mode, setMode] = React.useState<'login' | 'signup'>('login');
+  const { data, login, isPending } = useLogin();
+  const [form, setForm] = React.useState<LoginRequest>({
+    email: '',
+    password: '',
+  });
+
+  const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      email: e.target.value,
+    }));
+  };
+
+  const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({
+      ...prev,
+      password: e.target.value,
+    }));
+  };
+
+  React.useEffect(() => {
+    if (data) {
+      console.log(data);
+    }
+  }, [data]);
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { email, password } = form;
+    await login({ email, password });
+  };
 
   return (
     <Box
@@ -35,54 +69,76 @@ export default function AuthPage() {
         }}
       >
         <CardContent>
-          <Typography
-            level="h4"
-            textAlign="center"
-            mb={2}
-            textColor="text.primary"
-          >
-            {mode === 'login' ? 'Admin Login' : 'Create Account'}
-          </Typography>
+          {!isPending ? (
+            <>
+              <Typography
+                level="h4"
+                textAlign="center"
+                mb={2}
+                textColor="text.primary"
+              >
+                {mode === 'login' ? 'Admin Login' : 'Create Account'}
+              </Typography>
+              <Tabs
+                value={mode}
+                onChange={(_, val) => setMode(val as 'login' | 'signup')}
+              >
+                <TabList>
+                  <Tab value="login">Login</Tab>
+                  <Tab value="signup">Sign Up</Tab>
+                </TabList>
+                <TabPanel value="login">
+                  <form onSubmit={handleLogin}>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Email</FormLabel>
+                      <Input
+                        onChange={updateEmail}
+                        value={form.email}
+                        type="email"
+                        name="email"
+                        required
+                      />
+                    </FormControl>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Password</FormLabel>
+                      <Input
+                        onChange={updatePassword}
+                        value={form.password}
+                        type="password"
+                        name="password"
+                        required
+                      />
+                    </FormControl>
+                    <Button type="submit" fullWidth>
+                      Login
+                    </Button>
+                  </form>
+                </TabPanel>
 
-          <Tabs
-            value={mode}
-            onChange={(_, val) => setMode(val as 'login' | 'signup')}
-          >
-            <TabList>
-              <Tab value="login">Login</Tab>
-              <Tab value="signup">Sign Up</Tab>
-            </TabList>
-            <TabPanel value="login">
-              <form>
-                <FormControl sx={{ mb: 2 }}>
-                  <FormLabel>Email</FormLabel>
-                  <Input type="email" required />
-                </FormControl>
-                <FormControl sx={{ mb: 2 }}>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" required />
-                </FormControl>
-                <Button fullWidth>Login</Button>
-              </form>
-            </TabPanel>
-            <TabPanel value="signup">
-              <form>
-                <FormControl sx={{ mb: 2 }}>
-                  <FormLabel>Email</FormLabel>
-                  <Input type="email" required />
-                </FormControl>
-                <FormControl sx={{ mb: 2 }}>
-                  <FormLabel>Password</FormLabel>
-                  <Input type="password" required />
-                </FormControl>
-                <FormControl sx={{ mb: 2 }}>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <Input type="password" required />
-                </FormControl>
-                <Button fullWidth>Create Account</Button>
-              </form>
-            </TabPanel>
-          </Tabs>
+                <TabPanel value="signup">
+                  <form onSubmit={(e) => e.preventDefault()}>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Email</FormLabel>
+                      <Input type="email" required />
+                    </FormControl>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Password</FormLabel>
+                      <Input type="password" required />
+                    </FormControl>
+                    <FormControl sx={{ mb: 2 }}>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <Input type="password" required />
+                    </FormControl>
+                    <Button type="submit" fullWidth>
+                      Create Account
+                    </Button>
+                  </form>
+                </TabPanel>
+              </Tabs>
+            </>
+          ) : (
+            <Typography>Cargando</Typography>
+          )}
         </CardContent>
       </Card>
     </Box>
