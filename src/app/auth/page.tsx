@@ -2,23 +2,38 @@
 
 import {
   Box,
+  Button,
   Card,
   CardContent,
+  FormControl,
+  FormLabel,
+  Input,
   Typography,
   Tabs,
   TabList,
   Tab,
   TabPanel,
 } from '@mui/joy';
-
-import * as React from 'react';
+import { useState } from 'react';
 
 export default function AuthPage() {
-  const [mode, setMode] = React.useState<'login' | 'signup'>('login');
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
 
   return (
-    <Box>
-      <Card>
+    <Box
+      minHeight="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="background.body"
+    >
+      <Card
+        variant="outlined"
+        sx={{
+          width: 400,
+          bgcolor: 'background.surface',
+        }}
+      >
         <CardContent>
           <Typography
             level="h4"
@@ -26,27 +41,46 @@ export default function AuthPage() {
             mb={2}
             textColor="text.primary"
           >
-            TITLE
+            {mode === 'login' ? 'Admin Login' : 'Create Account'}
           </Typography>
+
           <Tabs
             value={mode}
             onChange={(_, val) => setMode(val as 'login' | 'signup')}
           >
-            {/* TABS */}
             <TabList>
               <Tab value="login">Login</Tab>
               <Tab value="signup">Sign Up</Tab>
             </TabList>
-
-            {/* LOGIN */}
-
             <TabPanel value="login">
-              <form>LOGIN FORM</form>
+              <form>
+                <FormControl sx={{ mb: 2 }}>
+                  <FormLabel>Email</FormLabel>
+                  <Input type="email" required />
+                </FormControl>
+                <FormControl sx={{ mb: 2 }}>
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" required />
+                </FormControl>
+                <Button fullWidth>Login</Button>
+              </form>
             </TabPanel>
-
-            {/* SIGNUP */}
             <TabPanel value="signup">
-              <form>SIGN IN FORM</form>
+              <form>
+                <FormControl sx={{ mb: 2 }}>
+                  <FormLabel>Email</FormLabel>
+                  <Input type="email" required />
+                </FormControl>
+                <FormControl sx={{ mb: 2 }}>
+                  <FormLabel>Password</FormLabel>
+                  <Input type="password" required />
+                </FormControl>
+                <FormControl sx={{ mb: 2 }}>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <Input type="password" required />
+                </FormControl>
+                <Button fullWidth>Create Account</Button>
+              </form>
             </TabPanel>
           </Tabs>
         </CardContent>
