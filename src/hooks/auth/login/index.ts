@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { login } from '@/services/auth/login';
-import { LoginRequest } from '@/models/auth/login';
-import { AuthResponse } from '@/models/auth/auth-response';
+import { AuthResponse, LoginRequest } from '@/models/auth';
 
 export const useLogin = () => {
   const { data, mutateAsync, isPending, isError, error } = useMutation<
