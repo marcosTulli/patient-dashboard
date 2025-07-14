@@ -2,6 +2,7 @@
 
 import { useLogin } from '@/hooks/auth/';
 import { LoginRequest } from '@/models/auth/login';
+import { useAuthTokenStore } from '@/store/auth-token';
 
 import {
   Box,
@@ -17,35 +18,41 @@ import {
   Tab,
   TabPanel,
 } from '@mui/joy';
+import { useRouter, useSearchParams } from 'next/navigation';
 import * as React from 'react';
 
 export default function AuthPage() {
   const [mode, setMode] = React.useState<'login' | 'signup'>('login');
-  const { data, login, isPending } = useLogin();
+  const { accessToken, login, isPending } = useLogin();
+  const { setAuthToken } = useAuthTokenStore();
+  const searchParams = useSearchParams();
+
+  const redirectTo = searchParams.get('redirect') || '/';
+  const router = useRouter();
   const [form, setForm] = React.useState<LoginRequest>({
     email: '',
     password: '',
   });
 
   const updateEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      email: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, email: e.target.value }));
   };
 
   const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((prev) => ({
-      ...prev,
-      password: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, password: e.target.value }));
   };
 
   React.useEffect(() => {
-    if (data) {
-      console.log(data);
+    if (accessToken) {
+      setAuthToken(accessToken);
+      router.replace(redirectTo);
     }
-  }, [data]);
+  }, [accessToken, setAuthToken, router, redirectTo]);
+  React.useEffect(() => {
+    if (accessToken) {
+      setAuthToken(accessToken);
+    }
+  }, [accessToken, setAuthToken]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,20 +70,12 @@ export default function AuthPage() {
     >
       <Card
         variant="outlined"
-        sx={{
-          width: 400,
-          bgcolor: 'background.surface',
-        }}
+        sx={{ width: 400, bgcolor: 'background.surface' }}
       >
         <CardContent>
           {!isPending ? (
             <>
-              <Typography
-                level="h4"
-                textAlign="center"
-                mb={2}
-                textColor="text.primary"
-              >
+              <Typography level="h4" textAlign="center" mb={2}>
                 {mode === 'login' ? 'Admin Login' : 'Create Account'}
               </Typography>
               <Tabs

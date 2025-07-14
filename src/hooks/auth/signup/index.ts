@@ -1,7 +1,6 @@
-
 const useSignUp = () => {
-    const data = 'tuki';
-    return {data};
+  const data = 'tuki';
+  return { data };
 };
 
 export default useSignUp;

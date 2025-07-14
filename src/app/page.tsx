@@ -1,12 +1,16 @@
 'use client';
-import { redirect } from 'next/navigation';
+import { ProtectedPage } from '@/components/common/ProtectedPage';
+import { useUser } from '@/hooks/auth';
 
 export default function Home() {
-  const isAuthenticated = false;
-
-  if (!isAuthenticated) {
-    redirect('/auth');
-  }
-
-  return <h1>HOME</h1>;
+  const { user } = useUser();
+  return (
+    <ProtectedPage redirectTo="/auth">
+      <h1>Welcome Home!</h1>
+      <div>
+        <p>Email: {user?.email}</p>
+        <p>Role: {user?.role}</p>
+      </div>
+    </ProtectedPage>
+  );
 }
