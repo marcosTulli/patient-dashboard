@@ -7,7 +7,8 @@ type TokenState = {
 };
 
 export const useAuthTokenStore = create<TokenState>((set) => ({
-  authToken: typeof window !== 'undefined' ? localStorage.getItem('authToken') : null,
+  authToken:
+    typeof window !== 'undefined' ? localStorage.getItem('authToken') : null,
 
   setAuthToken: (authToken) => {
     localStorage.setItem('authToken', authToken);

@@ -1,21 +1,21 @@
 'use client';
 
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button, FormControl, FormLabel, Input } from '@mui/joy';
-import { getFormFields, getFormSchema } from '@/config/forms/authFormConfig';
 import { LoginRequest, SignupRequest } from '@/models/auth';
-import { ValidationError } from 'yup';
+import { AccessTypes } from '../models';
+import useAuthForm from '../hooks/useAuthForm';
 
 type FormValues = LoginRequest | SignupRequest;
 
 type AuthFormProps = {
-  mode: 'login' | 'signup';
+  mode: AccessTypes;
   onSubmit: (data: FormValues) => void;
   isLoading?: boolean;
 };
 
-export default function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
+const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -23,23 +23,11 @@ export default function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
     formState: { errors },
   } = useForm<FormValues>();
 
-  const fields = getFormFields(mode);
-  const schema = getFormSchema(mode);
-
-  const handleFormSubmit: SubmitHandler<FormValues> = async (data) => {
-    try {
-      await schema.validate(data, { abortEarly: false });
-      onSubmit(data);
-    } catch (validationError) {
-      if (validationError instanceof ValidationError) {
-        validationError.inner.forEach((err) => {
-          if (err.path) {
-            setError(err.path as keyof FormValues, { message: err.message });
-          }
-        });
-      }
-    }
-  };
+  const { fields, handleFormSubmit } = useAuthForm({
+    mode,
+    onSubmit,
+    setError,
+  });
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -60,8 +48,10 @@ export default function AuthForm({ mode, onSubmit, isLoading }: AuthFormProps) {
       ))}
 
       <Button type="submit" loading={isLoading} fullWidth>
-        {mode === 'login' ? 'Login' : 'Sign Up'}
+        {mode === AccessTypes.login ? 'Login' : 'Sign Up'}
       </Button>
     </form>
   );
-}
+};
+
+export default AuthForm;

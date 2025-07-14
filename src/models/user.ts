@@ -1,6 +1,5 @@
 import { JwtPayload } from 'jwt-decode';
 
-
 export interface User {
   id: string;
   email: string;
@@ -9,7 +8,7 @@ export interface User {
 }
 export type UserState = {
   storedUser: User | null;
-  setUser: ({user}: {user: User}) => void;
+  setUser: ({ user }: { user: User }) => void;
   clearUser: () => void;
 };
 

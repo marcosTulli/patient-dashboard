@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {  useUserStore } from '@/store/user';
+import { useUserStore } from '@/store/user';
 import { jwtDecode } from 'jwt-decode';
 import { CustomJwtPayload, User } from '@/models';
 import { useAuthTokenStore } from '@/store/auth-token';
@@ -41,7 +41,7 @@ export function useUser(options: Options = {}) {
 
     if (authToken && (!storedUser || !storedUser.isDefined)) {
       const userFromToken = buildUserFromToken(authToken);
-      setUser({user:userFromToken});
+      setUser({ user: userFromToken });
     }
 
     if (requireAuth && !authToken) {
@@ -49,7 +49,7 @@ export function useUser(options: Options = {}) {
     }
 
     setIsReady(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken, storedUser, requireAuth, redirectTo, setAuthToken, router]);
 
   return { isAuthenticated: !!authToken, user: storedUser, isReady };

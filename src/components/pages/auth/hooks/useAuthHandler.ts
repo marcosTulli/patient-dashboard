@@ -6,6 +6,7 @@ import { useLogin, useSignup } from '@/hooks/auth/';
 import React from 'react';
 import { LoginRequest, SignupRequest } from '@/models/auth';
 import { routes } from '@/config/routes';
+import { AccessTypes } from '../models';
 
 export function useAuthHandler(mode: 'login' | 'signup') {
   const router = useRouter();
@@ -14,7 +15,7 @@ export function useAuthHandler(mode: 'login' | 'signup') {
   const { setAuthToken } = useAuthToken();
 
   const {
-    accessToken,
+    accessToken: loginToken,
     login,
     isPending: isLoginPending,
     error: loginError,
@@ -28,7 +29,7 @@ export function useAuthHandler(mode: 'login' | 'signup') {
   } = useSignup();
 
   const handleSubmit = async (data: LoginRequest | SignupRequest) => {
-    if (mode === 'login') {
+    if (mode === AccessTypes.login) {
       await login(data as LoginRequest);
     } else {
       await signup(data as SignupRequest);
@@ -36,15 +37,18 @@ export function useAuthHandler(mode: 'login' | 'signup') {
   };
 
   React.useEffect(() => {
-    const token = mode === 'login' ? accessToken : signupToken;
+    const token = mode === AccessTypes.login ? loginToken : signupToken;
+
     if (token) {
       setAuthToken(token);
       router.replace(redirectTo);
     }
-  }, [accessToken, signupToken, mode, redirectTo, setAuthToken, router]);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginToken, signupToken, mode, redirectTo , router]);
 
-  const isLoading = mode === 'login' ? isLoginPending : isSignupPending;
-  const error = mode === 'login' ? loginError : signupError;
+  const isLoading = mode === AccessTypes.login ? isLoginPending : isSignupPending;
+  const error = mode === AccessTypes.login ? loginError : signupError;
 
   return { handleSubmit, isLoading, error };
 }

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { User, UserState  } from '@/models';
+import { User, UserState } from '@/models';
 
 const undefinedUser: User = {
   id: '',
@@ -10,8 +10,8 @@ const undefinedUser: User = {
 
 export const useUserStore = create<UserState>((set) => ({
   storedUser: undefinedUser,
-  setUser: ({user}) => {
-      set({ storedUser: user });
+  setUser: ({ user }) => {
+    set({ storedUser: user });
   },
 
   clearUser: () => {
