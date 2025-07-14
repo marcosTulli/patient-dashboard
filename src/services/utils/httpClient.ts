@@ -1,8 +1,5 @@
 import { IDeleteRequestParams, IGetRequestParams, IPatchRequestParams, IPostRequestParams } from "@/models";
-import { getRequest } from "./get";
-import { postRequest } from "./post";
-import { patchRequest } from "./patch";
-import { deleteRequest } from "./delete";
+import { getRequest, patchRequest, postRequest,deleteRequest  } from "./requests";
 
 class HttpClient {
   private jsonHeaders: Record<string, string> = {
