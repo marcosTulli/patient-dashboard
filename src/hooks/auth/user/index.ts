@@ -6,6 +6,7 @@ import {  useUserStore } from '@/store/user';
 import { jwtDecode } from 'jwt-decode';
 import { CustomJwtPayload, User } from '@/models';
 import { useAuthTokenStore } from '@/store/auth-token';
+import { routes } from '@/config/routes';
 
 type Options = {
   redirectTo?: string;
@@ -26,7 +27,7 @@ export function useUser(options: Options = {}) {
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
 
-  const { redirectTo = '/auth', requireAuth = true } = options;
+  const { redirectTo = routes.auth, requireAuth = true } = options;
   const { authToken, setAuthToken } = useAuthTokenStore();
   const { storedUser, setUser } = useUserStore();
 

@@ -5,11 +5,12 @@ import useAuthToken from '@/hooks/auth/token';
 import { useLogin, useSignup } from '@/hooks/auth/';
 import React from 'react';
 import { LoginRequest, SignupRequest } from '@/models/auth';
+import { routes } from '@/config/routes';
 
 export function useAuthHandler(mode: 'login' | 'signup') {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get('redirect') || '/';
+  const redirectTo = searchParams.get('redirect') || routes.home;
   const { setAuthToken } = useAuthToken();
 
   const {

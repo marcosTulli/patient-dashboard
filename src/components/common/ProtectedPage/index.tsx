@@ -1,5 +1,6 @@
 'use client';
 
+import { routes } from '@/config/routes';
 import { useUser } from '@/hooks/auth';
 import React from 'react';
 
@@ -10,7 +11,7 @@ type ProtectedPageProps = {
 
 export function ProtectedPage({
   children,
-  redirectTo = '/auth',
+  redirectTo = routes.auth,
 }: ProtectedPageProps) {
   const { isAuthenticated, isReady } = useUser({ redirectTo });
 
