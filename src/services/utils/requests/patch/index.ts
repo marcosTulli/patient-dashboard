@@ -1,5 +1,5 @@
-import { IPatchRequestParams } from "@/models";
-import axios from "axios";
+import { IPatchRequestParams } from '@/models';
+import axios from 'axios';
 
 export async function patchRequest<T>({
   location,
@@ -7,7 +7,7 @@ export async function patchRequest<T>({
   params,
   headers,
 }: IPatchRequestParams): Promise<T> {
-  if (!body) throw new Error("PATCH request requires a body.");
+  if (!body) throw new Error('PATCH request requires a body.');
   const response = await axios.patch(location, body, {
     params,
     headers,

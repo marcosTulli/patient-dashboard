@@ -1,6 +1,5 @@
-import { IDeleteRequestParams } from "@/models";
-import axios from "axios";
-
+import { IDeleteRequestParams } from '@/models';
+import axios from 'axios';
 
 export async function deleteRequest<T>({
   location,

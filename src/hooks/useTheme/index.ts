@@ -22,7 +22,7 @@ const useTheme = () => {
       },
       background: {
         default: black,
-        paper: '#222222', 
+        paper: '#222222',
       },
       text: {
         primary: '#F7F7F7',

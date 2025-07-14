@@ -1,5 +1,5 @@
-import { IPostRequestParams } from "@/models";
-import axios from "axios";
+import { IPostRequestParams } from '@/models';
+import axios from 'axios';
 
 export const postRequest = async <T>({
   location,
@@ -7,7 +7,7 @@ export const postRequest = async <T>({
   params = {},
   headers,
 }: IPostRequestParams): Promise<T> => {
-  if (!body) throw new Error("POST request requires a body.");
+  if (!body) throw new Error('POST request requires a body.');
 
   const response = await axios.post(location, body, {
     params,

@@ -1,7 +1,7 @@
-import axios from "axios";
-import { IGetRequestParams } from "@/models";
+import axios from 'axios';
+import { IGetRequestParams } from '@/models';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
 export async function getRequest<T>({
   location,
