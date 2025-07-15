@@ -26,8 +26,17 @@ export enum SortDirection {
   DESC = 'desc',
 }
 
+export enum SortFields { 
+  firstName = 'firstName',
+  lastName = 'lastName',
+  email = 'email',
+  phoneNumber = 'phoneNumber',
+  dob = 'dob',
+
+}
+
 export interface PatientSort {
-  field?: 'firstName' | 'lastName' | 'email' | 'phoneNumber' | 'dob' | '_id';
+  field?: SortFields;
   direction?: SortDirection;
 }
 

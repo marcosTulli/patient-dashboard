@@ -1,40 +1,35 @@
 'use client';
-
 import React from 'react';
+import TableToolbar from './TableToolbar';
+import TableHead from './TableHead';
+import TableBody from './TableBody';
+import Sheet from '@mui/joy/Sheet';
+import { PatientTablePagination } from './TablePagination';
 import useList from './hooks/useList';
-import { PatientListRequest, SortDirection } from '@/models/patients';
-import { Box, Typography } from '@mui/joy';
+import { usePatientTableStore } from './store/usePatientTableStore';
 
-const PatientsTable = () => {
-  const defaultRequestBody: PatientListRequest = {
-    pagination: {
-      page: 1,
-      take: 20,
-    },
-    sort: {
-      direction: SortDirection.DESC,
-      field: 'firstName',
-    },
-  };
-  const { patients, isPending } = useList(defaultRequestBody);
+export default function PatientTable() {
+  const { page, take, filter, sort, setPage } = usePatientTableStore();
+  const { patients, total, isPending } = useList({
+    pagination: { page, take },
+    filter,
+    sort,
+  });
 
   return (
-    <Box display={'flex'} flexDirection={'column'}>
-      <Typography>Patients Table</Typography>
-      {isPending ? (
-        <Box>Loading</Box>
-      ) : (
-        <Box paddingTop={2}>
-          {patients?.map((patient) => (
-            <Box key={patient.id} display={'flex'} gap={'1rem'}>
-              <div> {patient.firstName}</div>
-              <div> {patient.lastName}</div>
-            </Box>
-          ))}
-        </Box>
-      )}
-    </Box>
+    <Sheet variant="outlined" sx={{ borderRadius: 'md', overflow: 'hidden' }}>
+      <TableToolbar />
+      <table>
+        <TableHead />
+        <TableBody patients={patients || []} loading={isPending} />
+      </table>
+      <PatientTablePagination
+        page={page}
+        take={take}
+        total={total as number}
+        onPageChange={setPage}
+        onTakeChange={setPage}
+      />
+    </Sheet>
   );
-};
-
-export default PatientsTable;
+}
