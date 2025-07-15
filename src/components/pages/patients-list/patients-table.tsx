@@ -3,7 +3,7 @@
 import React from 'react';
 import useList from './hooks/useList';
 import { PatientListRequest, SortDirection } from '@/models/patients';
-import { Box } from '@mui/joy';
+import { Box, Typography } from '@mui/joy';
 
 const PatientsTable = () => {
   const defaultRequestBody: PatientListRequest = {
@@ -16,22 +16,24 @@ const PatientsTable = () => {
       field: 'firstName',
     },
   };
-  const { patients } = useList(defaultRequestBody);
+  const { patients, isPending } = useList(defaultRequestBody);
 
   return (
-    <div>
-      Patients Table
-      {patients && (
-        <div>
-          {patients.map((patient) => (
+    <Box display={'flex'} flexDirection={'column'}>
+      <Typography>Patients Table</Typography>
+      {isPending ? (
+        <Box>Loading</Box>
+      ) : (
+        <Box paddingTop={2}>
+          {patients?.map((patient) => (
             <Box key={patient.id} display={'flex'} gap={'1rem'}>
               <div> {patient.firstName}</div>
               <div> {patient.lastName}</div>
             </Box>
           ))}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
