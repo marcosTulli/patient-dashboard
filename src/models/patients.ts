@@ -12,6 +12,16 @@ export interface Pagination {
   take?: number;
 }
 
+
+export enum Filters { 
+  firstName = 'firstName',
+  lastName = 'lastName',
+  email = 'email',
+  phoneNumber = 'phoneNumber',
+  dobFrom = 'dobFrom',
+  dobTo = 'dobTo',
+
+}
 export interface PatientFilter {
   firstName?: string;
   lastName?: string;

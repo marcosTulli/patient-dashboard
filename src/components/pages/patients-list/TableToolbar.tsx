@@ -10,10 +10,11 @@ import {
 import React from 'react';
 import Clear from '@mui/icons-material/Clear';
 import { usePatientTableStore } from './store/usePatientTableStore';
+import { PatientFilter } from '@models/patients';
 
 const TableToolbar = () => {
   const { setFilter, selectedRows, clearSelection } = usePatientTableStore();
-  const [localFilters, setLocalFilters] = React.useState({
+  const [localFilters, setLocalFilters] = React.useState<PatientFilter>({
     firstName: '',
     lastName: '',
     email: '',
@@ -32,6 +33,18 @@ const TableToolbar = () => {
       dobFrom: '',
     });
   };
+  const filters: Array<{
+    id: keyof PatientFilter;
+    label: string;
+    type?: string;
+  }> = [
+    { id: 'firstName', label: 'First Name' },
+    { id: 'lastName', label: 'Last Name' },
+    { id: 'email', label: 'Email' },
+    { id: 'phoneNumber', label: 'Phone' },
+    { id: 'dobFrom', label: 'DOB From', type: 'date' },
+    { id: 'dobTo', label: 'DOB To', type: 'date' },
+  ];
 
   React.useEffect(() => {
     const handler = setTimeout(() => {
@@ -88,14 +101,7 @@ const TableToolbar = () => {
           width: { xs: '100%', sm: 'auto' },
         }}
       >
-        {[
-          { id: 'firstName', label: 'First Name' },
-          { id: 'lastName', label: 'Last Name' },
-          { id: 'email', label: 'Email' },
-          { id: 'phoneNumber', label: 'Phone' },
-          { id: 'dobFrom', label: 'DOB From', type: 'date' },
-          { id: 'dobTo', label: 'DOB To', type: 'date' },
-        ].map(({ id, label, type = 'text' }) => (
+        {filters.map(({ id, label, type = 'text' }) => (
           <FormControl key={id} sx={{ minWidth: 120 }}>
             <FormLabel className="text-gray-700 font-medium">{label}</FormLabel>
             <Input
@@ -104,7 +110,10 @@ const TableToolbar = () => {
               placeholder={`Filter by ${label}`}
               value={localFilters[id]}
               onChange={(e) =>
-                setLocalFilters({ ...localFilters, [id]: e.target.value })
+                setLocalFilters((prev) => ({
+                  ...prev,
+                  [id]: e.target.value,
+                }))
               }
               className="border-gray-300 focus:ring-2 focus:ring-blue-300"
               sx={{ borderRadius: '8px' }}
