@@ -19,7 +19,7 @@ const Sidebar: React.FC<Props> = () => {
       onClose={toggleSideBar}
       sx={{
         '& .MuiDrawer-paper': {
-          width: { xs: '80vw', sm: 'none' },
+          width: { xs: '80vw', sm: 'auto' },
           boxSizing: 'border-box',
           bgcolor: 'background.level1',
           display: 'flex',

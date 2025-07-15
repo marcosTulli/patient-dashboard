@@ -21,7 +21,7 @@ const PatientTable = () => {
   return (
     <Sheet
       variant="soft"
-      className="custom-table-container bg-white"
+      className="custom-table-container"
       sx={{
         borderRadius: '12px',
         display: 'flex',
