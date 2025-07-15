@@ -4,6 +4,7 @@ import React from 'react';
 import { Checkbox, IconButton, Typography } from '@mui/joy';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { SortDirection, TableHeadProps } from '@/models/table';
+import { useUser } from '@/hooks/auth';
 
 function TableHead<TRow, TSortField extends string = string>({
   data,
@@ -18,6 +19,8 @@ function TableHead<TRow, TSortField extends string = string>({
   const allSelected =
     data.length > 0 && data.every((item) => selectedRows.has(getRowId(item)));
   const someSelected = data.some((item) => selectedRows.has(getRowId(item)));
+
+  const { user } = useUser();
 
   const handleSort = (field: TSortField) => {
     if (sort.field === field && sort.direction === SortDirection.ASC) {
@@ -76,14 +79,16 @@ function TableHead<TRow, TSortField extends string = string>({
   return (
     <thead>
       <tr>
-        <th style={{ width: '48px' }}>
-          <Checkbox
-            checked={allSelected}
-            indeterminate={someSelected && !allSelected}
-            onChange={() => toggleSelectAll(data)}
-            aria-label="select all rows"
-          />
-        </th>
+        {user?.isAuthorized && (
+          <th style={{ width: '48px' }}>
+            <Checkbox
+              checked={allSelected}
+              indeterminate={someSelected && !allSelected}
+              onChange={() => toggleSelectAll(data)}
+              aria-label="select all rows"
+            />
+          </th>
+        )}
 
         {columns?.map(({ key, label, sortable, sortField, width }) =>
           sortable && sortField ? (
@@ -99,11 +104,13 @@ function TableHead<TRow, TSortField extends string = string>({
           ),
         )}
 
-        <th style={{ width: actionsWidth }}>
-          <Typography level="title-sm" fontWeight="lg">
-            Actions
-          </Typography>
-        </th>
+        {user?.isAuthorized && (
+          <th style={{ width: actionsWidth }}>
+            <Typography level="title-sm" fontWeight="lg">
+              Actions
+            </Typography>
+          </th>
+        )}
       </tr>
     </thead>
   );

@@ -13,19 +13,22 @@ import {
 } from '@mui/joy';
 import { Search, Plus, Filter, X, Trash2 } from 'lucide-react';
 import { TableToolbarProps } from '@/models/table';
+import { useUser } from '@/hooks/auth';
 
 const TableControls = <TFilter extends object>({
   title,
   filter,
-  setFilter,
-  selectedRows,
-  clearSelection,
   filterConfig,
+  selectedRows,
   onAdd,
+  setFilter,
+  clearSelection,
   onDeleteSelected,
 }: TableToolbarProps<TFilter>) => {
   const [showFilters, setShowFilters] = useState(false);
   const [localFilter, setLocalFilter] = useState<TFilter>(filter);
+
+  const { user } = useUser();
 
   const handleFilterChange = (
     field: Extract<keyof TFilter, string>,
@@ -114,7 +117,7 @@ const TableControls = <TFilter extends object>({
             <Filter size={18} />
           </IconButton>
 
-          {onAdd && (
+          {onAdd && user?.isAuthorized && (
             <Button startDecorator={<Plus size={18} />} onClick={onAdd}>
               Add
             </Button>

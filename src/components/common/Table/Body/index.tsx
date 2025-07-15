@@ -4,6 +4,7 @@ import { TableBodyProps } from '@/models/table';
 import TableBodySkeleton from './Body.Skeleton';
 import { RowControls } from './Body.RowControls';
 import TableBodyError from './Body.Error';
+import { useUser } from '@/hooks/auth';
 
 function TableBody<T>({
   data,
@@ -22,6 +23,7 @@ function TableBody<T>({
   }));
 
   const withControls = Boolean(onDelete || onEdit);
+  const { user } = useUser();
 
   if (isLoading) {
     return (
@@ -53,12 +55,14 @@ function TableBody<T>({
                 : undefined,
             }}
           >
-            <td style={{ width: 40 }}>
-              <Checkbox
-                checked={isSelected}
-                onChange={() => toggleRow(rowId)}
-              />
-            </td>
+            {user?.isAuthorized && (
+              <td style={{ width: 40 }}>
+                <Checkbox
+                  checked={isSelected}
+                  onChange={() => toggleRow(rowId)}
+                />
+              </td>
+            )}
 
             {columns?.map((col) => (
               <td key={col.key} style={{ width: col.width }}>
@@ -66,7 +70,7 @@ function TableBody<T>({
               </td>
             ))}
 
-            {(onEdit || onDelete) && (
+            {(onEdit || onDelete) && user?.isAuthorized && (
               <td style={{ width: 30 }}>
                 <RowControls item={item} onEdit={onEdit} onDelete={onDelete} />
               </td>
