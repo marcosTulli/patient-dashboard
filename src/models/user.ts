@@ -1,8 +1,8 @@
 import { JwtPayload } from 'jwt-decode';
 
-export enum Roles { 
+export enum Roles {
   Admin = 'admin',
-  User = 'user'
+  User = 'user',
 }
 
 export interface User {

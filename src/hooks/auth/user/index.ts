@@ -20,7 +20,7 @@ const buildUserFromToken = (authToken: string): User => {
     email: data.email,
     role: data.role,
     isDefined: true,
-    isAuthorized: data.role === Roles.Admin
+    isAuthorized: data.role === Roles.Admin,
   };
 };
 

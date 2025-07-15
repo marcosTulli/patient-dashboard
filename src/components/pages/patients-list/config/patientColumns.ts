@@ -27,6 +27,13 @@ export const patientColumns: Column<Patient>[] = [
   {
     key: 'dob',
     label: 'DOB',
-    render: (p) => (p.dob ? new Date(p.dob).toLocaleDateString() : '-'),
+    render: (p) =>
+      p.dob
+        ? new Date(p.dob).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })
+        : '-',
   },
 ];

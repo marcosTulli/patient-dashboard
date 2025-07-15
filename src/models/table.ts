@@ -8,19 +8,17 @@ export type Sort<TSortField extends string = string> = {
   direction: SortDirection;
 };
 
-
 export interface TableHeadProps<TRow, TSortField extends string = string> {
   data: TRow[];
   selectedRows: Set<string>;
   sort: Sort<TSortField>;
-  columns: Column<TRow,TSortField>[];
+  columns: Column<TRow, TSortField>[];
   actionsWidth?: number | string;
 
   toggleSelectAll: (data: TRow[]) => void;
   getRowId: (item: TRow) => string;
   setSort: (sort: Sort<TSortField>) => void;
 }
-
 
 export interface Column<T, TSortField extends string = string> {
   key: string;
@@ -76,7 +74,6 @@ export interface TableToolbarProps<TFilter extends object> {
   clearSelection: () => void;
   onDeleteSelected?: () => void;
 }
-
 
 export interface TablePaginationProps {
   take: number;

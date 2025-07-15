@@ -26,6 +26,4 @@ export const filterConfig: FilterField<PatientFilter>[] = [
     placeholder: 'Search phone...',
     searchable: true,
   },
-  { key: Filters.dobFrom, label: 'DOB From', type: 'date' },
-  { key: Filters.dobTo, label: 'DOB To', type: 'date' },
 ];
