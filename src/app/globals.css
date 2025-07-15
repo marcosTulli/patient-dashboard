@@ -24,3 +24,23 @@ body {
 main {
   flex: 1;
 }
+
+ .custom-table-container {
+      transition: all 0.3s ease;
+      border-radius: 12px;
+    }
+    .custom-table-container:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+    .custom-checkbox {
+      transition: transform 0.2s ease;
+    }
+    .custom-checkbox:hover {
+      transform: scale(1.1);
+    }
+    .custom-button {
+      transition: all 0.2s ease;
+    }
+    .custom-button:hover {
+      transform: translateY(-1px);
+    }

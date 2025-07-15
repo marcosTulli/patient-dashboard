@@ -1,10 +1,12 @@
+// src/components/TableHead.tsx
+'use client ';
 import React from 'react';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { SortDirection, SortFields } from '@models/patients';
-import Link from '@mui/joy/Link';
+import { Patient, SortDirection, SortFields } from '@models/patients';
 import Box from '@mui/joy/Box';
-import { visuallyHidden } from '@mui/utils';
+import Typography from '@mui/joy/Typography';
 import { usePatientTableStore } from './store/usePatientTableStore';
+import { Checkbox } from '@mui/joy';
 
 const columns = [
   { id: 'firstName', label: 'First Name' },
@@ -14,8 +16,10 @@ const columns = [
   { id: 'dob', label: 'Date of Birth' },
 ];
 
-export default function TableHead() {
-  const { sort, setSort } = usePatientTableStore();
+const TableHead = ({ patients }: { patients: Patient[] }) => {
+  const { sort, setSort, toggleSelectAll, selectedRows } =
+    usePatientTableStore();
+
   const handleSort = (field: SortFields) => {
     setSort({
       field,
@@ -29,41 +33,79 @@ export default function TableHead() {
   return (
     <thead>
       <tr>
+        <Box component="th" sx={{ width: '50px', textAlign: 'center' }}>
+          <Checkbox
+            checked={
+              patients.length > 0 &&
+              patients.every((p) => selectedRows.has(p._id))
+            }
+            indeterminate={
+              selectedRows.size > 0 && selectedRows.size < patients.length
+            }
+            onChange={() => toggleSelectAll(patients)}
+            className="custom-checkbox"
+            aria-label="Select all rows"
+          />
+        </Box>
         {columns.map((col) => {
           const active = sort.field === col.id;
           return (
-            <th key={col.id}>
-              <Link
+            <Box
+              component="th"
+              key={col.id}
+              sx={{
+                minWidth: { xs: 100, sm: 130 },
+                textAlign: 'left',
+                '&:hover': { bgcolor: 'background.level2' },
+                transition: 'background-color 0.2s ease',
+              }}
+            >
+              <Box
                 component="button"
-                underline="none"
                 onClick={() => handleSort(col.id as SortFields)}
-                endDecorator={
-                  <ArrowDownwardIcon
-                    sx={{
-                      opacity: active ? 1 : 0,
-                      transform:
-                        active && sort.direction === SortDirection.ASC
-                          ? 'rotate(180deg)'
-                          : 'rotate(0deg)',
-                      transition: '0.2s',
-                    }}
-                  />
-                }
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                  width: '100%',
+                  py: 0,
+                  bgcolor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+                className="text-gray-800 hover:text-blue-600"
+                aria-label={`Sort by ${col.label} ${active ? (sort.direction === 'asc' ? 'ascending' : 'descending') : ''}`}
               >
-                {col.label}
-                {active && (
-                  <Box component="span" sx={visuallyHidden}>
-                    {sort.direction === 'asc'
-                      ? 'sorted ascending'
-                      : 'sorted descending'}
-                  </Box>
-                )}
-              </Link>
-            </th>
+                <Typography
+                  level="body-sm"
+                  fontWeight="lg"
+                  className="font-semibold"
+                >
+                  {col.label}
+                </Typography>
+                <ArrowDownwardIcon
+                  sx={{
+                    opacity: active ? 1 : 0.3,
+                    transform:
+                      active && sort.direction === 'asc'
+                        ? 'rotate(180deg)'
+                        : 'rotate(0deg)',
+                    transition: '0.2s ease-in-out',
+                    fontSize: '1rem',
+                  }}
+                />
+              </Box>
+            </Box>
           );
         })}
-        <th>Actions</th>
+        <Box component="th" sx={{ width: '100px', textAlign: 'center' }}>
+          <Typography level="body-sm" fontWeight="lg" className="font-semibold">
+            Actions
+          </Typography>
+        </Box>
       </tr>
     </thead>
   );
-}
+};
+
+export default TableHead;
