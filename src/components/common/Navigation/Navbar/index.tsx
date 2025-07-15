@@ -1,16 +1,26 @@
-// components/common/Navigation/Menu.tsx
 'use client';
 
 import * as React from 'react';
-import { usePathname } from 'next/navigation';
-import { Box, Sheet, Stack } from '@mui/joy';
+import { usePathname, useRouter } from 'next/navigation';
+import { Box, Sheet, Stack, Button } from '@mui/joy';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
+import { useAuthTokenStore } from '@/store/auth-token';
+import { useUser } from '@/hooks/auth';
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
+  const router = useRouter();
   const isHome = pathName === routes.home;
+  const { user } = useUser();
+
+  const { clearAuthToken } = useAuthTokenStore();
+
+  const handleLogout = () => {
+    clearAuthToken();
+    router.replace(routes.auth);
+  };
 
   return (
     <Sheet
@@ -34,7 +44,7 @@ const Navbar: React.FC = () => {
           width: '100%',
           position: { xs: 'static', sm: 'relative' },
           alignItems: 'center',
-          justifyContent: { xs: 'flex-end', sm: 'space-between' },
+          justifyContent: 'space-between',
         }}
       >
         <Box
@@ -47,7 +57,19 @@ const Navbar: React.FC = () => {
         >
           <NavList />
         </Box>
-        <OpenSideBarButton />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <OpenSideBarButton />
+          {user?.isDefined && (
+            <Button
+              size="sm"
+              color="neutral"
+              variant="plain"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          )}
+        </Box>
       </Stack>
     </Sheet>
   );
