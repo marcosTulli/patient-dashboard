@@ -1,30 +1,54 @@
 'use client';
 
-import type React from 'react';
+import React from 'react';
 import { Checkbox, IconButton, Typography } from '@mui/joy';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { type Patient, SortFields, SortDirection } from '@/models/patients';
-import { usePatientTableStore } from './store/usePatientTableStore';
+import {
+  PatientSort,
+  SortFields,
+  Patient,
+  SortDirection,
+} from '@/models/patients';
 
-interface PatientsTableHeadProps {
-  patients: Patient[];
+export interface HEADERCOLUMN {
+  key: keyof Patient;
+  label: React.ReactNode;
+  sortable?: boolean;
+  sortField?: SortFields;
+  width?: number | string;
 }
 
-const TableHHead: React.FC<PatientsTableHeadProps> = ({ patients }) => {
-  const { selectedRows, sort, toggleSelectAll, setSort } =
-    usePatientTableStore();
+interface TableHeadProps {
+  data: Patient[];
+  selectedRows: Set<string | number>;
+  toggleSelectAll: (data: Patient[]) => void;
+  sort: PatientSort;
+  setSort: (sort: PatientSort) => void;
+  columns: HEADERCOLUMN[];
+  getRowId: (item: Patient) => string | number;
+  actionsWidth?: number | string;
+}
 
+function TableHead({
+  data,
+  selectedRows,
+  toggleSelectAll,
+  sort,
+  setSort,
+  columns,
+  getRowId,
+  actionsWidth = 120,
+}: TableHeadProps) {
   const allSelected =
-    patients.length > 0 && patients.every((p) => selectedRows.has(p._id));
-  const someSelected = patients.some((p) => selectedRows.has(p._id));
+    data.length > 0 && data.every((item) => selectedRows.has(getRowId(item)));
+  const someSelected = data.some((item) => selectedRows.has(getRowId(item)));
 
   const handleSort = (field: SortFields) => {
-    const newDirection =
-      sort.field === field && sort.direction === SortDirection.ASC
-        ? SortDirection.DESC
-        : SortDirection.ASC;
-
-    setSort({ field, direction: newDirection });
+    if (sort.field === field && sort.direction === SortDirection.ASC) {
+      setSort({ field, direction: SortDirection.DESC });
+    } else {
+      setSort({ field, direction: SortDirection.ASC });
+    }
   };
 
   const getSortIcon = (field: SortFields) => {
@@ -40,7 +64,7 @@ const TableHHead: React.FC<PatientsTableHeadProps> = ({ patients }) => {
     field: SortFields;
     children: React.ReactNode;
   }> = ({ field, children }) => (
-    <th>
+    <th style={{ cursor: 'pointer' }}>
       <IconButton
         variant="plain"
         onClick={() => handleSort(field)}
@@ -57,6 +81,13 @@ const TableHHead: React.FC<PatientsTableHeadProps> = ({ patients }) => {
             color: 'primary.500',
           },
         }}
+        aria-sort={
+          sort.field === field
+            ? sort.direction === SortDirection.ASC
+              ? 'ascending'
+              : 'descending'
+            : undefined
+        }
       >
         <Typography level="title-sm" fontWeight="lg">
           {children}
@@ -73,15 +104,26 @@ const TableHHead: React.FC<PatientsTableHeadProps> = ({ patients }) => {
           <Checkbox
             checked={allSelected}
             indeterminate={someSelected && !allSelected}
-            onChange={() => toggleSelectAll(patients)}
+            onChange={() => toggleSelectAll(data)}
+            aria-label="select all rows"
           />
         </th>
-        <SortableHeader field={SortFields.firstName}>First Name</SortableHeader>
-        <SortableHeader field={SortFields.lastName}>Last Name</SortableHeader>
-        <SortableHeader field={SortFields.email}>Email</SortableHeader>
-        <SortableHeader field={SortFields.phoneNumber}>Phone</SortableHeader>
-        <SortableHeader field={SortFields.dob}>Date of Birth</SortableHeader>
-        <th style={{ width: '120px' }}>
+
+        {columns.map(({ key, label, sortable, sortField, width }) =>
+          sortable && sortField ? (
+            <SortableHeader key={String(key)} field={sortField}>
+              {label}
+            </SortableHeader>
+          ) : (
+            <th key={String(key)} style={{ width }}>
+              <Typography level="title-sm" fontWeight="lg">
+                {label}
+              </Typography>
+            </th>
+          ),
+        )}
+
+        <th style={{ width: actionsWidth }}>
           <Typography level="title-sm" fontWeight="lg">
             Actions
           </Typography>
@@ -89,6 +131,6 @@ const TableHHead: React.FC<PatientsTableHeadProps> = ({ patients }) => {
       </tr>
     </thead>
   );
-};
+}
 
-export default TableHHead;
+export default TableHead;

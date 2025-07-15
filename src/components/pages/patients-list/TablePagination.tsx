@@ -8,15 +8,26 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react';
-import { usePatientTableStore } from './store/usePatientTableStore';
 
 interface TablePaginationProps {
   total: number;
+  page: number;
+  take: number;
+  setPage: (page: number) => void;
+  setTake: (take: number) => void;
+  itemName?: string;
+  pageSizeOptions?: number[];
 }
 
-const TablePagination: React.FC<TablePaginationProps> = ({ total }) => {
-  const { page, take, setPage, setTake } = usePatientTableStore();
-
+const TablePagination: React.FC<TablePaginationProps> = ({
+  total,
+  page,
+  take,
+  setPage,
+  setTake,
+  itemName = 'items',
+  pageSizeOptions = [5, 10, 25, 50, 100],
+}) => {
   const totalPages = Math.ceil(total / take);
   const startItem = (page - 1) * take + 1;
   const endItem = Math.min(page * take, total);
@@ -56,7 +67,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({ total }) => {
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         <Typography level="body-sm">
-          Showing {startItem}-{endItem} of {total} patients
+          Showing {startItem}-{endItem} of {total} {itemName}
         </Typography>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -67,11 +78,11 @@ const TablePagination: React.FC<TablePaginationProps> = ({ total }) => {
             size="sm"
             sx={{ minWidth: '80px' }}
           >
-            <Option value={5}>5</Option>
-            <Option value={10}>10</Option>
-            <Option value={25}>25</Option>
-            <Option value={50}>50</Option>
-            <Option value={100}>100</Option>
+            {pageSizeOptions.map((size) => (
+              <Option key={size} value={size}>
+                {size}
+              </Option>
+            ))}
           </Select>
         </Box>
       </Box>

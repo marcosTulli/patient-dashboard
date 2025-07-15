@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-'use client';
-
-import type React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Checkbox,
   IconButton,
@@ -14,51 +10,56 @@ import {
   Skeleton,
 } from '@mui/joy';
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
-import type { Patient } from '@/models/patients';
-import { usePatientTableStore } from './store/usePatientTableStore';
 
-interface PatientsTableBodyProps {
-  patients: Patient[];
-  isLoading: boolean;
+export interface Column<T> {
+  key: string;
+  label: React.ReactNode;
+  render: (item: T) => React.ReactNode;
+  width?: number | string;
+  sortable?: boolean;
 }
 
-const TableBody: React.FC<PatientsTableBodyProps> = ({
-  patients,
+interface TableBodyProps<T> {
+  data: T[];
+  isLoading: boolean;
+  selectedRows: Set<string | number>;
+  toggleRow: (id: string) => void;
+  getRowId: (item: T) => string;
+  columns: Column<T>[];
+  onEdit?: (item: T) => void;
+  onDelete?: (item: T) => void;
+  noDataMessage?: React.ReactNode;
+}
+
+function TableBody<T>({
+  data,
   isLoading,
-}) => {
-  const { selectedRows, toggleRow } = usePatientTableStore();
-
-  const [_editingPatient, setEditingPatient] = useState<Patient | null>(null);
-  const [_deletingPatient, setDeletingPatient] = useState<Patient | null>(null);
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return '-';
-    return new Date(dateString).toLocaleDateString();
-  };
+  selectedRows,
+  toggleRow,
+  getRowId,
+  columns,
+  onEdit,
+  onDelete,
+  noDataMessage = 'No data found',
+}: TableBodyProps<T>) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_editingItem, setEditingItem] = useState<T | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_deletingItem, setDeletingItem] = useState<T | null>(null);
 
   if (isLoading) {
     return (
       <tbody>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <tr key={index}>
+        {Array.from({ length: 10 }).map((_, idx) => (
+          <tr key={idx}>
             <td>
               <Skeleton variant="rectangular" width={20} height={20} />
             </td>
-            <td>
-              <Skeleton variant="text" />
-            </td>
-            <td>
-              <Skeleton variant="text" />
-            </td>
-            <td>
-              <Skeleton variant="text" />
-            </td>
-            <td>
-              <Skeleton variant="text" />
-            </td>
-            <td>
-              <Skeleton variant="text" />
-            </td>
+            {columns.map((col) => (
+              <td key={col.key}>
+                <Skeleton variant="text" />
+              </td>
+            ))}
             <td>
               <Skeleton variant="rectangular" width={32} height={32} />
             </td>
@@ -68,13 +69,16 @@ const TableBody: React.FC<PatientsTableBodyProps> = ({
     );
   }
 
-  if (patients.length === 0) {
+  if (data.length === 0) {
     return (
       <tbody>
         <tr>
-          <td colSpan={7} style={{ textAlign: 'center', padding: '2rem' }}>
+          <td
+            colSpan={columns.length + 2}
+            style={{ textAlign: 'center', padding: '2rem' }}
+          >
             <Typography level="body-md" color="neutral">
-              No patients found
+              {noDataMessage}
             </Typography>
           </td>
         </tr>
@@ -84,65 +88,71 @@ const TableBody: React.FC<PatientsTableBodyProps> = ({
 
   return (
     <tbody>
-      {patients.map((patient) => (
-        <tr
-          key={patient._id}
-          style={{
-            backgroundColor: selectedRows.has(patient._id)
-              ? 'var(--joy-palette-primary-softBg)'
-              : undefined,
-          }}
-        >
-          <td>
-            <Checkbox
-              checked={selectedRows.has(patient._id)}
-              onChange={() => toggleRow(patient._id)}
-            />
-          </td>
-          <td>
-            <Typography level="body-sm">{patient.firstName}</Typography>
-          </td>
-          <td>
-            <Typography level="body-sm">{patient.lastName}</Typography>
-          </td>
-          <td>
-            <Typography level="body-sm">{patient.email}</Typography>
-          </td>
-          <td>
-            <Typography level="body-sm">
-              {patient.phoneNumber || '-'}
-            </Typography>
-          </td>
-          <td>
-            <Typography level="body-sm">{formatDate(patient.dob)}</Typography>
-          </td>
-          <td>
-            <Dropdown>
-              <MenuButton
-                slots={{ root: IconButton }}
-                slotProps={{ root: { variant: 'plain', size: 'sm' } }}
-              >
-                <MoreVertical size={16} />
-              </MenuButton>
-              <Menu>
-                <MenuItem onClick={() => setEditingPatient(patient)}>
-                  <Edit size={16} />
-                  Edit
-                </MenuItem>
-                <MenuItem
-                  onClick={() => setDeletingPatient(patient)}
-                  color="danger"
-                >
-                  <Trash2 size={16} />
-                  Delete
-                </MenuItem>
-              </Menu>
-            </Dropdown>
-          </td>
-        </tr>
-      ))}
+      {data.map((item) => {
+        const rowId = getRowId(item);
+        const isSelected = selectedRows.has(rowId);
+        return (
+          <tr
+            key={rowId}
+            style={{
+              backgroundColor: isSelected
+                ? 'var(--joy-palette-primary-softBg)'
+                : undefined,
+            }}
+          >
+            <td>
+              <Checkbox
+                checked={isSelected}
+                onChange={() => toggleRow(rowId)}
+              />
+            </td>
+            {columns.map((col) => (
+              <td key={col.key} style={{ width: col.width }}>
+                <Typography level="body-sm">{col.render(item)}</Typography>
+              </td>
+            ))}
+            <td>
+              {(onEdit || onDelete) && (
+                <Dropdown>
+                  <MenuButton
+                    slots={{ root: IconButton }}
+                    slotProps={{ root: { variant: 'plain', size: 'sm' } }}
+                  >
+                    <MoreVertical size={16} />
+                  </MenuButton>
+                  <Menu>
+                    {onEdit && (
+                      <MenuItem
+                        onClick={() => {
+                          setEditingItem(item);
+                          onEdit(item);
+                        }}
+                      >
+                        <Edit size={16} />
+                        Edit
+                      </MenuItem>
+                    )}
+                    {onDelete && (
+                      <MenuItem
+                        onClick={() => {
+                          setDeletingItem(item);
+                          onDelete(item);
+                        }}
+                        color="danger"
+                      >
+                        <Trash2 size={16} />
+                        Delete
+                      </MenuItem>
+                    )}
+                  </Menu>
+                </Dropdown>
+              )}
+            </td>
+          </tr>
+        );
+      })}
     </tbody>
   );
-};
+}
 
 export default TableBody;

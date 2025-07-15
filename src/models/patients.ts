@@ -43,8 +43,8 @@ export enum SortFields {
 }
 
 export interface PatientSort {
-  field?: SortFields;
-  direction?: SortDirection;
+  field: SortFields;
+  direction: SortDirection;
 }
 
 export interface PatientListRequest {
