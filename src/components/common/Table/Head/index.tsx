@@ -3,47 +3,23 @@
 import React from 'react';
 import { Checkbox, IconButton, Typography } from '@mui/joy';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import {
-  PatientSort,
-  SortFields,
-  Patient,
-  SortDirection,
-} from '@/models/patients';
+import { SortDirection, TableHeadProps } from '@/models/tables';
 
-export interface HEADERCOLUMN {
-  key: keyof Patient;
-  label: React.ReactNode;
-  sortable?: boolean;
-  sortField?: SortFields;
-  width?: number | string;
-}
-
-interface TableHeadProps {
-  data: Patient[];
-  selectedRows: Set<string | number>;
-  toggleSelectAll: (data: Patient[]) => void;
-  sort: PatientSort;
-  setSort: (sort: PatientSort) => void;
-  columns: HEADERCOLUMN[];
-  getRowId: (item: Patient) => string | number;
-  actionsWidth?: number | string;
-}
-
-function TableHead({
+function TableHead<TRow, TSortField extends string = string>({
   data,
   selectedRows,
-  toggleSelectAll,
   sort,
-  setSort,
-  columns,
-  getRowId,
   actionsWidth = 120,
-}: TableHeadProps) {
+  columns,
+  toggleSelectAll,
+  setSort,
+  getRowId,
+}: TableHeadProps<TRow, TSortField>) {
   const allSelected =
     data.length > 0 && data.every((item) => selectedRows.has(getRowId(item)));
   const someSelected = data.some((item) => selectedRows.has(getRowId(item)));
 
-  const handleSort = (field: SortFields) => {
+  const handleSort = (field: TSortField) => {
     if (sort.field === field && sort.direction === SortDirection.ASC) {
       setSort({ field, direction: SortDirection.DESC });
     } else {
@@ -51,7 +27,7 @@ function TableHead({
     }
   };
 
-  const getSortIcon = (field: SortFields) => {
+  const getSortIcon = (field: TSortField) => {
     if (sort.field !== field) return null;
     return sort.direction === SortDirection.ASC ? (
       <ChevronUp size={16} />
@@ -61,7 +37,7 @@ function TableHead({
   };
 
   const SortableHeader: React.FC<{
-    field: SortFields;
+    field: TSortField;
     children: React.ReactNode;
   }> = ({ field, children }) => (
     <th style={{ cursor: 'pointer' }}>

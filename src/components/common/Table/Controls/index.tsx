@@ -12,28 +12,28 @@ import {
   Chip,
 } from '@mui/joy';
 import { Search, Plus, Filter, X, Trash2 } from 'lucide-react';
-import { PatientFilter } from '@/models/patients';
 
 export interface FilterField<T> {
-  key: keyof T;
+  key: Extract<keyof T, string>;
   label: React.ReactNode;
   placeholder?: string;
   type?: 'text' | 'date';
   searchable?: boolean;
 }
 
-interface TableToolbarProps {
+interface TableToolbarProps<TFilter extends object> {
+  // <-- here
   title: React.ReactNode;
-  filter: PatientFilter;
-  setFilter: (filter: PatientFilter) => void;
-  selectedRows: Set<string | number>;
+  filter: TFilter;
+  setFilter: (filter: TFilter) => void;
+  selectedRows: Set<string>;
   clearSelection: () => void;
-  filterConfig: FilterField<PatientFilter>[];
+  filterConfig: FilterField<TFilter>[];
   onAdd?: () => void;
   onDeleteSelected?: () => void;
 }
 
-const TableToolbar: React.FC<TableToolbarProps> = ({
+const TableControls = <TFilter extends object>({
   title,
   filter,
   setFilter,
@@ -42,12 +42,18 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
   filterConfig,
   onAdd,
   onDeleteSelected,
-}) => {
+}: TableToolbarProps<TFilter>) => {
   const [showFilters, setShowFilters] = useState(false);
-  const [localFilter, setLocalFilter] = useState<PatientFilter>(filter);
+  const [localFilter, setLocalFilter] = useState<TFilter>(filter);
 
-  const handleFilterChange = (field: keyof PatientFilter, value: string) => {
-    setLocalFilter((prev) => ({ ...prev, [field]: value || undefined }));
+  const handleFilterChange = (
+    field: Extract<keyof TFilter, string>,
+    value: string,
+  ) => {
+    setLocalFilter((prev) => ({
+      ...prev,
+      [field]: value || undefined,
+    }));
   };
 
   const applyFilters = () => {
@@ -55,7 +61,11 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
   };
 
   const clearFilters = () => {
-    const emptyFilter: PatientFilter = {};
+    const emptyFilter = Object.keys(filter).reduce((acc, key) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (acc as any)[key] = undefined;
+      return acc;
+    }, {} as TFilter);
     setLocalFilter(emptyFilter);
     setFilter(emptyFilter);
   };
@@ -137,13 +147,13 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
           <Grid container spacing={2} sx={{ mb: 2 }}>
             {filterConfig.map(
               ({ key, label, placeholder, type, searchable }) => (
-                <Grid xs={12} sm={6} md={3} key={String(key)}>
+                <Grid xs={12} sm={6} md={3} key={key}>
                   <FormControl>
                     <FormLabel>{label}</FormLabel>
                     <Input
                       placeholder={placeholder}
                       type={type ?? 'text'}
-                      value={(localFilter[key] as string) ?? ''}
+                      value={String(localFilter[key] ?? '')}
                       onChange={(e) => handleFilterChange(key, e.target.value)}
                       startDecorator={
                         searchable ? <Search size={16} /> : undefined
@@ -169,4 +179,4 @@ const TableToolbar: React.FC<TableToolbarProps> = ({
   );
 };
 
-export default TableToolbar;
+export default TableControls;

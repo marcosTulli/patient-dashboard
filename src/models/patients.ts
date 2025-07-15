@@ -20,7 +20,7 @@ export enum Filters {
   dobFrom = 'dobFrom',
   dobTo = 'dobTo',
 }
-export interface PatientFilter {
+export interface PatientFilter extends Record<string, string | undefined> {
   firstName?: string;
   lastName?: string;
   email?: string;

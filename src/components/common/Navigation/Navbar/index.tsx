@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { Box, Sheet, Stack} from '@mui/joy';
+import { Box, Sheet, Stack } from '@mui/joy';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
