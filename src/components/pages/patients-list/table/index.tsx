@@ -2,8 +2,8 @@
 
 import type React from 'react';
 import { Box, Sheet } from '@mui/joy';
-import PatientDialog from '../../../common/overlays/PatientDialog';
-import DeleteAlert from '../../../common/overlays/DeleteAlert';
+import PatientDialog from '../../../common/Overlays/PatientDialog';
+import DeleteAlert from '../../../common/Overlays/DeleteAlert';
 import PatientsTableControls from './PatientsTable.Controls';
 import PatientsTableHead from './PatientsTable.Head';
 import PatientsTableBody from './PatientsTable.Body';
