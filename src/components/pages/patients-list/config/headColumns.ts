@@ -1,9 +1,9 @@
 'use client';
 
 import { type Patient, SortFields } from '@/models/patients';
-import { MergedColumn } from '@/models/table';
+import { Column } from '@/models/table';
 
-export const patientColumns: MergedColumn<Patient, SortFields>[] = [
+export const patientColumns: Column<Patient, SortFields>[] = [
   {
     key: 'firstName',
     label: 'First Name',

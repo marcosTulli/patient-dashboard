@@ -10,6 +10,8 @@ const PatientsTableBody: React.FC = () => {
     selectedRows,
     patients,
     isPending,
+    take,
+
     toggleRow,
     getRowId,
     handleEdit,
@@ -27,6 +29,7 @@ const PatientsTableBody: React.FC = () => {
       onEdit={handleEdit}
       onDelete={handleDelete}
       noDataMessage="No patients found"
+      take={take}
     />
   );
 };

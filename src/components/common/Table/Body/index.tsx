@@ -1,69 +1,41 @@
-import React, { useState } from 'react';
-import {
-  Checkbox,
-  IconButton,
-  Typography,
-  Dropdown,
-  MenuButton,
-  Menu,
-  MenuItem,
-  Skeleton,
-} from '@mui/joy';
-import { MoreVertical, Edit, Trash2 } from 'lucide-react';
+import React from 'react';
+import { Checkbox, Typography } from '@mui/joy';
 import { TableBodyProps } from '@/models/table';
+import TableBodySkeleton from './Body.Skeleton';
+import { RowControls } from './Body.RowControls';
+import TableBodyError from './Body.Error';
 
 function TableBody<T>({
   data,
+  columns,
   isLoading,
   selectedRows,
-  toggleRow,
-  getRowId,
-  columns,
+  take,
   onEdit,
+  getRowId,
   onDelete,
-  noDataMessage = 'No data found',
+  toggleRow,
 }: TableBodyProps<T>) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_editingItem, setEditingItem] = useState<T | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_deletingItem, setDeletingItem] = useState<T | null>(null);
+  const skeletonColumns = columns.map((i) => ({
+    key: i.key as string,
+    width: i.width as string,
+  }));
+
+  const withControls = Boolean(onDelete || onEdit);
 
   if (isLoading) {
     return (
-      <tbody>
-        {Array.from({ length: 10 }).map((_, idx) => (
-          <tr key={idx}>
-            <td>
-              <Skeleton variant="rectangular" width={20} height={20} />
-            </td>
-            {columns.map((col) => (
-              <td key={col.key}>
-                <Skeleton variant="text" />
-              </td>
-            ))}
-            <td>
-              <Skeleton variant="rectangular" width={32} height={32} />
-            </td>
-          </tr>
-        ))}
-      </tbody>
+      <TableBodySkeleton
+        columns={skeletonColumns}
+        take={take}
+        withControls={withControls}
+      />
     );
   }
 
   if (data.length === 0) {
     return (
-      <tbody>
-        <tr>
-          <td
-            colSpan={columns.length + 2}
-            style={{ textAlign: 'center', padding: '2rem' }}
-          >
-            <Typography level="body-md" color="neutral">
-              {noDataMessage}
-            </Typography>
-          </td>
-        </tr>
-      </tbody>
+      <TableBodyError columns={columns} onDelete={onDelete} onEdit={onEdit} />
     );
   }
 
@@ -81,54 +53,24 @@ function TableBody<T>({
                 : undefined,
             }}
           >
-            <td>
+            <td style={{ width: 40 }}>
               <Checkbox
                 checked={isSelected}
                 onChange={() => toggleRow(rowId)}
               />
             </td>
-            {columns.map((col) => (
+
+            {columns?.map((col) => (
               <td key={col.key} style={{ width: col.width }}>
                 <Typography level="body-sm">{col.render(item)}</Typography>
               </td>
             ))}
-            <td>
-              {(onEdit || onDelete) && (
-                <Dropdown>
-                  <MenuButton
-                    slots={{ root: IconButton }}
-                    slotProps={{ root: { variant: 'plain', size: 'sm' } }}
-                  >
-                    <MoreVertical size={16} />
-                  </MenuButton>
-                  <Menu>
-                    {onEdit && (
-                      <MenuItem
-                        onClick={() => {
-                          setEditingItem(item);
-                          onEdit(item);
-                        }}
-                      >
-                        <Edit size={16} />
-                        Edit
-                      </MenuItem>
-                    )}
-                    {onDelete && (
-                      <MenuItem
-                        onClick={() => {
-                          setDeletingItem(item);
-                          onDelete(item);
-                        }}
-                        color="danger"
-                      >
-                        <Trash2 size={16} />
-                        Delete
-                      </MenuItem>
-                    )}
-                  </Menu>
-                </Dropdown>
-              )}
-            </td>
+
+            {(onEdit || onDelete) && (
+              <td style={{ width: 30 }}>
+                <RowControls item={item} onEdit={onEdit} onDelete={onDelete} />
+              </td>
+            )}
           </tr>
         );
       })}
