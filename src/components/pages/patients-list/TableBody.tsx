@@ -5,6 +5,29 @@ import IconButton from '@mui/joy/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+const parseDate = (dateString: string | undefined): string => {
+  if (!dateString) {
+    return '-';
+  }
+
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return '-';
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    };
+    return date.toLocaleDateString('en-GB', options);
+  } catch (error) {
+    console.error('Error parsing or formatting date:', error);
+    return '-';
+  }
+};
+
 export default function TableBody({
   patients,
   loading,
@@ -32,7 +55,7 @@ export default function TableBody({
           <td>{p.lastName}</td>
           <td>{p.email}</td>
           <td>{p.phoneNumber || '-'}</td>
-          <td>{p.dob || '-'}</td>
+          <td> {parseDate(p.dob)} </td>
           <td>
             <IconButton size="sm" variant="soft" color="primary">
               <EditIcon />
