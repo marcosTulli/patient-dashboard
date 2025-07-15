@@ -8,13 +8,6 @@ export type Sort<TSortField extends string = string> = {
   direction: SortDirection;
 };
 
-export type HeaderColumn<TSortField extends string = string> = {
-  key: string;
-  label: string;
-  sortable?: boolean;
-  sortField?: TSortField;
-  width?: number;
-};
 
 export interface TableHeadProps<TRow, TSortField extends string = string> {
   data: TRow[];
@@ -22,17 +15,19 @@ export interface TableHeadProps<TRow, TSortField extends string = string> {
   toggleSelectAll: (data: TRow[]) => void;
   sort: Sort<TSortField>;
   setSort: (sort: Sort<TSortField>) => void;
-  columns: HeaderColumn<TSortField>[];
+  columns: MergedColumn<TRow,TSortField>[];
   getRowId: (item: TRow) => string;
   actionsWidth?: number | string;
 }
 
-export interface Column<T> {
+
+export interface MergedColumn<T, TSortField extends string = string> {
   key: string;
   label: React.ReactNode;
   render: (item: T) => React.ReactNode;
   width?: number | string;
   sortable?: boolean;
+  sortField?: TSortField;
 }
 
 export interface TableBodyProps<T> {
@@ -41,7 +36,7 @@ export interface TableBodyProps<T> {
   selectedRows: Set<string | number>;
   toggleRow: (id: string) => void;
   getRowId: (item: T) => string;
-  columns: Column<T>[];
+  columns: MergedColumn<T>[];
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
   noDataMessage?: React.ReactNode;
@@ -74,4 +69,15 @@ export interface TableToolbarProps<TFilter extends object> {
   filterConfig: FilterField<TFilter>[];
   onAdd?: () => void;
   onDeleteSelected?: () => void;
+}
+
+
+export interface TablePaginationProps {
+  total: number;
+  page: number;
+  take: number;
+  setPage: (page: number) => void;
+  setTake: (take: number) => void;
+  itemName?: string;
+  pageSizeOptions?: number[];
 }

@@ -10,26 +10,7 @@ import {
   Skeleton,
 } from '@mui/joy';
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
-
-export interface Column<T> {
-  key: string;
-  label: React.ReactNode;
-  render: (item: T) => React.ReactNode;
-  width?: number | string;
-  sortable?: boolean;
-}
-
-interface TableBodyProps<T> {
-  data: T[];
-  isLoading: boolean;
-  selectedRows: Set<string | number>;
-  toggleRow: (id: string) => void;
-  getRowId: (item: T) => string;
-  columns: Column<T>[];
-  onEdit?: (item: T) => void;
-  onDelete?: (item: T) => void;
-  noDataMessage?: React.ReactNode;
-}
+import { TableBodyProps } from '@/models/table';
 
 function TableBody<T>({
   data,

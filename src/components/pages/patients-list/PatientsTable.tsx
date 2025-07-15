@@ -8,8 +8,9 @@ import TableControls from '@/components/common/Table/Controls';
 import TableHead from '@/components/common/Table/Head';
 import TablePagination from '@/components/common/Table/Pagination';
 import TableBody from '@/components/common/Table/Body';
-import { filterConfig, headerConfig, patientColumns } from './config';
+import { filterConfig, patientColumns } from './config';
 import usePatientsTable from './hooks/usePatiensTable';
+import { Patient, SortFields } from '@/models/patients';
 
 const PatientsTable: React.FC = () => {
   const {
@@ -79,13 +80,13 @@ const PatientsTable: React.FC = () => {
               },
             }}
           >
-            <TableHead
+            <TableHead<Patient, SortFields>
               data={patients || []}
               selectedRows={selectedRows}
               toggleSelectAll={toggleSelectAll}
               sort={sort}
               setSort={setSort}
-              columns={headerConfig}
+              columns={patientColumns}
               getRowId={getRowId}
             />
 

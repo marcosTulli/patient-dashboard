@@ -1,5 +1,5 @@
 import { Filters, PatientFilter } from '@/models/patients';
-import { FilterField } from '@models/tables';
+import { FilterField } from '@/models/table';
 
 export const filterConfig: FilterField<PatientFilter>[] = [
   {

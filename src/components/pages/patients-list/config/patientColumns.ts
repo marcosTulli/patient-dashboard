@@ -1,9 +1,9 @@
 'use client';
 
 import { type Patient } from '@/models/patients';
-import { Column } from '@models/tables';
+import { MergedColumn } from '@/models/table';
 
-export const patientColumns: Column<Patient>[] = [
+export const patientColumns: MergedColumn<Patient>[] = [
   {
     key: 'firstName',
     label: 'First Name',

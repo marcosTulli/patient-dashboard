@@ -8,16 +8,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from 'lucide-react';
-
-interface TablePaginationProps {
-  total: number;
-  page: number;
-  take: number;
-  setPage: (page: number) => void;
-  setTake: (take: number) => void;
-  itemName?: string;
-  pageSizeOptions?: number[];
-}
+import { TablePaginationProps } from '@models/table';
 
 const TablePagination: React.FC<TablePaginationProps> = ({
   total,
@@ -26,7 +17,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
   setPage,
   setTake,
   itemName = 'items',
-  pageSizeOptions = [5, 10, 25, 50, 100],
+  pageSizeOptions = [5, 10, 25, 50],
 }) => {
   const totalPages = Math.ceil(total / take);
   const startItem = (page - 1) * take + 1;
@@ -44,7 +35,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
   ) => {
     if (newValue) {
       setTake(newValue);
-      setPage(1); // Reset to first page when changing page size
+      setPage(1);
     }
   };
 

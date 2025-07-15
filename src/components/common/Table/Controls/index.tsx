@@ -12,26 +12,7 @@ import {
   Chip,
 } from '@mui/joy';
 import { Search, Plus, Filter, X, Trash2 } from 'lucide-react';
-
-export interface FilterField<T> {
-  key: Extract<keyof T, string>;
-  label: React.ReactNode;
-  placeholder?: string;
-  type?: 'text' | 'date';
-  searchable?: boolean;
-}
-
-interface TableToolbarProps<TFilter extends object> {
-  // <-- here
-  title: React.ReactNode;
-  filter: TFilter;
-  setFilter: (filter: TFilter) => void;
-  selectedRows: Set<string>;
-  clearSelection: () => void;
-  filterConfig: FilterField<TFilter>[];
-  onAdd?: () => void;
-  onDeleteSelected?: () => void;
-}
+import { TableToolbarProps } from '@/models/table';
 
 const TableControls = <TFilter extends object>({
   title,

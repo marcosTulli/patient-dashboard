@@ -3,7 +3,7 @@
 import React from 'react';
 import { Checkbox, IconButton, Typography } from '@mui/joy';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { SortDirection, TableHeadProps } from '@/models/tables';
+import { SortDirection, TableHeadProps } from '@/models/table';
 
 function TableHead<TRow, TSortField extends string = string>({
   data,
@@ -85,9 +85,9 @@ function TableHead<TRow, TSortField extends string = string>({
           />
         </th>
 
-        {columns.map(({ key, label, sortable, sortField, width }) =>
+        {columns?.map(({ key, label, sortable, sortField, width }) =>
           sortable && sortField ? (
-            <SortableHeader key={String(key)} field={sortField}>
+            <SortableHeader key={String(key)} field={sortField as TSortField}>
               {label}
             </SortableHeader>
           ) : (
