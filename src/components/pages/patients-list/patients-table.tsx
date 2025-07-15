@@ -1,91 +1,79 @@
 'use client';
-import React from 'react';
+
+import type React from 'react';
+import { useMemo } from 'react';
+import { Box, Sheet, Typography } from '@mui/joy';
+import { usePatientTableStore } from './store/usePatientTableStore';
+import type { PatientListRequest } from '@/models/patients';
+import useList from './hooks/useList';
 import TableToolbar from './TableToolbar';
 import TableHead from './TableHead';
+import TablePagination from './TablePagination';
+import PatientDialog from './PatientDialog';
+import DeleteAlert from './DeleteAlert';
 import TableBody from './TableBody';
-import Sheet from '@mui/joy/Sheet';
-import Table from '@mui/joy/Table';
-import useList from './hooks/useList';
-import { usePatientTableStore } from './store/usePatientTableStore';
-import GlobalStyles from '@mui/joy/GlobalStyles'; // For global scrollbar styling
-import PatientTablePagination from './TablePagination';
 
-const PatientTable = () => {
-  const { page, take, filter, sort, setPage, setTake } = usePatientTableStore();
-  const { patients, total, isPending } = useList({
-    pagination: { page, take },
-    filter,
-    sort,
-  });
+const PatientsTable: React.FC = () => {
+  const { page, take, filter, sort } = usePatientTableStore();
+
+  const requestBody: PatientListRequest = useMemo(
+    () => ({
+      pagination: { page, take },
+      filter: Object.keys(filter).length > 0 ? filter : null,
+      sort: sort.field ? sort : null,
+    }),
+    [page, take, filter, sort],
+  );
+
+  const { patients, total, error, isPending } = useList(requestBody);
+
+  if (error) {
+    return (
+      <Box sx={{ p: 3 }}>
+        <Typography color="danger">
+          Error loading patients: {error.message}
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
-    <Sheet
-      variant="soft"
-      className="custom-table-container"
-      sx={{
-        borderRadius: '12px',
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '500px',
-        maxHeight: 'calc(100vh - 120px)',
-        overflow: 'hidden',
-      }}
-    >
-      <GlobalStyles
-        styles={{
-          '*::-webkit-scrollbar': { width: '8px', height: '8px' },
-          '*::-webkit-scrollbar-thumb': {
-            borderRadius: '4px',
-            backgroundColor: 'rgba(0,0,0,0.2)',
-          },
-          '*::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: 'rgba(0,0,0,0.3)',
-          },
-          '*::-webkit-scrollbar-track': { backgroundColor: 'rgba(0,0,0,0.05)' },
-        }}
-      />
-      <TableToolbar />
-      <Table
-        aria-label="Patient list table"
-        stickyHeader
-        hoverRow
-        stripe="odd"
+    <Box sx={{ width: '100%', p: 2 }}>
+      <Sheet
+        variant="outlined"
         sx={{
-          '--Table-headerUnderline': '2px solid',
-          '--TableCell-borderColor': 'divider',
-          '& thead th': {
-            bgcolor: 'background.level1',
-            fontWeight: 'lg',
-            py: 1.5,
-            px: 2,
-            borderBottom: '2px solid',
-            borderColor: 'divider',
-          },
-          '& tbody tr': {
-            borderBottom: '1px solid',
-            borderColor: 'divider',
-            '&:last-child': { borderBottom: 0 },
-          },
-          '& tbody td': { py: 1.5, px: 2 },
-          flexGrow: 1,
-          overflow: 'auto',
+          borderRadius: 'sm',
+          overflow: 'hidden',
         }}
       >
-        <TableHead patients={patients || []} />
-        <TableBody patients={patients || []} loading={isPending} />
-      </Table>
-      <PatientTablePagination
-        page={page}
-        take={take}
-        total={total || 1}
-        onPageChange={setPage}
-        onTakeChange={(newTake: number) => {
-          setTake(newTake);
-          setPage(1);
-        }}
-      />
-    </Sheet>
+        <TableToolbar />
+
+        <Box sx={{ overflow: 'auto' }}>
+          <Box
+            component="table"
+            sx={{
+              width: '100%',
+              borderCollapse: 'collapse',
+              '& th, & td': {
+                textAlign: 'left',
+                p: 2,
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+              },
+            }}
+          >
+            <TableHead patients={patients || []} />
+            <TableBody patients={patients || []} loading={isPending} />
+          </Box>
+        </Box>
+
+        <TablePagination total={total || 0} />
+      </Sheet>
+
+      <PatientDialog />
+      <DeleteAlert />
+    </Box>
   );
 };
 
-export default PatientTable;
+export default PatientsTable;

@@ -1,5 +1,10 @@
+import {
+  type PatientFilter,
+  type PatientSort,
+  SortDirection,
+  SortFields,
+} from '@/models/patients';
 import { create } from 'zustand';
-import { PatientFilter, PatientSort, SortDirection, SortFields } from '@models/patients';
 
 type Patient = {
   _id: string;
@@ -27,32 +32,31 @@ export const usePatientTableStore = create<PatientTableState>((set) => ({
   filter: {},
   selectedRows: new Set(),
   sort: { field: SortFields.lastName, direction: SortDirection.ASC },
-
   setPage: (page) => set({ page }),
-  setFilter: (filter) => set((state) => ({
-    filter: { ...state.filter, ...filter },
-  })),
+  setFilter: (filter) =>
+    set((state) => ({
+      filter: { ...state.filter, ...filter },
+    })),
   setSort: (sort) => set({ sort }),
-
   setTake: (take) => set({ take }),
-  toggleRow: (id) => set((state) => {
-    const newSelected = new Set(state.selectedRows);
-    if (newSelected.has(id)) {
-      newSelected.delete(id);
-    } else {
-      newSelected.add(id);
-    }
-    return { selectedRows: newSelected };
-  }),
-
-  toggleSelectAll: (patients) => set((state) => {
-    const allSelected = patients.every((p) => state.selectedRows.has(p._id));
-    return {
-      selectedRows: allSelected
-        ? new Set()
-        : new Set(patients.map((p) => p._id)),
-    };
-  }),
-
+  toggleRow: (id) =>
+    set((state) => {
+      const newSelected = new Set(state.selectedRows);
+      if (newSelected.has(id)) {
+        newSelected.delete(id);
+      } else {
+        newSelected.add(id);
+      }
+      return { selectedRows: newSelected };
+    }),
+  toggleSelectAll: (patients) =>
+    set((state) => {
+      const allSelected = patients.every((p) => state.selectedRows.has(p._id));
+      return {
+        selectedRows: allSelected
+          ? new Set()
+          : new Set(patients.map((p) => p._id)),
+      };
+    }),
   clearSelection: () => set({ selectedRows: new Set() }),
 }));

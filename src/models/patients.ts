@@ -12,15 +12,13 @@ export interface Pagination {
   take?: number;
 }
 
-
-export enum Filters { 
+export enum Filters {
   firstName = 'firstName',
   lastName = 'lastName',
   email = 'email',
   phoneNumber = 'phoneNumber',
   dobFrom = 'dobFrom',
   dobTo = 'dobTo',
-
 }
 export interface PatientFilter {
   firstName?: string;
@@ -36,13 +34,12 @@ export enum SortDirection {
   DESC = 'desc',
 }
 
-export enum SortFields { 
+export enum SortFields {
   firstName = 'firstName',
   lastName = 'lastName',
   email = 'email',
   phoneNumber = 'phoneNumber',
   dob = 'dob',
-
 }
 
 export interface PatientSort {

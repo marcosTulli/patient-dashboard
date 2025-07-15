@@ -1,93 +1,124 @@
 'use client';
-// src/components/PatientTablePagination.tsx
-import React from 'react';
-import Box from '@mui/joy/Box';
-import IconButton from '@mui/joy/IconButton';
-import Typography from '@mui/joy/Typography';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
 
-interface PatientTablePaginationProps {
-  page: number;
-  take: number;
+import type React from 'react';
+import { Box, IconButton, Select, Option, Typography } from '@mui/joy';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
+import { usePatientTableStore } from './store/usePatientTableStore';
+
+interface TablePaginationProps {
   total: number;
-  onPageChange: (newPage: number) => void;
-  onTakeChange: (newTake: number) => void;
 }
 
-const PatientTablePagination: React.FC<PatientTablePaginationProps> = ({
-  page,
-  take,
-  total,
-  onPageChange,
-  onTakeChange,
-}) => {
+const TablePagination: React.FC<TablePaginationProps> = ({ total }) => {
+  const { page, take, setPage, setTake } = usePatientTableStore();
+
   const totalPages = Math.ceil(total / take);
-  const start = (page - 1) * take + 1;
-  const end = Math.min(start + take - 1, total);
+  const startItem = (page - 1) * take + 1;
+  const endItem = Math.min(page * take, total);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  const handleTakeChange = (
+    _: React.SyntheticEvent | null,
+    newValue: number | null,
+  ) => {
+    if (newValue) {
+      setTake(newValue);
+      setPage(1); // Reset to first page when changing page size
+    }
+  };
+
+  if (total === 0) {
+    return null;
+  }
 
   return (
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'center',
         justifyContent: 'space-between',
-        px: 2,
-        py: 1.5,
+        alignItems: 'center',
+        p: 2,
         borderTop: '1px solid',
         borderColor: 'divider',
-        bgcolor: 'background.level1',
-        borderBottomLeftRadius: '12px',
-        borderBottomRightRadius: '12px',
+        flexWrap: 'wrap',
+        gap: 2,
       }}
-      className="text-gray-600"
     >
-      <Typography level="body-sm">
-        {start}–{end} of {total}
-      </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        <Select
-          size="sm"
-          value={take.toString()}
-          onChange={(_, val) => val && onTakeChange(Number(val))}
-          sx={{ minWidth: 100, borderRadius: '8px' }}
-          className="border-gray-300"
-        >
-          {[5, 10, 25, 50].map((size) => (
-            <Option key={size} value={size.toString()}>
-              {size} / page
-            </Option>
-          ))}
-        </Select>
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <IconButton
+        <Typography level="body-sm">
+          Showing {startItem}-{endItem} of {total} patients
+        </Typography>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography level="body-sm">Rows per page:</Typography>
+          <Select
+            value={take}
+            onChange={handleTakeChange}
             size="sm"
-            variant="soft"
-            color="neutral"
-            disabled={page === 1}
-            onClick={() => onPageChange(page - 1)}
-            className="custom-button"
-            aria-label="Previous page"
+            sx={{ minWidth: '80px' }}
           >
-            <KeyboardArrowLeft />
-          </IconButton>
-          <IconButton
-            size="sm"
-            variant="soft"
-            color="neutral"
-            disabled={page >= totalPages}
-            onClick={() => onPageChange(page + 1)}
-            className="custom-button"
-            aria-label="Next page"
-          >
-            <KeyboardArrowRight />
-          </IconButton>
+            <Option value={5}>5</Option>
+            <Option value={10}>10</Option>
+            <Option value={25}>25</Option>
+            <Option value={50}>50</Option>
+            <Option value={100}>100</Option>
+          </Select>
         </Box>
+      </Box>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <IconButton
+          size="sm"
+          variant="outlined"
+          disabled={page === 1}
+          onClick={() => handlePageChange(1)}
+        >
+          <ChevronsLeft size={16} />
+        </IconButton>
+
+        <IconButton
+          size="sm"
+          variant="outlined"
+          disabled={page === 1}
+          onClick={() => handlePageChange(page - 1)}
+        >
+          <ChevronLeft size={16} />
+        </IconButton>
+
+        <Typography level="body-sm" sx={{ mx: 2 }}>
+          Page {page} of {totalPages}
+        </Typography>
+
+        <IconButton
+          size="sm"
+          variant="outlined"
+          disabled={page === totalPages}
+          onClick={() => handlePageChange(page + 1)}
+        >
+          <ChevronRight size={16} />
+        </IconButton>
+
+        <IconButton
+          size="sm"
+          variant="outlined"
+          disabled={page === totalPages}
+          onClick={() => handlePageChange(totalPages)}
+        >
+          <ChevronsRight size={16} />
+        </IconButton>
       </Box>
     </Box>
   );
 };
 
-export default PatientTablePagination;
+export default TablePagination;

@@ -1,76 +1,67 @@
-// src/components/TableBody.tsx
-import React from 'react';
-import { Patient } from '@models/patients';
-import Typography from '@mui/joy/Typography';
-import IconButton from '@mui/joy/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Stack from '@mui/joy/Stack';
-import Box from '@mui/joy/Box'; // For applying sx to td
-import { Checkbox } from '@mui/joy';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+'use client';
+
+import type React from 'react';
+import { useState } from 'react';
+import {
+  Checkbox,
+  IconButton,
+  Typography,
+  Dropdown,
+  MenuButton,
+  Menu,
+  MenuItem,
+  Skeleton,
+} from '@mui/joy';
+import { MoreVertical, Edit, Trash2 } from 'lucide-react';
+import type { Patient } from '@/models/patients';
 import { usePatientTableStore } from './store/usePatientTableStore';
 
-const parseDate = (dateString: string | undefined): string => {
-  if (!dateString) {
-    return '-';
-  }
-
-  try {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-      return '-';
-    }
-
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    };
-    return date.toLocaleDateString('en-GB', options);
-  } catch (error) {
-    console.error('Error parsing or formatting date:', error);
-    return '-';
-  }
-};
-
-const TableBody = ({
-  patients,
-  loading,
-}: {
+interface PatientsTableBodyProps {
   patients: Patient[];
-  loading: boolean;
+  isLoading: boolean;
+}
+
+const TableBody: React.FC<PatientsTableBodyProps> = ({
+  patients,
+  isLoading,
 }) => {
   const { selectedRows, toggleRow } = usePatientTableStore();
 
-  if (loading) {
+  const [_editingPatient, setEditingPatient] = useState<Patient | null>(null);
+  const [_deletingPatient, setDeletingPatient] = useState<Patient | null>(null);
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return '-';
+    return new Date(dateString).toLocaleDateString();
+  };
+
+  if (isLoading) {
     return (
       <tbody>
         {Array.from({ length: 5 }).map((_, index) => (
-          <tr key={`skeleton-${index}`}>
-            <Box component="td" sx={{ textAlign: 'center' }}>
-              <Checkbox disabled />
-            </Box>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Box component="td" key={i} sx={{ py: 1.5 }}>
-                <Box
-                  component="span"
-                  sx={{ display: 'inline-block', width: '80%' }}
-                  className="animate-pulse bg-gray-200 h-4 rounded"
-                />
-              </Box>
-            ))}
-            <Box component="td" sx={{ textAlign: 'center' }}>
-              <Stack direction="row" spacing={1} justifyContent="center">
-                <Box
-                  component="span"
-                  className="animate-pulse bg-gray-200 h-8 w-8 rounded-full"
-                />
-                <Box
-                  component="span"
-                  className="animate-pulse bg-gray-200 h-8 w-8 rounded-full"
-                />
-              </Stack>
-            </Box>
+          <tr key={index}>
+            <td>
+              <Skeleton variant="rectangular" width={20} height={20} />
+            </td>
+            <td>
+              <Skeleton variant="text" />
+            </td>
+            <td>
+              <Skeleton variant="text" />
+            </td>
+            <td>
+              <Skeleton variant="text" />
+            </td>
+            <td>
+              <Skeleton variant="text" />
+            </td>
+            <td>
+              <Skeleton variant="text" />
+            </td>
+            <td>
+              <Skeleton variant="rectangular" width={32} height={32} />
+            </td>
           </tr>
         ))}
       </tbody>
@@ -81,22 +72,11 @@ const TableBody = ({
     return (
       <tbody>
         <tr>
-          <Box
-            component="td"
-            colSpan={7}
-            sx={{ textAlign: 'center', py: 8, bgcolor: 'background.surface' }}
-          >
-            <Typography level="h4" className="text-gray-600 font-semibold">
-              No Patients Found 😔
+          <td colSpan={7} style={{ textAlign: 'center', padding: '2rem' }}>
+            <Typography level="body-md" color="neutral">
+              No patients found
             </Typography>
-            <Typography
-              level="body-md"
-              className="text-gray-500 max-w-md mx-auto mt-2"
-            >
-              export c Try adjusting your filters or adding a new patient to get
-              started!
-            </Typography>
-          </Box>
+          </td>
         </tr>
       </tbody>
     );
@@ -104,72 +84,65 @@ const TableBody = ({
 
   return (
     <tbody>
-      {patients.map((p: Patient) => (
+      {patients.map((patient) => (
         <tr
-          key={p._id}
-          className={
-            selectedRows.has(p._id) ? 'bg-blue-50' : 'hover:bg-gray-50'
-          }
-          style={{ transition: 'background-color 0.2s ease' }}
+          key={patient._id}
+          style={{
+            backgroundColor: selectedRows.has(patient._id)
+              ? 'var(--joy-palette-primary-softBg)'
+              : undefined,
+          }}
         >
-          <Box component="td" sx={{ textAlign: 'center' }}>
+          <td>
             <Checkbox
-              checked={selectedRows.has(p._id)}
-              onChange={() => toggleRow(p._id)}
-              className="custom-checkbox"
-              aria-label={`Select ${p.firstName} ${p.lastName}`}
+              checked={selectedRows.has(patient._id)}
+              onChange={() => toggleRow(patient._id)}
             />
-          </Box>
-          <Box component="td" sx={{ py: 1.5 }}>
-            <Typography level="body-md" className="text-gray-800 font-medium">
-              {p.firstName}
+          </td>
+          <td>
+            <Typography level="body-sm">{patient.firstName}</Typography>
+          </td>
+          <td>
+            <Typography level="body-sm">{patient.lastName}</Typography>
+          </td>
+          <td>
+            <Typography level="body-sm">{patient.email}</Typography>
+          </td>
+          <td>
+            <Typography level="body-sm">
+              {patient.phoneNumber || '-'}
             </Typography>
-          </Box>
-          <Box component="td" sx={{ py: 1.5 }}>
-            <Typography level="body-md" className="text-gray-800 font-medium">
-              {p.lastName}
-            </Typography>
-          </Box>
-          <Box component="td" sx={{ py: 1.5 }}>
-            <Typography level="body-sm" className="text-blue-600">
-              {p.email}
-            </Typography>
-          </Box>
-          <Box component="td" sx={{ py: 1.5 }}>
-            <Typography level="body-sm" className="text-gray-600">
-              {p.phoneNumber || '-'}
-            </Typography>
-          </Box>
-          <Box component="td" sx={{ py: 1.5 }}>
-            <Typography level="body-sm" className="text-gray-500">
-              {parseDate(p.dob)}
-            </Typography>
-          </Box>
-          <Box component="td" sx={{ textAlign: 'center' }}>
-            <Stack direction="row" spacing={1} justifyContent="center">
-              <IconButton
-                size="sm"
-                variant="soft"
-                color="primary"
-                className="custom-button"
-                aria-label={`Edit ${p.firstName} ${p.lastName}`}
+          </td>
+          <td>
+            <Typography level="body-sm">{formatDate(patient.dob)}</Typography>
+          </td>
+          <td>
+            <Dropdown>
+              <MenuButton
+                slots={{ root: IconButton }}
+                slotProps={{ root: { variant: 'plain', size: 'sm' } }}
               >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                size="sm"
-                variant="soft"
-                color="danger"
-                className="custom-button"
-                aria-label={`Delete ${p.firstName} ${p.lastName}`}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Stack>
-          </Box>
+                <MoreVertical size={16} />
+              </MenuButton>
+              <Menu>
+                <MenuItem onClick={() => setEditingPatient(patient)}>
+                  <Edit size={16} />
+                  Edit
+                </MenuItem>
+                <MenuItem
+                  onClick={() => setDeletingPatient(patient)}
+                  color="danger"
+                >
+                  <Trash2 size={16} />
+                  Delete
+                </MenuItem>
+              </Menu>
+            </Dropdown>
+          </td>
         </tr>
       ))}
     </tbody>
   );
 };
+
 export default TableBody;

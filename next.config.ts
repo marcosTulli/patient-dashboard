@@ -22,7 +22,7 @@ const nextConfig = {
     prependData: `@import "variables.scss";`,
   },
   // For MUI/Joy UI SSR support
-  transpilePackages: [ '@mui/joy' ],
+  transpilePackages: ['@mui/joy'],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpack: (config: any) => {
     return config;
@@ -34,20 +34,20 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'
+            value: 'nosniff',
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'SAMEORIGIN',
           },
           {
             key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          }
+            value: '1; mode=block',
+          },
         ],
       },
     ];
-  }
+  },
 };
 
 export default nextConfig;

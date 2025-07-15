@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { Box, Sheet, Stack } from '@mui/joy';
+import { Box, Sheet, Stack} from '@mui/joy';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
@@ -21,8 +21,6 @@ const Navbar: React.FC = () => {
         px: 2,
         py: 1,
         display: 'flex',
-        bgcolor: '#121212',
-        borderBottom: '1px solid #333',
         alignItems: {
           xs: 'flex-end',
           sm: isHome ? 'center' : 'flex-start',
