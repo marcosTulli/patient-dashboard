@@ -1,5 +1,4 @@
-import { AccessTypes } from "../models";
-
+import { AccessTypes } from '../models';
 
 export const tabs = [
   {

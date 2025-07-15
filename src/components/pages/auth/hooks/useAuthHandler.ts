@@ -43,11 +43,12 @@ export function useAuthHandler(mode: 'login' | 'signup') {
       setAuthToken(token);
       router.replace(redirectTo);
     }
-    
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginToken, signupToken, mode, redirectTo , router]);
 
-  const isLoading = mode === AccessTypes.login ? isLoginPending : isSignupPending;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginToken, signupToken, mode, redirectTo, router]);
+
+  const isLoading =
+    mode === AccessTypes.login ? isLoginPending : isSignupPending;
   const error = mode === AccessTypes.login ? loginError : signupError;
 
   return { handleSubmit, isLoading, error };

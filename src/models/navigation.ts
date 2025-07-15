@@ -1,6 +1,5 @@
-
 export enum Navigation {
   Home = 'Home',
-  Patients = "Patients List",
-  Apointments = "Apointments",
+  Patients = 'Patients List',
+  Apointments = 'Apointments',
 }

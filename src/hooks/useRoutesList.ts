@@ -1,6 +1,6 @@
-import { routes } from "@/config/routes";
-import { Navigation } from "@/models/navigation";
-import { useRouter } from "next/navigation";
+import { routes } from '@/config/routes';
+import { Navigation } from '@/models/navigation';
+import { useRouter } from 'next/navigation';
 
 const useRoutesList = () => {
   const router = useRouter();
