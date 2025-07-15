@@ -1,8 +1,24 @@
-'use client';
-
 import AuthPageComponent from '@/components/pages/auth';
-import React from 'react';
+import { Box, CircularProgress } from '@mui/joy';
+import { Suspense } from 'react';
 
 export default function AuthPage() {
-  return <AuthPageComponent />;
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <CircularProgress size="lg" />
+        </Box>
+      }
+    >
+      <AuthPageComponent />
+    </Suspense>
+  );
 }

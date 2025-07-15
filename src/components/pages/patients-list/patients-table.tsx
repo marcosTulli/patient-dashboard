@@ -2,18 +2,14 @@
 
 import React from 'react';
 import useList from './hooks/useList';
-import { PatientListRequest, SortDirection } from '@/models/patients';
-import { Box, Typography } from '@mui/joy';
+import { PatientListRequest } from '@/models/patients';
+import { Box, CircularProgress, Typography } from '@mui/joy';
 
 const PatientsTable = () => {
   const defaultRequestBody: PatientListRequest = {
     pagination: {
       page: 1,
       take: 20,
-    },
-    sort: {
-      direction: SortDirection.DESC,
-      field: 'firstName',
     },
   };
   const { patients, isPending } = useList(defaultRequestBody);
@@ -22,13 +18,23 @@ const PatientsTable = () => {
     <Box display={'flex'} flexDirection={'column'}>
       <Typography>Patients Table</Typography>
       {isPending ? (
-        <Box>Loading</Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <CircularProgress size="lg" />
+        </Box>
       ) : (
         <Box paddingTop={2}>
           {patients?.map((patient) => (
-            <Box key={patient.id} display={'flex'} gap={'1rem'}>
+            <Box key={patient._id} display={'flex'} gap={'1rem'}>
               <div> {patient.firstName}</div>
               <div> {patient.lastName}</div>
+              <div> {patient.email}</div>
             </Box>
           ))}
         </Box>
