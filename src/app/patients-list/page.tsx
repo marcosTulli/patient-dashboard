@@ -1,10 +1,11 @@
 import { ProtectedPage } from '@/components/common/ProtectedPage';
+import PatientsTable from '@/components/pages/patients-list/patients-table';
 import { routes } from '@/config/routes';
 
 export default async function PatientsListPage() {
   return (
     <ProtectedPage redirectTo={routes.auth}>
-      <h1>Patients list commign soon </h1>
+      <PatientsTable />
     </ProtectedPage>
   );
 }

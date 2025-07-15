@@ -3,7 +3,7 @@ import HttpClientInstance from '@/services/utils/httpClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-export const getPatientsList = (body: PatientListRequest) =>
+export const getPatientsListService = (body: PatientListRequest) =>
   HttpClientInstance.post<PatientListResponse>({
     location: `${baseUrl}/patients/list`,
     body,

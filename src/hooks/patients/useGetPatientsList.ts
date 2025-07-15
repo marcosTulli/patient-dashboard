@@ -1,24 +1,19 @@
-import { useMutation } from '@tanstack/react-query';
-import { getPatientsList } from '@/services/patients';
+import { useQuery } from '@tanstack/react-query';
 import { PatientListRequest, PatientListResponse } from '@/models/patients';
+import { getPatientsListService } from '@/services/patients';
 
-const usePatientsList = () => {
-  const { mutateAsync, data, error, isPending, isError, reset } = useMutation<
-    PatientListResponse,
-    Error,
-    PatientListRequest
-  >({
-    mutationFn: getPatientsList,
+const useGetPatientsList = (body: PatientListRequest) => {
+  const { data, error, isLoading } = useQuery<PatientListResponse, Error>({
+    queryKey: ['patients', body],
+    queryFn: () => getPatientsListService(body),
   });
 
   return {
-    mutateAsync,
-    data,
+    patients: data?.patients,
+    total: data?.total,
     error,
-    isPending,
-    isError,
-    reset,
+    isLoading,
   };
 };
 
-export default usePatientsList;
+export default useGetPatientsList;

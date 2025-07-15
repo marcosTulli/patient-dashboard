@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { login } from '@/services/auth/login';
+import { loginService } from '@/services/auth/login';
 import { AuthResponse, LoginRequest } from '@/models/auth';
 
 export const useLogin = () => {
@@ -8,7 +8,7 @@ export const useLogin = () => {
     Error,
     LoginRequest
   >({
-    mutationFn: login,
+    mutationFn: loginService,
   });
 
   return {
