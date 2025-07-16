@@ -1,3 +1,8 @@
+'use client';
+
+import * as React from 'react';
+import { Typography } from '@mui/joy';
+
 type FieldProps = {
   label?: React.ReactNode;
   isRequired?: boolean;
@@ -9,15 +14,28 @@ type FormLabelProps = {
 };
 
 const FormLabel: React.FC<FormLabelProps> = ({ fieldKey, fieldProps }) => {
+  if (!fieldProps.label) return null;
+
   return (
-    <label
-      className="fw-bold d-flex flex-row gap-2 pb-1"
+    <Typography
+      component="label"
       htmlFor={fieldKey}
-      hidden={!fieldProps.label}
+      level="body-sm"
+      fontWeight="md"
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 0.5,
+        pb: 0.5,
+      }}
     >
-      {fieldProps.isRequired && <div className="text-danger">*</div>}
       {fieldProps.label}
-    </label>
+      {fieldProps.isRequired && (
+        <Typography color="danger" component="span">
+          *
+        </Typography>
+      )}
+    </Typography>
   );
 };
 
