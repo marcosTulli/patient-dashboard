@@ -95,6 +95,7 @@ yarn start
 
 The project follows a clear and organized structure:
 
+```
 .
 ├── public/                   # Static assets (images, favicons)
 ├── src/
@@ -114,7 +115,7 @@ The project follows a clear and organized structure:
 │   │   └── patients/         # Patient-related API calls
 │   ├── store/                # Zustand stores for global state management
 │   └── styles/               # Global styles and SCSS variables
-
+```
 
 ## API Endpoints
 
