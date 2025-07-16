@@ -15,6 +15,7 @@ const Sidebar: React.FC<Props> = () => {
 
   return (
     <Drawer
+      component="div"
       open={isSideBarOpen}
       onClose={toggleSideBar}
       sx={{

@@ -29,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full dark">
       <body
+        suppressHydrationWarning={true}
         className={`min-h-screen flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
