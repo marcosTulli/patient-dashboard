@@ -4,9 +4,9 @@ export interface OptionType {
   name: string;
 }
 
-import { FormikHelpers } from 'formik';
 import { AnySchema } from 'yup';
 import { Patient } from './patients';
+import { FormikHelpers } from 'formik';
 
 export interface FieldProps<T = unknown> {
   label?: React.ReactNode;
@@ -37,7 +37,7 @@ export enum FormFieldKey {
 }
 
 export type FormFields = Partial<Record<FormFieldKey, FieldProps>>;
-export type SubmitBody = Record<string, unknown> | Patient;
+export type SubmitBody = unknown | Patient;
 
 export interface FormProps {
   formFields: FormFields;

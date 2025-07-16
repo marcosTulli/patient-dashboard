@@ -7,7 +7,7 @@ import { Box, Typography } from '@mui/joy';
 import FormLabel from './FormLabel';
 import DialogButtons from '../Overlays/DialogButtons';
 import useForm from '@/hooks/forms/useForm';
-import { FormProps } from '@/models';
+import { FormProps, SubmitBody } from '@/models';
 import FormField from './FormField';
 
 const Form: React.FC<FormProps> = ({
@@ -29,7 +29,7 @@ const Form: React.FC<FormProps> = ({
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, helpers) => {
-        onSubmit(values, helpers);
+        onSubmit(values as SubmitBody, helpers);
         toggle();
       }}
     >

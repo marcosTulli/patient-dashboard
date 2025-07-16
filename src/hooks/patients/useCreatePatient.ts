@@ -1,25 +1,22 @@
 import { createPatientService } from '@/services/patients';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
+import { mutationHandlers } from '../utils';
+
 
 function useCreatePatient() {
   const queryClient = useQueryClient();
+    const { onSuccess, onError } = mutationHandlers({
+    queryClient,
+    queryKey: ['patients'],
+    toastId: 'create-patient',
+    successMessage: 'Successfully created patient',
+    errorMessage: 'Failed to create patient',
+  });
+
   const { mutateAsync: createPatient, isPending } = useMutation({
     mutationFn: createPatientService,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['patients'] });
-      toast('Success Creating Patient', {
-        toastId: 'create-patient',
-        type: 'success',
-      });
-    },
-    onError: () => {
-      queryClient.invalidateQueries({ queryKey: ['patients'] });
-      toast('Unable to create patient', {
-        toastId: 'create-patient',
-        type: 'error',
-      });
-    },
+    onSuccess, 
+    onError
   });
   return { createPatient, isPending };
 }

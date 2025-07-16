@@ -14,7 +14,7 @@ const PatientsTableBody: React.FC = () => {
 
     toggleRow,
     getRowId,
-    handleEdit,
+    openEditPatientDialog,
     handleDelete,
   } = usePatientsTable();
 
@@ -26,7 +26,7 @@ const PatientsTableBody: React.FC = () => {
       toggleRow={toggleRow}
       getRowId={getRowId}
       columns={patientColumns}
-      onEdit={handleEdit}
+      onEdit={openEditPatientDialog}
       onDelete={handleDelete}
       noDataMessage="No patients found"
       take={take}

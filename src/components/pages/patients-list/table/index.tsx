@@ -9,10 +9,17 @@ import PatientsTablePagination from './PatientsTable.Pagination';
 import PatientsTableContainer from './PatientsTable.Container';
 import EditItemDialog from '@/components/common/Overlays/EditItemDialog';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
+import useEditPatient from '@/hooks/patients/useEditPatient';
 import PatientsTableError from './PatientsTable.Error';
+import { SubmitBody } from '@/models';
+import { Patient } from '@/models/patients';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
+  const { editPatient } = useEditPatient();
+  const handleSubmit = async (values: SubmitBody) => {
+    await editPatient(values as Patient);
+  };
 
   <PatientsTableError />;
   return (
@@ -40,7 +47,7 @@ const PatientsTable: React.FC = () => {
         displayButton={false}
         isLoading={false}
         formFields={formFields}
-        onSubmit={() => console.log(formFields)}
+        onSubmit={handleSubmit}
       />
     </Box>
   );

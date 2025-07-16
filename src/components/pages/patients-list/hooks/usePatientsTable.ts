@@ -40,7 +40,7 @@ function usePatientsTable() {
 
   const getRowId = (patient: Patient) => patient._id;
   
-  const handleEdit = (row: Patient) => {
+  const openEditPatientDialog = (row: Patient) => {
     toggleEditDialog();
     setSelectedRow(row);
   };
@@ -77,7 +77,7 @@ function usePatientsTable() {
     setTake,
     clearSelection,
     handleDeleteSelected,
-    handleEdit,
+    openEditPatientDialog,
     handleDelete,
     getRowId,
   };

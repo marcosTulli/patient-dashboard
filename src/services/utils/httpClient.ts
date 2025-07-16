@@ -49,7 +49,7 @@ class HttpClient {
   }
 
   public async patch<T>(params: IPatchRequestParams): Promise<T> {
-    const headers = this.buildHeaders(params.headers);
+    const headers = this.buildHeaders(params.headers, true);
     return patchRequest<T>({
       ...params,
       headers,
