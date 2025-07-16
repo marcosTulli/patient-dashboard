@@ -2,7 +2,7 @@
 
 import { deleteManyPatientsService } from '@/services/patients';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { mutationHandlers } from '@/hooks/utils/mutationHandlers'; 
+import { mutationHandlers } from '@/hooks/utils/mutationHandlers';
 
 function useDeleteManyPatients() {
   const queryClient = useQueryClient();

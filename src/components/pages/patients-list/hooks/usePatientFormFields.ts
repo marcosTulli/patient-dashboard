@@ -23,7 +23,6 @@ export interface FieldProps<T = unknown> {
 
 const usePatientsFormFields = (): {
   createPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>;
-  //   editPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>
 } => {
   const validation = {
     firstName: () =>
@@ -37,7 +36,6 @@ const usePatientsFormFields = (): {
     email: () =>
       Yup.string().email('Invalid email format').required('Email is required'),
 
-    // Phone number is optional but must match the pattern if present
     phoneNumber: () =>
       Yup.string()
         .nullable()
@@ -47,7 +45,6 @@ const usePatientsFormFields = (): {
           'Phone number can only contain numbers, spaces, dashes, and an optional leading +',
         ),
 
-    // Date of birth is optional but must be a valid date <= today if provided
     dob: () =>
       Yup.date()
         .nullable()
@@ -98,7 +95,6 @@ const usePatientsFormFields = (): {
     },
   };
 
-  // For create form, all values default to empty string
   const createPatientFormFields = {
     ...commonFields,
     [FormFieldKey.FirstName]: {

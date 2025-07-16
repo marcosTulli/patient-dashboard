@@ -70,4 +70,3 @@ export interface PatientListResponse {
 export interface DeletePatientsRequest {
   ids: string[];
 }
-

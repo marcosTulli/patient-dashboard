@@ -71,7 +71,7 @@ export interface TableToolbarProps<TFilter extends object> {
 
   setFilter: (filter: TFilter) => void;
   clearSelection: () => void;
-  onDeleteSelected?: ({selectedRows }: {selectedRows: Set<string>}) => void;
+  onDeleteSelected?: ({ selectedRows }: { selectedRows: Set<string> }) => void;
 
   renderAddDialog?: React.ReactNode;
 }

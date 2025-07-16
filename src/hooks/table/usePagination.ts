@@ -3,14 +3,13 @@
 import type React from 'react';
 import { TablePaginationProps } from '@models/table';
 
-function usePagination  ({
+function usePagination({
   total,
   take,
   page,
   setPage,
   setTake,
-}: TablePaginationProps)  {
-
+}: TablePaginationProps) {
   const totalPages = Math.ceil(total / take);
   const startItem = (page - 1) * take + 1;
   const endItem = Math.min(page * take, total);
@@ -40,6 +39,6 @@ function usePagination  ({
     handlePageChange,
     handleTakeChange,
   };
-};
+}
 
 export default usePagination;

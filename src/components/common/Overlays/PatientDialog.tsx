@@ -33,14 +33,6 @@ interface PatientDialogProps {
   onSubmit?: (data: PatientFormData) => void;
 }
 
-// const validationSchema = yup.object({
-//   firstName: yup.string().required('First name is required'),
-//   lastName: yup.string().required('Last name is required'),
-//   email: yup.string().email('Invalid email').required('Email is required'),
-//   phoneNumber: yup.string().optional(),
-//   dob: yup.string().optional(),
-// });
-
 const PatientDialog: React.FC<PatientDialogProps> = ({
   open = false,
   patient = null,

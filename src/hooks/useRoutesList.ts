@@ -12,7 +12,7 @@ const useRoutesList = () => {
       case Navigation.Patients:
         return routes.patientsList;
       case Navigation.Apointments:
-        return routes.appointments; // Add to routes if desired
+        return routes.appointments;
       default:
         return routes.home;
     }

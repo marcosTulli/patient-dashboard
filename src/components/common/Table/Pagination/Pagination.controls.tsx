@@ -22,7 +22,7 @@ const PaginationControls: React.FC<Props> = ({
       display: 'flex',
       alignItems: 'center',
       gap: 1,
-      flexWrap: { xs: 'wrap', sm: 'nowrap' }, // no wrapping on desktop
+      flexWrap: { xs: 'wrap', sm: 'nowrap' },
     }}
   >
     <IconButton
@@ -43,19 +43,17 @@ const PaginationControls: React.FC<Props> = ({
       <ChevronLeft size={16} />
     </IconButton>
 
-    {/* Inline on sm+ */}
     <Typography
       level="body-sm"
       sx={{
         display: { xs: 'none', sm: 'inline-flex' },
         px: 1,
-        whiteSpace: 'nowrap', // 💡 prevent line break
+        whiteSpace: 'nowrap',
       }}
     >
       Page {page} of {totalPages}
     </Typography>
 
-    {/* Compact version on mobile */}
     <Typography
       level="body-xs"
       sx={{

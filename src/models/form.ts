@@ -34,7 +34,6 @@ export enum FormFieldKey {
   Password = 'password',
   Role = 'role',
   IsActive = 'isActive',
-  // add more as needed
 }
 
 export type FormFields = Partial<Record<FormFieldKey, FieldProps>>;

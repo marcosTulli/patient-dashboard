@@ -2,8 +2,6 @@
 
 import type React from 'react';
 import { Box, Sheet } from '@mui/joy';
-import PatientDialog from '../../../common/Overlays/PatientDialog';
-import DeleteAlert from '../../../common/Overlays/DeleteAlert';
 import PatientsTableControls from './PatientsTable.Controls';
 import PatientsTableHead from './PatientsTable.Head';
 import PatientsTableBody from './PatientsTable.Body';
@@ -13,7 +11,6 @@ import PatientsTableContainer from './PatientsTable.Container';
 
 const PatientsTable: React.FC = () => {
   <PatientsTableError />;
-
   return (
     <Box sx={{ width: '100%', p: 2 }}>
       <Sheet
@@ -30,9 +27,6 @@ const PatientsTable: React.FC = () => {
         </PatientsTableContainer>
         <PatientsTablePagination />
       </Sheet>
-
-      <PatientDialog />
-      <DeleteAlert />
     </Box>
   );
 };

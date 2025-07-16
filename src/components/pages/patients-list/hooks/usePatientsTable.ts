@@ -32,9 +32,7 @@ function usePatientsTable() {
   );
 
   const { patients, total, error, isPending } = useList(requestBody);
-  const {deleteManyPatients} = useDeleteManyPatients();
-
-
+  const { deleteManyPatients } = useDeleteManyPatients();
 
   const getRowId = (patient: Patient) => patient._id;
   const handleEdit = (row: Patient) => {
@@ -45,8 +43,12 @@ function usePatientsTable() {
     console.log('DELETE', row);
   };
 
-  const handleDeleteSelected = ({selectedRows}: {selectedRows: Set<string>}) => {
-    const requestBody = {ids: Array.from(selectedRows)};
+  const handleDeleteSelected = ({
+    selectedRows,
+  }: {
+    selectedRows: Set<string>;
+  }) => {
+    const requestBody = { ids: Array.from(selectedRows) };
     deleteManyPatients(requestBody);
   };
 
