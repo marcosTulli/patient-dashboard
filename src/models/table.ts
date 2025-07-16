@@ -71,11 +71,10 @@ export interface TableToolbarProps<TFilter extends object> {
 
   setFilter: (filter: TFilter) => void;
   clearSelection: () => void;
-  onDeleteSelected?: () => void;
+  onDeleteSelected?: ({ selectedRows }: { selectedRows: Set<string> }) => void;
 
   renderAddDialog?: React.ReactNode;
 }
-
 
 export interface TablePaginationProps {
   take: number;

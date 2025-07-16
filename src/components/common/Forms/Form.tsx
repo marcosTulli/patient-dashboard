@@ -4,11 +4,11 @@ import * as React from 'react';
 import { ErrorMessage, Formik, Form as FormikForm } from 'formik';
 import { Box, Typography } from '@mui/joy';
 
-import FormField from './FormField';
 import FormLabel from './FormLabel';
 import DialogButtons from '../Overlays/DialogButtons';
 import useForm from '@/hooks/forms/useForm';
-import { FormProps } from '@/models';
+import { FormProps, SubmitBody } from '@/models';
+import FormField from './FormField';
 
 const Form: React.FC<FormProps> = ({
   formFields,
@@ -29,7 +29,7 @@ const Form: React.FC<FormProps> = ({
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, helpers) => {
-        onSubmit(values, helpers);
+        onSubmit(values as SubmitBody, helpers);
         toggle();
       }}
     >
@@ -41,7 +41,7 @@ const Form: React.FC<FormProps> = ({
               <FormField fieldKey={fieldKey} fieldProps={fieldProps} />
               <Typography
                 color="danger"
-                sx={{ mt: 0.5, mb: 1, ml: 0.5 }}
+                sx={{ mat: 0.5, mb: 1, ml: 0.5 }}
                 aria-live="polite"
               >
                 <ErrorMessage name={fieldKey} />

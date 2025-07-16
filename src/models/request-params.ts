@@ -13,5 +13,5 @@ export interface IPostRequestParams extends IBaseRequestParams {
 
 export interface IPatchRequestParams extends IBaseRequestParams {
   body: unknown;
-  params: Record<string, unknown>;
+  params?: Record<string, unknown>;
 }

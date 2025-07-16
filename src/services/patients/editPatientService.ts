@@ -3,8 +3,11 @@ import HttpClientInstance from '@/services/utils/httpClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 
-export const createPatientService = (body: Patient) =>
-  HttpClientInstance.post<Patient>({
-    location: `${baseUrl}/patients/create`,
+export const editPatientService = (body: Patient, id: string) =>{
+  console.log(body);
+
+  return HttpClientInstance.patch<Patient>({
+    location: `${baseUrl}/patients/${id}`,
     body,
   });
+};

@@ -1,8 +1,9 @@
-import useGetPatientsList from '@/hooks/patients/useGetPatientsList';
+import usegetPaginatedPatientsService from '@/hooks/patients/useGetPatientsList';
 import { PatientListRequest } from '@/models/patients';
 
 const useList = (body: PatientListRequest) => {
-  const { patients, total, error, isLoading } = useGetPatientsList(body);
+  const { patients, total, error, isLoading } =
+    usegetPaginatedPatientsService(body);
 
   return {
     patients,

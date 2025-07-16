@@ -1,4 +1,3 @@
-// @/providers/index.tsx
 'use client';
 
 import { CssVarsProvider as JoyThemeProvider } from '@mui/joy/styles';

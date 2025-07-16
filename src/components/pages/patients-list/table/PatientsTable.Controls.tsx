@@ -3,12 +3,12 @@
 import React from 'react';
 import TableControls from '@/components/common/Table/Controls';
 import { filterConfig } from '../config';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
 import CreateItemDialog from '@/components/common/Overlays/CreateItemDialog';
-import useCreatePatient from '@/hooks/patients/useCreatePatient';
 import { SubmitBody } from '@/models';
 import { Patient } from '@/models/patients';
+import useCreatePatient from '@hooks/patients/useCreatePatient';
 
 const PatientsTableControls: React.FC = () => {
   const {
@@ -44,6 +44,7 @@ const PatientsTableControls: React.FC = () => {
           isLoading={isPending}
           formFields={createPatientFormFields}
           onSubmit={handleSubmit}
+          displayButton={true}
         />
       }
     />

@@ -43,15 +43,13 @@ export enum SortFields {
   id = '_id',
 }
 
-export type SortFieldsType = 
-  | 'firstName' 
-  | 'lastName' 
-  | 'email' 
-  | 'phone' 
+export type SortFieldsType =
+  | 'firstName'
+  | 'lastName'
+  | 'email'
+  | 'phone'
   | 'dob'
   | '_id';
-
-
 
 export interface PatientSort {
   field: SortFields;
@@ -67,4 +65,8 @@ export interface PatientListRequest {
 export interface PatientListResponse {
   patients: Patient[];
   total: number;
+}
+
+export interface DeletePatientsRequest {
+  ids: string[];
 }
