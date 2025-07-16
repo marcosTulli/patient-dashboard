@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { type Patient, type PatientListRequest } from '@/models/patients';
 import useList from './useList';
 import { usePatientTableStore } from '../store/usePatientTableStore';
+import useDeleteManyPatients from '@/hooks/patients/useDeleteManyPatients';
 
 function usePatientsTable() {
   const {
@@ -31,9 +32,11 @@ function usePatientsTable() {
   );
 
   const { patients, total, error, isPending } = useList(requestBody);
+  const {deleteManyPatients} = useDeleteManyPatients();
+
+
 
   const getRowId = (patient: Patient) => patient._id;
-
   const handleEdit = (row: Patient) => {
     console.log('EDIT', row);
   };
@@ -42,8 +45,9 @@ function usePatientsTable() {
     console.log('DELETE', row);
   };
 
-  const handleDeleteSelected = () => {
-    console.log('DELETE SELECTED');
+  const handleDeleteSelected = ({selectedRows}: {selectedRows: Set<string>}) => {
+    const requestBody = {ids: Array.from(selectedRows)};
+    deleteManyPatients(requestBody);
   };
 
   return {

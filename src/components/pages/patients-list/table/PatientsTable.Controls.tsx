@@ -3,7 +3,7 @@
 import React from 'react';
 import TableControls from '@/components/common/Table/Controls';
 import { filterConfig } from '../config';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
 import CreateItemDialog from '@/components/common/Overlays/CreateItemDialog';
 import useCreatePatient from '@/hooks/patients/useCreatePatient';

@@ -66,3 +66,8 @@ export interface PatientListResponse {
   patients: Patient[];
   total: number;
 }
+
+export interface DeletePatientsRequest {
+  ids: string[];
+}
+

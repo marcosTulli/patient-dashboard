@@ -3,7 +3,7 @@
 import type React from 'react';
 import TableBody from '@/components/common/Table/Body';
 import { patientColumns } from '../config';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 
 const PatientsTableBody: React.FC = () => {
   const {

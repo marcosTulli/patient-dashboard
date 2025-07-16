@@ -2,7 +2,7 @@
 
 import React from 'react';
 import TablePagination from '@/components/common/Table/Pagination';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 
 const PatientsTablePagination: React.FC = () => {
   const { page, take, total, setPage, setTake } = usePatientsTable();

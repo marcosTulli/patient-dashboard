@@ -2,7 +2,7 @@
 
 import type React from 'react';
 import { Box, Typography } from '@mui/joy';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 
 const PatientsTableError: React.FC = () => {
   const { error } = usePatientsTable();

@@ -1,2 +1,3 @@
-export * from './getPatientsList';
+export * from './getPaginatedPatientsService';
 export * from './createPatientService';
+export * from './deleteManyPatientsService';

@@ -97,7 +97,7 @@ const TableControls = <TFilter extends object>({
                   variant="soft"
                   color="danger"
                   startDecorator={<Trash2 size={16} />}
-                  onClick={onDeleteSelected}
+                  onClick={() => onDeleteSelected({ selectedRows })}
                 >
                   Delete Selected
                 </Button>

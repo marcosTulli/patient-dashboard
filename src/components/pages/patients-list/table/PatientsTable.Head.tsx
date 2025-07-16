@@ -3,7 +3,7 @@
 import type React from 'react';
 import TableHead from '@/components/common/Table/Head';
 import { patientColumns } from '../config';
-import usePatientsTable from '../hooks/usePatiensTable';
+import usePatientsTable from '../hooks/usePatientsTable';
 import { Patient, SortFields } from '@/models/patients';
 
 const PatientsTableHead: React.FC = () => {
