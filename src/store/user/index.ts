@@ -6,6 +6,7 @@ const undefinedUser: User = {
   email: '',
   role: '',
   isDefined: false,
+  isAuthorized: false,
 };
 
 export const useUserStore = create<UserState>((set) => ({

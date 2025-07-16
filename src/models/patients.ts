@@ -12,7 +12,15 @@ export interface Pagination {
   take?: number;
 }
 
-export interface PatientFilter {
+export enum Filters {
+  firstName = 'firstName',
+  lastName = 'lastName',
+  email = 'email',
+  phoneNumber = 'phoneNumber',
+  dobFrom = 'dobFrom',
+  dobTo = 'dobTo',
+}
+export interface PatientFilter extends Record<string, string | undefined> {
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -26,9 +34,28 @@ export enum SortDirection {
   DESC = 'desc',
 }
 
+export enum SortFields {
+  firstName = 'firstName',
+  lastName = 'lastName',
+  email = 'email',
+  phoneNumber = 'phoneNumber',
+  dob = 'dob',
+  id = '_id',
+}
+
+export type SortFieldsType = 
+  | 'firstName' 
+  | 'lastName' 
+  | 'email' 
+  | 'phone' 
+  | 'dob'
+  | '_id';
+
+
+
 export interface PatientSort {
-  field?: 'firstName' | 'lastName' | 'email' | 'phoneNumber' | 'dob' | '_id';
-  direction?: SortDirection;
+  field: SortFields;
+  direction: SortDirection;
 }
 
 export interface PatientListRequest {
