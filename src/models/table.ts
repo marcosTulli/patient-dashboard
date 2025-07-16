@@ -76,7 +76,6 @@ export interface TableToolbarProps<TFilter extends object> {
   renderAddDialog?: React.ReactNode;
 }
 
-
 export interface TablePaginationProps {
   take: number;
   page: number;

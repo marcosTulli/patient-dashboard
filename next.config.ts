@@ -9,11 +9,12 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: process.env.NODE_ENV === 'development', 
+    unoptimized: process.env.NODE_ENV === 'development',
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',       },
+        hostname: '**',
+      },
     ],
   },
   sassOptions: {

@@ -10,7 +10,7 @@ export const dialogs = {
 } as const;
 
 type DialogKeys = keyof typeof dialogs;
-type DialogStateKeys = typeof dialogs[DialogKeys];
+type DialogStateKeys = (typeof dialogs)[DialogKeys];
 
 type DialogState = {
   [K in DialogStateKeys]: boolean;
@@ -18,10 +18,13 @@ type DialogState = {
   toggle: (params: { dialog: DialogStateKeys }) => void;
 };
 
-const initialState = Object.values(dialogs).reduce((state, key) => {
-  state[key] = false;
-  return state;
-}, {} as Record<DialogStateKeys, boolean>);
+const initialState = Object.values(dialogs).reduce(
+  (state, key) => {
+    state[key] = false;
+    return state;
+  },
+  {} as Record<DialogStateKeys, boolean>,
+);
 
 export const useDialogsStore = create<DialogState>((set) => ({
   ...initialState,
@@ -30,4 +33,3 @@ export const useDialogsStore = create<DialogState>((set) => ({
       [dialog]: !state[dialog],
     })),
 }));
-

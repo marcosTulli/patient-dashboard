@@ -43,15 +43,13 @@ export enum SortFields {
   id = '_id',
 }
 
-export type SortFieldsType = 
-  | 'firstName' 
-  | 'lastName' 
-  | 'email' 
-  | 'phone' 
+export type SortFieldsType =
+  | 'firstName'
+  | 'lastName'
+  | 'email'
+  | 'phone'
   | 'dob'
   | '_id';
-
-
 
 export interface PatientSort {
   field: SortFields;

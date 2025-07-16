@@ -1,39 +1,38 @@
 'use client';
 
 import * as React from 'react';
-import Drawer from '@mui/joy/Drawer';
+import { Modal, Sheet, Stack } from '@mui/joy';
 import { useSideBar } from '@/hooks';
 import NavList from '../Routes';
-import { Stack } from '@mui/joy';
 
-interface Props {
-  window?: () => Window;
-}
-
-const Sidebar: React.FC<Props> = () => {
+const Sidebar: React.FC = () => {
   const { isSideBarOpen, toggleSideBar } = useSideBar();
 
   return (
-    <Drawer
+    <Modal
       open={isSideBarOpen}
       onClose={toggleSideBar}
-      sx={{
-        '& .MuiDrawer-paper': {
-          width: { xs: '80vw', sm: 'auto' },
-          boxSizing: 'border-box',
+      sx={{ zIndex: 'modal' }}
+    >
+      <Sheet
+        variant="solid"
+        color="neutral"
+        sx={{
+          width: { xs: '80vw', sm: 280 },
+          height: '100vh',
+          p: 2,
+          boxShadow: 'lg',
           bgcolor: 'background.level1',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
           gap: 4,
-        },
-      }}
-    >
-      <Stack>
-        <NavList />
-      </Stack>
-    </Drawer>
+        }}
+      >
+        <Stack>
+          <NavList />
+        </Stack>
+      </Sheet>
+    </Modal>
   );
 };
 

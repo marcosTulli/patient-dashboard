@@ -1,9 +1,8 @@
-
-export interface OptionType  {
+export interface OptionType {
   id: string | number;
   value: string | number;
   name: string;
-};
+}
 
 import { FormikHelpers } from 'formik';
 import { AnySchema } from 'yup';
@@ -22,13 +21,12 @@ export interface FieldProps<T = unknown> {
   validation: (yup: typeof import('yup')) => AnySchema;
 }
 
-
-export interface FormFieldProps  {
+export interface FormFieldProps {
   fieldKey: string;
   fieldProps: FieldProps;
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-};
+}
 
 export enum FormFieldKey {
   Name = 'name',
@@ -39,9 +37,8 @@ export enum FormFieldKey {
   // add more as needed
 }
 
-
 export type FormFields = Partial<Record<FormFieldKey, FieldProps>>;
-export type SubmitBody = Record <string,unknown> | Patient 
+export type SubmitBody = Record<string, unknown> | Patient;
 
 export interface FormProps {
   formFields: FormFields;

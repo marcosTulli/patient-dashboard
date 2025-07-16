@@ -1,4 +1,4 @@
-import { Patient, SortFields } from '@/models/patients'; 
+import { Patient, SortFields } from '@/models/patients';
 import { Column } from '@/models/table';
 
 export const patientColumns: Column<Patient, SortFields>[] = [
@@ -28,7 +28,7 @@ export const patientColumns: Column<Patient, SortFields>[] = [
     label: 'Phone',
     sortable: true,
     render: (p) => p.phoneNumber ?? '-',
-    sortField: SortFields.phoneNumber, 
+    sortField: SortFields.phoneNumber,
   },
   {
     sortable: true,

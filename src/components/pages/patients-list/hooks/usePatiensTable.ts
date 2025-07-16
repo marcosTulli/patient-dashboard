@@ -42,7 +42,6 @@ function usePatientsTable() {
     console.log('DELETE', row);
   };
 
-
   const handleDeleteSelected = () => {
     console.log('DELETE SELECTED');
   };

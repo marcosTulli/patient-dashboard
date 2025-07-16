@@ -1,2 +1,1 @@
-
-export *  from './useDialogStore';
+export * from './useDialogStore';

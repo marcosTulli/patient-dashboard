@@ -1,4 +1,4 @@
-import {useDialogsStore, dialogs} from "@/store/overlays";
+import { useDialogsStore, dialogs } from '@/store/overlays';
 
 function useDialogs() {
   const state = useDialogsStore();
