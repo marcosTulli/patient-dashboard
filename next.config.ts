@@ -9,19 +9,17 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    unoptimized: process.env.NODE_ENV === 'development', // Optimize in production
+    unoptimized: process.env.NODE_ENV === 'development', 
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // Allow all hosted images
-      },
+        hostname: '**',       },
     ],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "variables.scss";`,
   },
-  // For MUI/Joy UI SSR support
   transpilePackages: ['@mui/joy'],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpack: (config: any) => {
