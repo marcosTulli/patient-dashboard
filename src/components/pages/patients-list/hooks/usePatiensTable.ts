@@ -42,9 +42,6 @@ function usePatientsTable() {
     console.log('DELETE', row);
   };
 
-  const handleAdd = () => {
-    console.log('ADD');
-  };
 
   const handleDeleteSelected = () => {
     console.log('DELETE SELECTED');
@@ -68,7 +65,6 @@ function usePatientsTable() {
     setPage,
     setTake,
     clearSelection,
-    handleAdd,
     handleDeleteSelected,
     handleEdit,
     handleDelete,

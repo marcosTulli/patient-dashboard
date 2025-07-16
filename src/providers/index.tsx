@@ -8,6 +8,8 @@ import {
 } from '@tanstack/react-query';
 import UIProvider from './UIProvider';
 import ErrorProvider from './ErrorProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -31,6 +33,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <QueryClientProvider client={queryClient}>
       <UIProvider>
         <ErrorProvider>{children}</ErrorProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          pauseOnHover={false}
+        />
       </UIProvider>
     </QueryClientProvider>
   );

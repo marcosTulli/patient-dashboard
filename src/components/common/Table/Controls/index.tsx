@@ -11,7 +11,7 @@ import {
   Divider,
   Chip,
 } from '@mui/joy';
-import { Search, Plus, Filter, X, Trash2 } from 'lucide-react';
+import { Search, Filter, X, Trash2 } from 'lucide-react';
 import { TableToolbarProps } from '@/models/table';
 import { useUser } from '@/hooks/auth';
 
@@ -20,7 +20,7 @@ const TableControls = <TFilter extends object>({
   filter,
   filterConfig,
   selectedRows,
-  onAdd,
+  renderAddDialog,
   setFilter,
   clearSelection,
   onDeleteSelected,
@@ -117,11 +117,7 @@ const TableControls = <TFilter extends object>({
             <Filter size={18} />
           </IconButton>
 
-          {onAdd && user?.isAuthorized && (
-            <Button startDecorator={<Plus size={18} />} onClick={onAdd}>
-              Add
-            </Button>
-          )}
+          {renderAddDialog && user?.isAuthorized && renderAddDialog}
         </Box>
       </Box>
 

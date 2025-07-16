@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import {
   Button,
@@ -28,9 +26,18 @@ const DialogTrigger: React.FC<DialogTriggerProps> = ({
         </Button>
       )}
       <Modal open={isOpen} onClose={toggle}>
-        <ModalDialog>
+        <ModalDialog
+          sx={{
+            width: '600px',
+            maxWidth: '90vw',
+            padding: 3,
+            minHeight: '400px',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
           <DialogTitle>{title}</DialogTitle>
-          <DialogContent>
+          <DialogContent sx={{ flexGrow: 1, overflowY: 'auto' }}>
             {renderContent ? renderContent() : children}
           </DialogContent>
         </ModalDialog>

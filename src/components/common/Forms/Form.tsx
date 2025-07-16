@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { ErrorMessage, Formik, Form as FormikForm } from 'formik';
-import { Box } from '@mui/joy';
+import { Box, Typography } from '@mui/joy';
 
 import FormField from './FormField';
 import FormLabel from './FormLabel';
@@ -14,6 +14,7 @@ const Form: React.FC<FormProps> = ({
   formFields,
   acceptButtonLabel,
   cancelButtonLabel,
+  isLoading,
   onSubmit,
   toggle,
 }) => {
@@ -38,11 +39,13 @@ const Form: React.FC<FormProps> = ({
             <Box key={fieldKey} sx={{ height: 108, mb: 2 }}>
               <FormLabel fieldKey={fieldKey} fieldProps={fieldProps} />
               <FormField fieldKey={fieldKey} fieldProps={fieldProps} />
-              <ErrorMessage
-                name={fieldKey}
-                component="div"
-                className="text-danger m-2"
-              />
+              <Typography
+                color="danger"
+                sx={{ mt: 0.5, mb: 1, ml: 0.5 }}
+                aria-live="polite"
+              >
+                <ErrorMessage name={fieldKey} />
+              </Typography>
             </Box>
           ))}
 
@@ -52,8 +55,7 @@ const Form: React.FC<FormProps> = ({
             cancelButtonLabel={cancelButtonLabel}
             acceptButtonLabel={acceptButtonLabel}
             acceptButtonVariant="solid"
-            disabled={!isValid}
-            onClickAccept={toggle}
+            disabled={!isValid || isLoading}
           />
         </FormikForm>
       )}

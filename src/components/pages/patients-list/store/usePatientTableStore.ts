@@ -8,7 +8,6 @@ import { create } from 'zustand';
 
 type Patient = {
   _id: string;
-  // Add other patient fields here if needed
 };
 
 type PatientTableState = {
@@ -31,7 +30,7 @@ export const usePatientTableStore = create<PatientTableState>((set) => ({
   take: 10,
   filter: {},
   selectedRows: new Set(),
-  sort: { field: SortFields.lastName, direction: SortDirection.ASC },
+  sort: { field: SortFields.id, direction: SortDirection.ASC },
   setPage: (page) => set({ page }),
   setFilter: (filter) =>
     set((state) => ({

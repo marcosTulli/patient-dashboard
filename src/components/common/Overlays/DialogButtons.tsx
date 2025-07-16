@@ -8,7 +8,6 @@ const DialogButtons: React.FC<DialogButtonsProps> = ({
   onClickCancel,
   cancelButtonLabel,
   cancelButtonVariant = 'plain',
-  onClickAccept,
   acceptButtonLabel,
   acceptButtonVariant = 'solid',
   disabled = false,
@@ -27,7 +26,6 @@ const DialogButtons: React.FC<DialogButtonsProps> = ({
         color="primary"
         type="submit"
         disabled={disabled}
-        onClick={onClickAccept}
       >
         {acceptButtonLabel}
       </Button>

@@ -7,6 +7,7 @@ export interface OptionType  {
 
 import { FormikHelpers } from 'formik';
 import { AnySchema } from 'yup';
+import { Patient } from './patients';
 
 export interface FieldProps<T = unknown> {
   label?: React.ReactNode;
@@ -38,14 +39,17 @@ export enum FormFieldKey {
   // add more as needed
 }
 
+
 export type FormFields = Partial<Record<FormFieldKey, FieldProps>>;
+export type SubmitBody = Record <string,unknown> | Patient 
 
 export interface FormProps {
   formFields: FormFields;
   acceptButtonLabel: string;
+  isLoading: boolean;
   cancelButtonLabel: string;
   onSubmit: (
-    values: Record<string, unknown>,
+    values: SubmitBody,
     formikHelpers: FormikHelpers<Record<string, unknown>>,
   ) => void;
   toggle: () => void;

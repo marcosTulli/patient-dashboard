@@ -40,7 +40,18 @@ export enum SortFields {
   email = 'email',
   phoneNumber = 'phoneNumber',
   dob = 'dob',
+  id = '_id',
 }
+
+export type SortFieldsType = 
+  | 'firstName' 
+  | 'lastName' 
+  | 'email' 
+  | 'phone' 
+  | 'dob'
+  | '_id';
+
+
 
 export interface PatientSort {
   field: SortFields;
