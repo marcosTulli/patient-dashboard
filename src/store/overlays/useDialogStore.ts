@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 export const dialogs = {
   create: 'isOpenCreateDialog',
-  deactivate: 'isOpenDeactivateDialog',
+  delete: 'isOpendeleteDialog',
   edit: 'isOpenEditDialog',
   alert: 'isOpenAlertDialog',
   remove: 'isOpenRemoveFormItemDialog',

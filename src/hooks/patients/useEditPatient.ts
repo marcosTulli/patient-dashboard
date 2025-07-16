@@ -4,6 +4,7 @@ import { editPatientService } from '@/services/patients/editPatientService';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 import { Patient } from '@/models/patients';
 
+// TODO Put this somewhere else
 function formatDob(dob?: string | Date): string | undefined {
   if (!dob) return undefined;
 

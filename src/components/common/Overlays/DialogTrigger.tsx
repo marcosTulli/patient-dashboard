@@ -1,3 +1,4 @@
+// DialogTrigger.js
 import * as React from 'react';
 import {
   Button,
@@ -9,14 +10,15 @@ import {
 import { DialogTriggerProps } from '@/models';
 
 const DialogTrigger: React.FC<DialogTriggerProps> = ({
+  id,
   title,
+  isOpen,
+  children,
+  displayButton,
   openDialogButtonLabel,
+
   toggle,
   renderContent,
-  children,
-  isOpen,
-  displayButton,
-  id,
 }) => {
   return (
     <div key={id}>
@@ -30,14 +32,12 @@ const DialogTrigger: React.FC<DialogTriggerProps> = ({
           sx={{
             width: '600px',
             maxWidth: '90vw',
-            padding: 3,
-            minHeight: '400px',
             display: 'flex',
             flexDirection: 'column',
           }}
         >
           <DialogTitle>{title}</DialogTitle>
-          <DialogContent sx={{ flexGrow: 1, overflowY: 'auto' }}>
+          <DialogContent sx={{ flexGrow: 1, overflowY: 'auto', p: 0 }}>
             {renderContent ? renderContent() : children}
           </DialogContent>
         </ModalDialog>

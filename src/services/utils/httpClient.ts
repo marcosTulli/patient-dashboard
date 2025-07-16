@@ -57,7 +57,7 @@ class HttpClient {
   }
 
   public async delete<T>(params: IDeleteRequestParams): Promise<T> {
-    const headers = this.buildHeaders(params.headers);
+    const headers = this.buildHeaders(params.headers, true);
     return deleteRequest<T>({
       ...params,
       headers,
