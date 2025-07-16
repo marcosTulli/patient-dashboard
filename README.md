@@ -95,27 +95,26 @@ yarn start
 
 The project follows a clear and organized structure:
 
-\`\`\`
 .
+├── public/                   # Static assets (images, favicons)
 ├── src/
 │   ├── app/                  # Next.js App Router pages (e.g., /patients-list, /auth, /appointments)
 │   ├── components/           # Reusable UI components
-│   │   ├── common/           # General components like CardContainer, Navigation, Table
+│   │   ├── common/           # Shared components like CardContainer, Navigation, Table
 │   │   └── pages/            # Components specific to certain pages (e.g., authentication forms)
-│   ├── config/               # Configuration files (routes, form schemas)
+│   ├── config/               # Configuration files (routes, form schemas, etc.)
 │   ├── hooks/                # Custom React hooks for logic and data fetching
-│   │   ├── auth/             # Hooks for authentication logic
-│   │   ├── patients/         # Hooks for patient data operations (create, read, update, delete)
-│   │   └── table/            # Hooks for table features like pagination and sorting
-│   ├── models/               # TypeScript interfaces and types for data structures (e.g., Patient, Pagination)
-│   ├── providers/            # React context providers (e.g., error handling, UI theming)
-│   ├── services/             # Logic for interacting with the backend API
-│   │   ├── auth/             # Authentication API services
-│   │   └── patients/         # Patient API services
-│   ├── store/                # Zustand stores for global application state management
+│   │   ├── auth/             # Authentication-related hooks
+│   │   ├── patients/         # Hooks for patient CRUD operations
+│   │   └── table/            # Hooks for table features (pagination, sorting)
+│   ├── models/               # TypeScript types and interfaces (e.g., Patient, Pagination)
+│   ├── providers/            # React context providers (e.g., theming, error boundaries)
+│   ├── services/             # API service logic
+│   │   ├── auth/             # Authentication API calls
+│   │   └── patients/         # Patient-related API calls
+│   ├── store/                # Zustand stores for global state management
 │   └── styles/               # Global styles and SCSS variables
-└── public/                   # Static assets (images, favicons)
-\`\`\`
+
 
 ## API Endpoints
 

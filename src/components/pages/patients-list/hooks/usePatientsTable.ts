@@ -57,6 +57,8 @@ function usePatientsTable() {
   }) => {
     const requestBody = { ids: Array.from(selectedRows) };
     deleteManyPatients(requestBody);
+    clearSelection();
+
   };
 
   return {
