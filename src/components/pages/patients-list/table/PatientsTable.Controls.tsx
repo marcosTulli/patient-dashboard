@@ -44,6 +44,7 @@ const PatientsTableControls: React.FC = () => {
           isLoading={isPending}
           formFields={createPatientFormFields}
           onSubmit={handleSubmit}
+          displayButton={true}
         />
       }
     />

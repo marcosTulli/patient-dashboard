@@ -6,10 +6,14 @@ import PatientsTableControls from './PatientsTable.Controls';
 import PatientsTableHead from './PatientsTable.Head';
 import PatientsTableBody from './PatientsTable.Body';
 import PatientsTablePagination from './PatientsTable.Pagination';
-import PatientsTableError from './PatientsTable.Error';
 import PatientsTableContainer from './PatientsTable.Container';
+import EditItemDialog from '@/components/common/Overlays/EditItemDialog';
+import usePatientsFormFields from '../hooks/usePatientFormFields';
+import PatientsTableError from './PatientsTable.Error';
 
 const PatientsTable: React.FC = () => {
+  const { editPatientFormFields: formFields } = usePatientsFormFields();
+
   <PatientsTableError />;
   return (
     <Box sx={{ width: '100%', p: 2 }}>
@@ -27,6 +31,17 @@ const PatientsTable: React.FC = () => {
         </PatientsTableContainer>
         <PatientsTablePagination />
       </Sheet>
+
+      <EditItemDialog
+        title="Edit Patient"
+        openDialogButtonLabel="Edit Patient"
+        acceptButtonLabel="Edit"
+        cancelButtonLabel="Cancel"
+        displayButton={false}
+        isLoading={false}
+        formFields={formFields}
+        onSubmit={() => console.log(formFields)}
+      />
     </Box>
   );
 };

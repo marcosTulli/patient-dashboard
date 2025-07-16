@@ -5,6 +5,8 @@ import { type Patient, type PatientListRequest } from '@/models/patients';
 import useList from './useList';
 import { usePatientTableStore } from '../store/usePatientTableStore';
 import useDeleteManyPatients from '@/hooks/patients/useDeleteManyPatients';
+import useDialogs from '@/hooks/overlays/useDialogs';
+import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 
 function usePatientsTable() {
   const {
@@ -33,10 +35,14 @@ function usePatientsTable() {
 
   const { patients, total, error, isPending } = useList(requestBody);
   const { deleteManyPatients } = useDeleteManyPatients();
+  const {toggleEditDialog} = useDialogs();
+  const {setSelectedRow} = useSelectedRowStore();
 
   const getRowId = (patient: Patient) => patient._id;
+  
   const handleEdit = (row: Patient) => {
-    console.log('EDIT', row);
+    toggleEditDialog();
+    setSelectedRow(row);
   };
 
   const handleDelete = (row: Patient) => {

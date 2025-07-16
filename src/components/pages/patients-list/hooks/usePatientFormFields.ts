@@ -1,3 +1,4 @@
+import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 import * as Yup from 'yup';
 
 export enum FormFieldKey {
@@ -23,6 +24,7 @@ export interface FieldProps<T = unknown> {
 
 const usePatientsFormFields = (): {
   createPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>;
+  editPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>;
 } => {
   const validation = {
     firstName: () =>
@@ -51,6 +53,8 @@ const usePatientsFormFields = (): {
         .required()
         .max(new Date(), 'DOB cannot be in the future'),
   };
+
+  const {selectedRow} = useSelectedRowStore();
 
   const commonFields: Record<FormFieldKey, FieldProps> = {
     [FormFieldKey.FirstName]: {
@@ -119,32 +123,32 @@ const usePatientsFormFields = (): {
     },
   };
 
-  //   // For edit form, fill values from selectedRow or fallback to empty string
-  //   const editPatientFormFields = {
-  //     ...commonFields,
-  //     [FormFieldKey.FirstName]: {
-  //       ...commonFields[FormFieldKey.FirstName],
-  //       value: selectedRow?.firstName ?? '',
-  //     },
-  //     [FormFieldKey.LastName]: {
-  //       ...commonFields[FormFieldKey.LastName],
-  //       value: selectedRow?.lastName ?? '',
-  //     },
-  //     [FormFieldKey.Email]: {
-  //       ...commonFields[FormFieldKey.Email],
-  //       value: selectedRow?.email ?? '',
-  //     },
-  //     [FormFieldKey.PhoneNumber]: {
-  //       ...commonFields[FormFieldKey.PhoneNumber],
-  //       value: selectedRow?.phoneNumber ?? '',
-  //     },
-  //     [FormFieldKey.DOB]: {
-  //       ...commonFields[FormFieldKey.DOB],
-  //       value: selectedRow?.dob ?? '',
-  //     },
-  //   };
+  // For edit form, fill values from selectedRow or fallback to empty string
+  const editPatientFormFields = {
+    ...commonFields,
+    [FormFieldKey.FirstName]: {
+      ...commonFields[FormFieldKey.FirstName],
+      value: selectedRow?.firstName ?? '',
+    },
+    [FormFieldKey.LastName]: {
+      ...commonFields[FormFieldKey.LastName],
+      value: selectedRow?.lastName ?? '',
+    },
+    [FormFieldKey.Email]: {
+      ...commonFields[FormFieldKey.Email],
+      value: selectedRow?.email ?? '',
+    },
+    [FormFieldKey.PhoneNumber]: {
+      ...commonFields[FormFieldKey.PhoneNumber],
+      value: selectedRow?.phoneNumber ?? '',
+    },
+    [FormFieldKey.DOB]: {
+      ...commonFields[FormFieldKey.DOB],
+      value: selectedRow?.dob ?? '',
+    },
+  };
 
-  return { createPatientFormFields };
+  return { createPatientFormFields, editPatientFormFields };
 };
 
 export default usePatientsFormFields;

@@ -16,7 +16,7 @@ export interface DialogTriggerProps {
   renderContent?: () => React.ReactNode;
   children?: React.ReactNode;
   isOpen: boolean;
-  showButton?: boolean;
+  displayButton: boolean;
   id?: string | number;
 }
 
@@ -28,4 +28,5 @@ export interface CreateItemDialogProps {
   acceptButtonLabel: string;
   openDialogButtonLabel: string;
   cancelButtonLabel: string;
+  displayButton: boolean
 }

@@ -15,12 +15,12 @@ const DialogTrigger: React.FC<DialogTriggerProps> = ({
   renderContent,
   children,
   isOpen,
-  showButton = true,
+  displayButton,
   id,
 }) => {
   return (
     <div key={id}>
-      {showButton && (
+      {displayButton && (
         <Button variant="solid" color="primary" onClick={toggle}>
           {openDialogButtonLabel}
         </Button>

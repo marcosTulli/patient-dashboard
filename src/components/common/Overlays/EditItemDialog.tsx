@@ -5,8 +5,9 @@ import { CreateItemDialogProps } from '@/models';
 import useDialogs from '@/hooks/overlays/useDialogs';
 import DialogTrigger from './DialogTrigger';
 import Form from '../Forms/Form';
+import { usePatientTableStore } from '@/components/pages/patients-list/store/usePatientTableStore';
 
-const CreateItemDialog: React.FC<CreateItemDialogProps> = ({
+const EditItemDialog: React.FC<CreateItemDialogProps> = ({
   onSubmit,
   formFields,
   title,
@@ -16,20 +17,25 @@ const CreateItemDialog: React.FC<CreateItemDialogProps> = ({
   cancelButtonLabel,
   displayButton,
 }) => {
-  const { toggleCreateDialog, isOpenCreateDialog } = useDialogs();
+  const { toggleEditDialog, isOpenEditDialog } = useDialogs();
+  const { clearSelection } = usePatientTableStore();
+  const toggle = () => {
+    clearSelection();
+    toggleEditDialog();
+  };
 
   return (
     <DialogTrigger
       title={title}
       openDialogButtonLabel={openDialogButtonLabel}
-      toggle={toggleCreateDialog}
-      isOpen={isOpenCreateDialog}
+      toggle={toggle}
+      isOpen={isOpenEditDialog}
       displayButton={displayButton}
       renderContent={() => (
         <Form
           formFields={formFields}
           isLoading={isLoading}
-          toggle={toggleCreateDialog}
+          toggle={toggle}
           onSubmit={onSubmit}
           acceptButtonLabel={acceptButtonLabel}
           cancelButtonLabel={cancelButtonLabel}
@@ -39,4 +45,4 @@ const CreateItemDialog: React.FC<CreateItemDialogProps> = ({
   );
 };
 
-export default CreateItemDialog;
+export default EditItemDialog;
