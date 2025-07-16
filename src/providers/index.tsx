@@ -1,35 +1,49 @@
 'use client';
 
-import React from 'react';
+import { useState } from 'react';
 import {
-  QueryCache,
   QueryClient,
   QueryClientProvider,
+  MutationCache,
 } from '@tanstack/react-query';
+import UIProvider from './UIProvider';
+import ErrorProvider from './ErrorProvider';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { SkeletonTheme } from 'react-loading-skeleton';
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { CssVarsProvider as JoyThemeProvider } from '@mui/joy/styles'; // Joy UI provider
-
-import useTheme from '@/hooks/useTheme';
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
-  queryCache: new QueryCache(),
-});
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            staleTime: 5 * 60 * 1000,
+          },
+        },
+        mutationCache: new MutationCache({
+          onError: (error) => {
+            console.error('Mutation error:', error);
+          },
+        }),
+      }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MuiThemeProvider theme={theme}>
-        <JoyThemeProvider>
-          <SkeletonTheme baseColor="#494949" highlightColor="#505050">
-            {children}
-          </SkeletonTheme>
-        </JoyThemeProvider>
-      </MuiThemeProvider>
+      <UIProvider>
+        <ErrorProvider>{children}</ErrorProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          pauseOnHover={false}
+        />
+      </UIProvider>
     </QueryClientProvider>
   );
 }

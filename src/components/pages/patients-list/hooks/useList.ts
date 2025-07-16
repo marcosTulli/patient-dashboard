@@ -1,5 +1,5 @@
-import useGetPatientsList from "@/hooks/patients/useGetPatientsList";
-import { PatientListRequest } from "@/models/patients";
+import useGetPatientsList from '@/hooks/patients/useGetPatientsList';
+import { PatientListRequest } from '@/models/patients';
 
 const useList = (body: PatientListRequest) => {
   const { patients, total, error, isLoading } = useGetPatientsList(body);

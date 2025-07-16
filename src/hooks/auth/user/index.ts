@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/user';
 import { jwtDecode } from 'jwt-decode';
-import { CustomJwtPayload, User } from '@/models';
+import { CustomJwtPayload, Roles, User } from '@/models';
 import { useAuthTokenStore } from '@/store/auth-token';
 import { routes } from '@/config/routes';
 
@@ -20,6 +20,7 @@ const buildUserFromToken = (authToken: string): User => {
     email: data.email,
     role: data.role,
     isDefined: true,
+    isAuthorized: data.role === Roles.Admin,
   };
 };
 
