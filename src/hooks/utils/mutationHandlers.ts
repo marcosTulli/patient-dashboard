@@ -1,7 +1,6 @@
 'use client';
 
 import { QueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 
 interface MutationHandlerOptions {
   queryClient: QueryClient;
@@ -20,12 +19,12 @@ export function mutationHandlers({
 }: MutationHandlerOptions) {
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey });
-    toast.success(successMessage, { toastId });
+   console.log(successMessage, { toastId });
   };
 
   const onError = () => {
     queryClient.invalidateQueries({ queryKey });
-    toast.error(errorMessage, { toastId });
+    console.log(errorMessage, { toastId });
   };
 
   return { onSuccess, onError };
