@@ -1,26 +1,17 @@
 'use client';
 
 import * as React from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Box, Sheet, Stack, Button } from '@mui/joy';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
-import { useAuthTokenStore } from '@/store/auth-token';
 import { useUser } from '@/hooks/auth';
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
-  const router = useRouter();
   const isHome = pathName === routes.home;
-  const { user } = useUser();
-
-  const { clearAuthToken } = useAuthTokenStore();
-
-  const handleLogout = () => {
-    clearAuthToken();
-    router.replace(routes.auth);
-  };
+  const { user, handleLogout } = useUser();
   
   if (!user?.isDefined) {
     return null;
