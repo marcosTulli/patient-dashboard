@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import Box from '@mui/joy/Box';
 import Navbar from '../Navbar';
 import Sidebar from '../Sidebar';
 import { useUser } from '@/hooks/auth';
+import { Box } from '@mui/joy';
 
 const NavigationMenu: React.FC = () => {
   const { user } = useUser();
