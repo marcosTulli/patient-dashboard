@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUserStore } from '@/store/user';
+import { undefinedUser, useUserStore } from '@/store/user';
 import { jwtDecode } from 'jwt-decode';
 import { CustomJwtPayload, Roles, User } from '@/models';
 import { useAuthTokenStore } from '@/store/auth-token';
@@ -29,8 +29,15 @@ export function useUser(options: Options = {}) {
   const [isReady, setIsReady] = useState(false);
 
   const { redirectTo = routes.auth, requireAuth = true } = options;
-  const { authToken, setAuthToken } = useAuthTokenStore();
+  const { authToken, setAuthToken, clearAuthToken } = useAuthTokenStore();
   const { storedUser, setUser } = useUserStore();
+
+
+  const handleLogout = () => {
+    clearAuthToken();
+    setUser({user: undefinedUser});
+    router.replace(routes.auth);
+  };
 
   useEffect(() => {
     if (!authToken && typeof window !== 'undefined') {
@@ -53,5 +60,5 @@ export function useUser(options: Options = {}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authToken, storedUser, requireAuth, redirectTo, setAuthToken, router]);
 
-  return { isAuthenticated: !!authToken, user: storedUser, isReady };
+  return { isAuthenticated: !!authToken, user: storedUser, isReady, handleLogout };
 }

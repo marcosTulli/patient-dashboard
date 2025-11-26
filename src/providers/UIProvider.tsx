@@ -2,7 +2,6 @@
 
 import { CssVarsProvider as JoyThemeProvider } from '@mui/joy/styles';
 import { CssBaseline, GlobalStyles } from '@mui/joy';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default function UIProvider({
   children,

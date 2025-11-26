@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { User, UserState } from '@/models';
 
-const undefinedUser: User = {
+export const undefinedUser: User = {
   id: '',
   email: '',
   role: '',
