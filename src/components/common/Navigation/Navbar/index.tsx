@@ -15,9 +15,6 @@ const Navbar: React.FC = () => {
   const isHome = pathName === routes.home;
   const { user } = useUser();
 
-        
-        
-
   const { clearAuthToken } = useAuthTokenStore();
 
   const handleLogout = () => {
