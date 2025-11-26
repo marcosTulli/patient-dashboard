@@ -181,3 +181,8 @@ In the project directory, you can run:
 *   `npm run start` or `yarn start`: Starts the production server.
 *   `npm run lint` or `yarn lint`: Runs ESLint to check for code quality issues.
 *   `npm run format` or `yarn format`: Formats code using Prettier.
+
+## Admin Test User: 
+- email: test_user@admin.com
+- password: admin123
+

@@ -1,5 +1,4 @@
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
 import { Providers } from '@/providers';
 import { Metadata } from 'next';
 import NavigationMenu from '@/components/common/Navigation/Menu';
