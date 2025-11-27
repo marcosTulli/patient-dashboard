@@ -2,11 +2,11 @@
 
 import { useMemo } from 'react';
 import { type Patient, type PatientListRequest } from '@/models/patients';
-import useList from './useList';
 import { usePatientTableStore } from '../store/usePatientTableStore';
 import useDeleteManyPatients from '@/hooks/patients/useDeleteManyPatients';
 import useDialogs from '@/hooks/overlays/useDialogs';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
+import useGetPatientsList from '@/hooks/patients/useGetPatientsList';
 
 function usePatientsTable() {
   const {
@@ -33,7 +33,7 @@ function usePatientsTable() {
     [page, take, filter, sort],
   );
 
-  const { patients, total, error, isPending } = useList(requestBody);
+  const { patients, total, error, isLoading: isPending } = useGetPatientsList();
   const { deleteManyPatients } = useDeleteManyPatients();
   const {toggleEditDialog, toggledeleteDialog} = useDialogs();
   const {setSelectedRow} = useSelectedRowStore();
