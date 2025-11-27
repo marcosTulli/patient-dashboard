@@ -30,7 +30,7 @@ export const usePatientTableStore = create<PatientTableState>((set) => ({
   take: 10,
   filter: {},
   selectedRows: new Set(),
-  sort: { field: SortFields.id, direction: SortDirection.ASC },
+  sort: { field: SortFields.createdAt, direction: SortDirection.DESC },
   setPage: (page) => set({ page }),
   setFilter: (filter) =>
     set((state) => ({
