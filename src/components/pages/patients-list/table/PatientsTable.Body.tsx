@@ -9,7 +9,7 @@ const PatientsTableBody: React.FC = () => {
   const {
     selectedRows,
     patients,
-    isPending,
+    isLoading,
     take,
 
     toggleRow,
@@ -21,7 +21,7 @@ const PatientsTableBody: React.FC = () => {
   return (
     <TableBody
       data={patients || []}
-      isLoading={isPending}
+      isLoading={isLoading}
       selectedRows={selectedRows}
       toggleRow={toggleRow}
       getRowId={getRowId}

@@ -33,7 +33,7 @@ function usePatientsTable() {
     [page, take, filter, sort],
   );
 
-  const { patients, total, error, isLoading: isPending } = useGetPatientsList();
+  const { patients, total, error, isLoading, isFetching } = useGetPatientsList();
   const { deleteManyPatients } = useDeleteManyPatients();
   const {toggleEditDialog, toggledeleteDialog} = useDialogs();
   const {setSelectedRow} = useSelectedRowStore();
@@ -65,7 +65,7 @@ function usePatientsTable() {
     patients,
     total,
     error,
-    isPending,
+    isLoading: isLoading || isFetching,
     page,
     filter,
     take,

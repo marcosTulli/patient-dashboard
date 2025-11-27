@@ -15,9 +15,10 @@ function useCreatePatient() {
 
   const { mutateAsync: createPatient, isPending } = useMutation({
     mutationFn: createPatientService,
-    onSuccess, 
+    onSuccess,
     onError
   });
+
   return { createPatient, isPending };
 }
 

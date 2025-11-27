@@ -21,7 +21,7 @@ const useGetPatientsList = () => {
   );
   
   
-  const { data, error, isLoading } = useQuery<PatientListResponse, Error>({
+  const { data, error, isLoading, isFetching } = useQuery<PatientListResponse, Error>({
     queryKey: ['patients', requestBody],
     queryFn: () => getPaginatedPatientsServiceService(requestBody),
   });
@@ -31,6 +31,7 @@ const useGetPatientsList = () => {
     total: data?.total,
     error,
     isLoading,
+    isFetching,
   };
 };
 
