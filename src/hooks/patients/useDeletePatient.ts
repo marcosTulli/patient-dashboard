@@ -8,7 +8,6 @@ function useDeletePatient() {
   const { onSuccess, onError } = mutationHandlers({
     queryClient,
     queryKey: ['patients'],
-    toastId: 'delete-patient',
     successMessage: 'Successfully deleted patient',
     errorMessage: 'Failed to delete patient',
   });

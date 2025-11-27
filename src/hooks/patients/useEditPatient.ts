@@ -34,7 +34,6 @@ function useEditPatient() {
   const { onSuccess, onError } = mutationHandlers({
     queryClient,
     queryKey: ['patients'],
-    toastId: 'edit-patient',
     successMessage: 'Successfully edited patient',
     errorMessage: 'Failed to edit patient',
   });

@@ -1,11 +1,11 @@
 'use client';
 
 import { QueryClient } from '@tanstack/react-query';
+import { enqueueSnackbar } from 'notistack';
 
 interface MutationHandlerOptions {
   queryClient: QueryClient;
   queryKey: string[];
-  toastId: string;
   successMessage: string;
   errorMessage: string;
 }
@@ -13,18 +13,19 @@ interface MutationHandlerOptions {
 export function mutationHandlers({
   queryClient,
   queryKey,
-  toastId,
   successMessage,
   errorMessage,
 }: MutationHandlerOptions) {
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey });
-   console.log(successMessage, { toastId });
+    enqueueSnackbar(successMessage ?? 'Success', { variant: 'success' });
   };
 
   const onError = () => {
     queryClient.invalidateQueries({ queryKey });
-    console.log(errorMessage, { toastId });
+    enqueueSnackbar(errorMessage ?? 'Something went wrong. Please try again.', {
+      variant: 'error',
+    });
   };
 
   return { onSuccess, onError };

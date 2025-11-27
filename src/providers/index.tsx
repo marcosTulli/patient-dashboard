@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query';
 import UIProvider from './UIProvider';
 import ErrorProvider from './ErrorProvider';
+import { ToastProvider } from './ToastProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -28,10 +29,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <UIProvider>
-        <ErrorProvider>{children}</ErrorProvider>
-      </UIProvider>
-    </QueryClientProvider>
+    <ToastProvider>
+      <QueryClientProvider client={queryClient}>
+        <UIProvider>
+          <ErrorProvider>{children}</ErrorProvider>
+        </UIProvider>
+      </QueryClientProvider>
+    </ToastProvider>
   );
 }

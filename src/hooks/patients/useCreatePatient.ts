@@ -8,16 +8,16 @@ function useCreatePatient() {
     const { onSuccess, onError } = mutationHandlers({
     queryClient,
     queryKey: ['patients'],
-    toastId: 'create-patient',
     successMessage: 'Successfully created patient',
     errorMessage: 'Failed to create patient',
   });
 
   const { mutateAsync: createPatient, isPending } = useMutation({
     mutationFn: createPatientService,
-    onSuccess, 
+    onSuccess,
     onError
   });
+
   return { createPatient, isPending };
 }
 

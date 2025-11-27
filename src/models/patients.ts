@@ -5,6 +5,7 @@ export interface Patient {
   email: string;
   phoneNumber?: string;
   dob?: string;
+  createdAt: Date
 }
 
 export interface Pagination {
@@ -41,6 +42,7 @@ export enum SortFields {
   phoneNumber = 'phoneNumber',
   dob = 'dob',
   id = '_id',
+  createdAt = 'createdAt'
 }
 
 export type SortFieldsType =
