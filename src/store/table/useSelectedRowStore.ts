@@ -8,6 +8,7 @@ import { create } from 'zustand';
   email: '',
   phoneNumber: '',
   dob: '',
+  createdAt: new Date()
 };
 interface SelectedRowStore {
   selectedRow: Patient ;
