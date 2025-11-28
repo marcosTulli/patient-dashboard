@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const pathName = usePathname();
   const isHome = pathName === routes.home;
   const { user, handleLogout } = useUser();
-  
+
   if (!user?.isDefined) {
     return null;
   }
@@ -55,12 +55,7 @@ const Navbar: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <OpenSideBarButton />
           {user?.isDefined && (
-            <Button
-              size="sm"
-              color="neutral"
-              variant="plain"
-              onClick={handleLogout}
-            >
+            <Button size="sm" color="neutral" variant="plain" onClick={handleLogout}>
               Logout
             </Button>
           )}

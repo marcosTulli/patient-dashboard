@@ -1,11 +1,11 @@
 'use client';
 
 import { Box } from '@mui/joy';
-import { TablePaginationProps } from '@models/table';
-import usePagination from '@/hooks/table/usePagination';
+import { type TablePaginationProps } from '@models/table';
 import PaginationInfo from './Pagination.info';
 import PageSizeSelect from './Pagination.select';
 import PaginationControls from './Pagination.controls';
+import { usePagination } from '@hooks/table';
 
 const TablePagination: React.FC<TablePaginationProps> = ({
   total,
@@ -15,14 +15,8 @@ const TablePagination: React.FC<TablePaginationProps> = ({
   setTake,
   itemName = 'items',
 }) => {
-  const {
-    endItem,
-    startItem,
-    totalPages,
-    pageSizeOptions,
-    handlePageChange,
-    handleTakeChange,
-  } = usePagination({ total, page, take, setPage, setTake });
+  const { endItem, startItem, totalPages, pageSizeOptions, handlePageChange, handleTakeChange } =
+    usePagination({ total, page, take, setPage, setTake });
 
   if (total === 0) return null;
 
@@ -59,18 +53,10 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           />
         </Box>
 
-        <PageSizeSelect
-          take={take}
-          options={pageSizeOptions}
-          onChange={handleTakeChange}
-        />
+        <PageSizeSelect take={take} options={pageSizeOptions} onChange={handleTakeChange} />
       </Box>
 
-      <PaginationControls
-        page={page}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      <PaginationControls page={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </Box>
   );
 };

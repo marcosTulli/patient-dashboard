@@ -6,18 +6,13 @@ import { filterConfig } from '../config';
 import usePatientsTable from '../hooks/usePatientsTable';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
 import CreateItemDialog from '@/components/common/Overlays/CreateItemDialog';
-import { SubmitBody } from '@/models';
-import { Patient } from '@/models/patients';
+import { type SubmitBody } from '@/models';
+import { type Patient } from '@/models/patients';
 import useCreatePatient from '@hooks/patients/useCreatePatient';
 
 const PatientsTableControls: React.FC = () => {
-  const {
-    selectedRows,
-    filter,
-    setFilter,
-    clearSelection,
-    handleDeleteSelected,
-  } = usePatientsTable();
+  const { selectedRows, filter, setFilter, clearSelection, handleDeleteSelected } =
+    usePatientsTable();
 
   const { createPatientFormFields } = usePatientsFormFields();
   const { createPatient, isPending } = useCreatePatient();

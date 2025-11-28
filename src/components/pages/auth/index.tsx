@@ -5,7 +5,7 @@ import { Box, Tabs } from '@mui/joy';
 import React from 'react';
 import CardContainer from '@components/common/CardContainer';
 import useAccessType from './hooks/useAccessType';
-import { AccessTypes } from './models';
+import { type AccessTypes } from './models';
 import AccessTabs from './components/AccessTabs';
 import AuthFormContainer from './components/AuthFormContainer';
 import CardTitle from './components/CardTitle';

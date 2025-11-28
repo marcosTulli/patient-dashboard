@@ -1,5 +1,5 @@
-import { Patient } from '@/models/patients';
-import HttpClientInstance from '@/services/utils/httpClient';
+import { type Patient } from '@/models/patients';
+import { HttpClientInstance } from '@/services/utils/httpClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 

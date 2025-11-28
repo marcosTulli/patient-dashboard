@@ -3,7 +3,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, FormControl, FormLabel, Input } from '@mui/joy';
-import { LoginRequest, SignupRequest } from '@/models/auth';
+import { type LoginRequest, type SignupRequest } from '@/models/auth';
 import { AccessTypes } from '../models';
 import useAuthForm from '../hooks/useAuthForm';
 

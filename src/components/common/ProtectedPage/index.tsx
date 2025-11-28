@@ -10,10 +10,7 @@ type ProtectedPageProps = {
   redirectTo?: string;
 };
 
-export function ProtectedPage({
-  children,
-  redirectTo = routes.auth,
-}: ProtectedPageProps) {
+export function ProtectedPage({ children, redirectTo = routes.auth }: ProtectedPageProps) {
   const { isAuthenticated, isReady } = useUser({ redirectTo });
 
   if (!isReady) {

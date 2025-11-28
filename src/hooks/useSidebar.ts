@@ -11,8 +11,7 @@ interface ISideBarState {
 
 export const useSideBar = create<ISideBarState>()((set) => ({
   ...initialState,
-  toggleSideBar: () =>
-    set((state) => ({ isSideBarOpen: !state.isSideBarOpen })),
+  toggleSideBar: () => set((state) => ({ isSideBarOpen: !state.isSideBarOpen })),
 }));
 
 export default useSideBar;

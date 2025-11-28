@@ -1,10 +1,5 @@
 import { Box, IconButton, Typography } from '@mui/joy';
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 interface Props {
   page: number;
@@ -12,11 +7,7 @@ interface Props {
   onPageChange: (newPage: number) => void;
 }
 
-const PaginationControls: React.FC<Props> = ({
-  page,
-  totalPages,
-  onPageChange,
-}) => (
+const PaginationControls: React.FC<Props> = ({ page, totalPages, onPageChange }) => (
   <Box
     sx={{
       display: 'flex',
@@ -25,12 +16,7 @@ const PaginationControls: React.FC<Props> = ({
       flexWrap: { xs: 'wrap', sm: 'nowrap' },
     }}
   >
-    <IconButton
-      size="sm"
-      variant="outlined"
-      disabled={page === 1}
-      onClick={() => onPageChange(1)}
-    >
+    <IconButton size="sm" variant="outlined" disabled={page === 1} onClick={() => onPageChange(1)}>
       <ChevronsLeft size={16} />
     </IconButton>
 

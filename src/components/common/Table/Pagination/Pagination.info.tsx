@@ -7,12 +7,7 @@ interface Props {
   itemName: string;
 }
 
-const PaginationInfo: React.FC<Props> = ({
-  startItem,
-  endItem,
-  total,
-  itemName,
-}) => (
+const PaginationInfo: React.FC<Props> = ({ startItem, endItem, total, itemName }) => (
   <Typography level="body-sm">
     Showing {startItem}-{endItem} of {total} {itemName}
   </Typography>

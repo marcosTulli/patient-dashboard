@@ -1,5 +1,5 @@
-import { Patient, SortFields } from '@/models/patients';
-import { Column } from '@/models/table';
+import { type Patient, SortFields } from '@/models/patients';
+import { type Column } from '@/models/table';
 
 export const patientColumns: Column<Patient, SortFields>[] = [
   {

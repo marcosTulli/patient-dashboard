@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { mutationHandlers } from '../utils';
 import { editPatientService } from '@/services/patients/editPatientService';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
-import { Patient } from '@/models/patients';
+import { type Patient } from '@/models/patients';
 
 // TODO Put this somewhere else
 function formatDob(dob?: string | Date): string | undefined {
@@ -18,7 +18,6 @@ function formatDob(dob?: string | Date): string | undefined {
   }
   return parsedDate.toISOString();
 }
-
 
 function formatBodyDob(body: Patient): Patient {
   return {
@@ -39,7 +38,6 @@ function useEditPatient() {
   });
 
   const { mutateAsync: editPatient, isPending } = useMutation({
-
     mutationFn: (body: Patient) => {
       const formattedBody = formatBodyDob(body);
       return editPatientService(formattedBody, selectedRow._id);

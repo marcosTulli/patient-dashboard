@@ -1,9 +1,4 @@
-import {
-  type PatientFilter,
-  type PatientSort,
-  SortDirection,
-  SortFields,
-} from '@/models/patients';
+import { type PatientFilter, type PatientSort, SortDirection, SortFields } from '@/models/patients';
 import { create } from 'zustand';
 
 type Patient = {
@@ -52,9 +47,7 @@ export const usePatientTableStore = create<PatientTableState>((set) => ({
     set((state) => {
       const allSelected = patients.every((p) => state.selectedRows.has(p._id));
       return {
-        selectedRows: allSelected
-          ? new Set()
-          : new Set(patients.map((p) => p._id)),
+        selectedRows: allSelected ? new Set() : new Set(patients.map((p) => p._id)),
       };
     }),
   clearSelection: () => set({ selectedRows: new Set() }),

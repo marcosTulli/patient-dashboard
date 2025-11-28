@@ -9,12 +9,7 @@ interface Props {
 const PageSizeSelect: React.FC<Props> = ({ take, options, onChange }) => (
   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
     <Typography level="body-sm">Rows</Typography>
-    <Select
-      value={take}
-      onChange={onChange}
-      size="sm"
-      sx={{ minWidth: '80px' }}
-    >
+    <Select value={take} onChange={onChange} size="sm" sx={{ minWidth: '80px' }}>
       {options.map((size) => (
         <Option key={size} value={size}>
           {size}

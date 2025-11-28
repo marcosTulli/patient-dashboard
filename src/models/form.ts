@@ -4,9 +4,9 @@ export interface OptionType {
   name: string;
 }
 
-import { AnySchema } from 'yup';
-import { Patient } from './patients';
-import { FormikHelpers } from 'formik';
+import { type AnySchema } from 'yup';
+import { type Patient } from './patients';
+import { type FormikHelpers } from 'formik';
 
 export interface FieldProps<T = unknown> {
   label?: React.ReactNode;
@@ -18,6 +18,7 @@ export interface FieldProps<T = unknown> {
   as?: 'input' | 'select';
   options?: { id: string | number; value: string | number; name: string }[];
   value?: T;
+  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
   validation: (yup: typeof import('yup')) => AnySchema;
 }
 
@@ -44,9 +45,6 @@ export interface FormProps {
   acceptButtonLabel: string;
   isLoading: boolean;
   cancelButtonLabel: string;
-  onSubmit: (
-    values: SubmitBody,
-    formikHelpers: FormikHelpers<Record<string, unknown>>,
-  ) => void;
+  onSubmit: (values: SubmitBody, formikHelpers: FormikHelpers<Record<string, unknown>>) => void;
   toggle: () => void;
 }

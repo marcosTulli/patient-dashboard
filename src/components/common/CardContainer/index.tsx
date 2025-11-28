@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Card, CardContent } from '@mui/joy';
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 const CardContainer: React.FC<PropsWithChildren> = ({ children }) => {
   return (

@@ -1,5 +1,5 @@
-import { DeletePatientsRequest } from '@/models/patients';
-import HttpClientInstance from '../utils/httpClient';
+import { type DeletePatientsRequest } from '@/models/patients';
+import { HttpClientInstance } from '../utils/httpClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
 

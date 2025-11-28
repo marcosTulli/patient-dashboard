@@ -1,16 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { PatientListRequest, PatientListResponse } from '@/models/patients';
+import { type PatientListRequest, type PatientListResponse } from '@/models/patients';
 import { getPaginatedPatientsServiceService } from '@/services/patients';
 import React from 'react';
 import { usePatientTableStore } from '@/components/pages/patients-list/store/usePatientTableStore';
 
 const useGetPatientsList = () => {
-    const {
-    page,
-    take,
-    filter,
-    sort,
-  } = usePatientTableStore();
+  const { page, take, filter, sort } = usePatientTableStore();
   const requestBody: PatientListRequest = React.useMemo(
     () => ({
       pagination: { page, take },
@@ -19,8 +14,7 @@ const useGetPatientsList = () => {
     }),
     [page, take, filter, sort],
   );
-  
-  
+
   const { data, error, isLoading, isFetching } = useQuery<PatientListResponse, Error>({
     queryKey: ['patients', requestBody],
     queryFn: () => getPaginatedPatientsServiceService(requestBody),

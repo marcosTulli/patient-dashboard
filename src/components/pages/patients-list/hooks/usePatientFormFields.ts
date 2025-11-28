@@ -35,8 +35,7 @@ const usePatientsFormFields = (): {
       Yup.string()
         .required('Last name is required')
         .min(2, 'Last name must be at least 2 characters'),
-    email: () =>
-      Yup.string().email('Invalid email format').required('Email is required'),
+    email: () => Yup.string().email('Invalid email format').required('Email is required'),
 
     phoneNumber: () =>
       Yup.string()
@@ -47,14 +46,10 @@ const usePatientsFormFields = (): {
           'Phone number can only contain numbers, spaces, dashes, and an optional leading +',
         ),
 
-    dob: () =>
-      Yup.date()
-        .nullable()
-        .required()
-        .max(new Date(), 'DOB cannot be in the future'),
+    dob: () => Yup.date().nullable().required().max(new Date(), 'DOB cannot be in the future'),
   };
 
-  const {selectedRow} = useSelectedRowStore();
+  const { selectedRow } = useSelectedRowStore();
 
   const commonFields: Record<FormFieldKey, FieldProps> = {
     [FormFieldKey.FirstName]: {

@@ -1,18 +1,12 @@
 'use client';
 
 import * as React from 'react';
-import { Field, FieldProps as FormikFieldProps } from 'formik';
+import { Field, type FieldProps as FormikFieldProps } from 'formik';
 import { Input, Select, Option } from '@mui/joy';
-import { FormFieldProps } from '@/models';
+import { type FormFieldProps } from '@/models';
 
-const FormField: React.FC<FormFieldProps> = ({
-  fieldKey,
-  fieldProps,
-  className = '',
-  onClick,
-}) => {
-  const isSelect =
-    fieldProps.as === 'select' && Array.isArray(fieldProps.options);
+const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className = '', onClick }) => {
+  const isSelect = fieldProps.as === 'select' && Array.isArray(fieldProps.options);
 
   if (isSelect) {
     return (

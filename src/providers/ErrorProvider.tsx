@@ -20,11 +20,7 @@ const QueryErrorBoundary = ({ children }: { children: React.ReactNode }) => (
   </GlobalErrorBoundary>
 );
 
-export default function ErrorProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ErrorProvider({ children }: { children: React.ReactNode }) {
   return (
     <GlobalErrorBoundary
       fallback={

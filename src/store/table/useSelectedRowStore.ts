@@ -1,17 +1,17 @@
-import { Patient } from '@/models/patients';
+import { type Patient } from '@/models/patients';
 import { create } from 'zustand';
 
- const emptyPatient: Patient = {
+const emptyPatient: Patient = {
   _id: '',
   firstName: '',
   lastName: '',
   email: '',
   phoneNumber: '',
   dob: '',
-  createdAt: new Date()
+  createdAt: new Date(),
 };
 interface SelectedRowStore {
-  selectedRow: Patient ;
+  selectedRow: Patient;
   setSelectedRow: (row: Patient) => void;
   clearSelectedRow: () => void;
 }

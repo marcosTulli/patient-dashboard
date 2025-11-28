@@ -9,11 +9,7 @@ const Sidebar: React.FC = () => {
   const { isSideBarOpen, toggleSideBar } = useSideBar();
 
   return (
-    <Modal
-      open={isSideBarOpen}
-      onClose={toggleSideBar}
-      sx={{ zIndex: 'modal' }}
-    >
+    <Modal open={isSideBarOpen} onClose={toggleSideBar} sx={{ zIndex: 'modal' }}>
       <Sheet
         variant="solid"
         color="neutral"

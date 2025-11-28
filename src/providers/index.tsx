@@ -1,11 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  QueryClient,
-  QueryClientProvider,
-  MutationCache,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, MutationCache } from '@tanstack/react-query';
 import UIProvider from './UIProvider';
 import ErrorProvider from './ErrorProvider';
 import { ToastProvider } from './ToastProvider';

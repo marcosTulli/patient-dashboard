@@ -1,17 +1,10 @@
 import React from 'react';
 import { Typography } from '@mui/joy';
-import { TableBodyProps } from '@/models/table';
+import { type TableBodyProps } from '@/models/table';
 
-type TableBodyErrorProps<T> = Pick<
-  TableBodyProps<T>,
-  'columns' | 'onEdit' | 'onDelete'
->;
+type TableBodyErrorProps<T> = Pick<TableBodyProps<T>, 'columns' | 'onEdit' | 'onDelete'>;
 
-function TableBodyError<T>({
-  columns,
-  onEdit,
-  onDelete,
-}: TableBodyErrorProps<T>) {
+function TableBodyError<T>({ columns, onEdit, onDelete }: TableBodyErrorProps<T>) {
   return (
     <tbody>
       <tr>

@@ -1,13 +1,7 @@
 // DialogTrigger.js
 import * as React from 'react';
-import {
-  Button,
-  Modal,
-  ModalDialog,
-  DialogTitle,
-  DialogContent,
-} from '@mui/joy';
-import { DialogTriggerProps } from '@/models';
+import { Button, Modal, ModalDialog, DialogTitle, DialogContent } from '@mui/joy';
+import { type DialogTriggerProps } from '@/models';
 
 const DialogTrigger: React.FC<DialogTriggerProps> = ({
   id,

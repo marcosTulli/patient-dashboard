@@ -12,7 +12,7 @@ import {
   Chip,
 } from '@mui/joy';
 import { Search, Filter, X, Trash2 } from 'lucide-react';
-import { TableToolbarProps } from '@/models/table';
+import { type TableToolbarProps } from '@/models/table';
 import { useUser } from '@/hooks/auth';
 
 const TableControls = <TFilter extends object>({
@@ -30,10 +30,7 @@ const TableControls = <TFilter extends object>({
 
   const { user } = useUser();
 
-  const handleFilterChange = (
-    field: Extract<keyof TFilter, string>,
-    value: string,
-  ) => {
+  const handleFilterChange = (field: Extract<keyof TFilter, string>, value: string) => {
     setLocalFilter((prev) => ({
       ...prev,
       [field]: value || undefined,
@@ -46,7 +43,6 @@ const TableControls = <TFilter extends object>({
 
   const clearFilters = () => {
     const emptyFilter = Object.keys(filter).reduce((acc, key) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (acc as any)[key] = undefined;
       return acc;
     }, {} as TFilter);
@@ -125,24 +121,20 @@ const TableControls = <TFilter extends object>({
         <Box sx={{ bgcolor: 'background.level1', borderRadius: 'sm', p: 2 }}>
           <Divider sx={{ mb: 2 }} />
           <Grid container spacing={2} sx={{ mb: 2 }}>
-            {filterConfig.map(
-              ({ key, label, placeholder, type, searchable }) => (
-                <Grid xs={12} sm={6} md={3} key={key}>
-                  <FormControl>
-                    <FormLabel>{label}</FormLabel>
-                    <Input
-                      placeholder={placeholder}
-                      type={type ?? 'text'}
-                      value={String(localFilter[key] ?? '')}
-                      onChange={(e) => handleFilterChange(key, e.target.value)}
-                      startDecorator={
-                        searchable ? <Search size={16} /> : undefined
-                      }
-                    />
-                  </FormControl>
-                </Grid>
-              ),
-            )}
+            {filterConfig.map(({ key, label, placeholder, type, searchable }) => (
+              <Grid xs={12} sm={6} md={3} key={key}>
+                <FormControl>
+                  <FormLabel>{label}</FormLabel>
+                  <Input
+                    placeholder={placeholder}
+                    type={type ?? 'text'}
+                    value={String(localFilter[key] ?? '')}
+                    onChange={(e) => handleFilterChange(key, e.target.value)}
+                    startDecorator={searchable ? <Search size={16} /> : undefined}
+                  />
+                </FormControl>
+              </Grid>
+            ))}
           </Grid>
 
           <Box sx={{ display: 'flex', gap: 1 }}>

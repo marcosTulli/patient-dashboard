@@ -9,9 +9,7 @@ const PatientsTableError: React.FC = () => {
   return (
     error && (
       <Box sx={{ p: 3 }}>
-        <Typography color="danger">
-          Error loading patients: {error.message}
-        </Typography>
+        <Typography color="danger">Error loading patients: {error.message}</Typography>
       </Box>
     )
   );

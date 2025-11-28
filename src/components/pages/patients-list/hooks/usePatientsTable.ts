@@ -35,11 +35,11 @@ function usePatientsTable() {
 
   const { patients, total, error, isLoading, isFetching } = useGetPatientsList();
   const { deleteManyPatients } = useDeleteManyPatients();
-  const {toggleEditDialog, toggledeleteDialog} = useDialogs();
-  const {setSelectedRow} = useSelectedRowStore();
+  const { toggleEditDialog, toggledeleteDialog } = useDialogs();
+  const { setSelectedRow } = useSelectedRowStore();
 
   const getRowId = (patient: Patient) => patient._id;
-  
+
   const openEditPatientDialog = (row: Patient) => {
     toggleEditDialog();
     setSelectedRow(row);
@@ -50,15 +50,10 @@ function usePatientsTable() {
     toggledeleteDialog();
   };
 
-  const handleDeleteSelected = ({
-    selectedRows,
-  }: {
-    selectedRows: Set<string>;
-  }) => {
+  const handleDeleteSelected = ({ selectedRows }: { selectedRows: Set<string> }) => {
     const requestBody = { ids: Array.from(selectedRows) };
     deleteManyPatients(requestBody);
     clearSelection();
-
   };
 
   return {

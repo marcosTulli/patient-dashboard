@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, Typography } from '@mui/joy';
-import { TableBodyProps } from '@/models/table';
+import { type TableBodyProps } from '@/models/table';
 import TableBodySkeleton from './Body.Skeleton';
 import { RowControls } from './Body.RowControls';
 import TableBodyError from './Body.Error';
@@ -26,19 +26,11 @@ function TableBody<T>({
   const { user } = useUser();
 
   if (isLoading) {
-    return (
-      <TableBodySkeleton
-        columns={skeletonColumns}
-        take={take}
-        withControls={withControls}
-      />
-    );
+    return <TableBodySkeleton columns={skeletonColumns} take={take} withControls={withControls} />;
   }
 
   if (data.length === 0) {
-    return (
-      <TableBodyError columns={columns} onDelete={onDelete} onEdit={onEdit} />
-    );
+    return <TableBodyError columns={columns} onDelete={onDelete} onEdit={onEdit} />;
   }
 
   return (
@@ -50,17 +42,12 @@ function TableBody<T>({
           <tr
             key={rowId}
             style={{
-              backgroundColor: isSelected
-                ? 'var(--joy-palette-primary-softBg)'
-                : undefined,
+              backgroundColor: isSelected ? 'var(--joy-palette-primary-softBg)' : undefined,
             }}
           >
             {user?.isAuthorized && (
               <td style={{ width: 40 }}>
-                <Checkbox
-                  checked={isSelected}
-                  onChange={() => toggleRow(rowId)}
-                />
+                <Checkbox checked={isSelected} onChange={() => toggleRow(rowId)} />
               </td>
             )}
 

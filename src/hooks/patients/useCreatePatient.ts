@@ -2,10 +2,9 @@ import { createPatientService } from '@/services/patients';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { mutationHandlers } from '../utils';
 
-
 function useCreatePatient() {
   const queryClient = useQueryClient();
-    const { onSuccess, onError } = mutationHandlers({
+  const { onSuccess, onError } = mutationHandlers({
     queryClient,
     queryKey: ['patients'],
     successMessage: 'Successfully created patient',
@@ -15,7 +14,7 @@ function useCreatePatient() {
   const { mutateAsync: createPatient, isPending } = useMutation({
     mutationFn: createPatientService,
     onSuccess,
-    onError
+    onError,
   });
 
   return { createPatient, isPending };

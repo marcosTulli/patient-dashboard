@@ -40,22 +40,11 @@ const Alert: React.FC<AlertProps> = ({
         <Typography level="h3">{content.alertMessage}</Typography>
       </Box>
 
-      <Box
-        mt={4}
-        display="flex"
-        alignContent="flex-end"
-        justifyContent="flex-end"
-        gap={1.5}
-      >
+      <Box mt={4} display="flex" alignContent="flex-end" justifyContent="flex-end" gap={1.5}>
         <Button variant="plain" color="neutral" onClick={toggle}>
           {cancelButtonLabel}
         </Button>
-        <Button
-          variant="solid"
-          color="danger"
-          onClick={handleAccept}
-          disabled={isLoading}
-        >
+        <Button variant="solid" color="danger" onClick={handleAccept} disabled={isLoading}>
           {acceptButtonLabel}
         </Button>
       </Box>

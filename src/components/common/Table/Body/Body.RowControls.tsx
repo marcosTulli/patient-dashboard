@@ -10,11 +10,7 @@ interface RowControlsProps<T> {
   onDelete?: (item: T) => void;
 }
 
-export function RowControls<T>({
-  item,
-  onEdit,
-  onDelete,
-}: RowControlsProps<T>) {
+export function RowControls<T>({ item, onEdit, onDelete }: RowControlsProps<T>) {
   if (!onEdit && !onDelete) return null;
 
   return (

@@ -5,7 +5,7 @@ import React from 'react';
 import SmallLoader from '@components/common/Loader/Small';
 import ErrorContainer from '@components/common/ErrorContainer';
 import AuthForm from './AuthForm';
-import { AccessTypes } from '../models';
+import { type AccessTypes } from '../models';
 
 interface AuthFormContainerProps {
   value: AccessTypes;

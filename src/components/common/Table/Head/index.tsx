@@ -3,7 +3,7 @@
 import React from 'react';
 import { Checkbox, IconButton, Typography } from '@mui/joy';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import { SortDirection, TableHeadProps } from '@/models/table';
+import { SortDirection, type TableHeadProps } from '@/models/table';
 import { useUser } from '@/hooks/auth';
 
 function TableHead<TRow, TSortField extends string = string>({
@@ -16,8 +16,7 @@ function TableHead<TRow, TSortField extends string = string>({
   setSort,
   getRowId,
 }: TableHeadProps<TRow, TSortField>) {
-  const allSelected =
-    data.length > 0 && data.every((item) => selectedRows.has(getRowId(item)));
+  const allSelected = data.length > 0 && data.every((item) => selectedRows.has(getRowId(item)));
   const someSelected = data.some((item) => selectedRows.has(getRowId(item)));
 
   const { user } = useUser();

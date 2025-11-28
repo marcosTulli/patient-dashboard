@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Providers } from '@/providers';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import NavigationMenu from '@/components/common/Navigation/Menu';
 import Footer from '@/components/common/Footer';
 import React from 'react';
@@ -20,11 +20,7 @@ export const metadata: Metadata = {
   description: 'Administer patients',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full dark">
       <body
