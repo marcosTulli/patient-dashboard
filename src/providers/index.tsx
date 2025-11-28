@@ -5,8 +5,11 @@ import { QueryClient, QueryClientProvider, MutationCache } from '@tanstack/react
 import UIProvider from './UIProvider';
 import ErrorProvider from './ErrorProvider';
 import { ToastProvider } from './ToastProvider';
+import { useAppTheme } from '@/hooks/useApppTheme';
+import { CssVarsProvider } from './CssVars';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const { theme } = useAppTheme();
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -25,12 +28,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
+    // <ThemeProvider theme={theme}>
     <ToastProvider>
       <QueryClientProvider client={queryClient}>
         <UIProvider>
-          <ErrorProvider>{children}</ErrorProvider>
+          <CssVarsProvider>
+            <ErrorProvider>{children}</ErrorProvider>
+          </CssVarsProvider>
         </UIProvider>
       </QueryClientProvider>
     </ToastProvider>
+    // </ThemeProvider>
   );
 }
