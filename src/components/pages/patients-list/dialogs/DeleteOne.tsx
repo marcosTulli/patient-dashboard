@@ -18,7 +18,7 @@ export const DeleteOne: React.FC = () => {
   };
 
   <DeleteItemDialog
-    id="delete"
+    id={`delete-patient-${selectedRow._id}`}
     title="Delete Patient"
     acceptButtonLabel="Delete"
     content={alertContent}
