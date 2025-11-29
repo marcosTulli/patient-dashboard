@@ -123,23 +123,23 @@ const usePatientsFormFields = (): {
     ...commonFields,
     [FormFieldKey.FirstName]: {
       ...commonFields[FormFieldKey.FirstName],
-      value: selectedRow?.firstName ?? '',
+      value: selectedRow?.firstName() ?? '',
     },
     [FormFieldKey.LastName]: {
       ...commonFields[FormFieldKey.LastName],
-      value: selectedRow?.lastName ?? '',
+      value: selectedRow?.lastName() ?? '',
     },
     [FormFieldKey.Email]: {
       ...commonFields[FormFieldKey.Email],
-      value: selectedRow?.email ?? '',
+      value: selectedRow?.email() ?? '',
     },
     [FormFieldKey.PhoneNumber]: {
       ...commonFields[FormFieldKey.PhoneNumber],
-      value: selectedRow?.phoneNumber ?? '',
+      value: selectedRow?.phoneNumber() ?? '',
     },
     [FormFieldKey.DOB]: {
       ...commonFields[FormFieldKey.DOB],
-      value: selectedRow?.dob ?? '',
+      value: selectedRow?.dob() ?? '',
     },
   };
 

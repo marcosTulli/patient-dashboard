@@ -14,13 +14,13 @@ import PatientsTableError from './PatientsTable.Error';
 import { type SubmitBody } from '@/models';
 import { DeleteOne } from '../dialogs/DeleteOne';
 import { DeleteMany } from '../dialogs/DeleteMany';
-import { type NewPatient } from '@models/domain/patient/patientDto';
+import { type PatientDto } from '@/models/domain/patient/patientDto';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
   const { editPatient } = useEditPatient();
   const submitEditPatient = async (values: SubmitBody) => {
-    await editPatient(values as NewPatient);
+    await editPatient(values as PatientDto);
   };
 
   <PatientsTableError />;

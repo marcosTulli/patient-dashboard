@@ -8,18 +8,18 @@ import useDeletePatient from '@/hooks/patients/useDeletePatient';
 export const DeleteOne: React.FC = () => {
   const { deletePatient } = useDeletePatient();
   const { selectedRow } = useSelectedRowStore();
-  const patientName = `${selectedRow.firstName} ${selectedRow.lastName}`;
+  const patientName = `${selectedRow.firstName()} ${selectedRow.lastName()}`;
   const alertContent = {
     alertMessage: `Are you sure you want to delete ${patientName} `,
   };
 
   const submitDeletePatient = async () => {
-    await deletePatient(selectedRow._id);
+    await deletePatient(selectedRow.id());
   };
 
   return (
     <DeleteItemDialog
-      id={`delete-patient-${selectedRow._id}`}
+      id={`delete-patient-${selectedRow.id()}`}
       title="Delete Patient"
       acceptButtonLabel="Delete"
       content={alertContent}

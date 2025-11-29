@@ -1,11 +1,16 @@
 'use client';
 
 import type React from 'react';
-import DeleteItemDialog from '@/components/common/Overlays/DeleteItemDialog';
 import usePatientsTable from '../hooks/usePatientsTable';
+import DialogTrigger from '@/components/common/Overlays/DialogTrigger';
+import Alert from '@/components/common/Overlays/Alert';
+import useDialogs from '@/hooks/overlays/useDialogs';
+import { usePatientTableStore } from '../store/usePatientTableStore';
 
 export const DeleteMany: React.FC = () => {
   const { selectedRows, handleDeleteSelected } = usePatientsTable();
+  const { toggleDeleteManyDialog, isOpenDeleteManyDialog } = useDialogs();
+  const { clearSelection } = usePatientTableStore();
 
   const alertContent = {
     alertMessage: `Are you sure you want to delete all selected patients? `,
@@ -15,15 +20,28 @@ export const DeleteMany: React.FC = () => {
     handleDeleteSelected({ selectedRows });
   };
 
+  const toggle = () => {
+    clearSelection();
+    toggleDeleteManyDialog();
+  };
+
   return (
-    <DeleteItemDialog
-      id="delete-many-patients"
+    <DialogTrigger
       title="Delete all selected Patients"
-      acceptButtonLabel="Delete"
-      content={alertContent}
-      cancelButtonLabel="Cancel"
+      id="Delete all selected Patient"
+      toggle={toggle}
       displayButton={false}
-      onSubmit={submitDeletePatients}
+      openDialogButtonLabel="Open"
+      isOpen={isOpenDeleteManyDialog}
+      renderContent={() => (
+        <Alert
+          content={alertContent}
+          toggle={toggle}
+          onSubmit={submitDeletePatients}
+          acceptButtonLabel={'Delete'}
+          cancelButtonLabel={'Cancel'}
+        />
+      )}
     />
   );
 };
