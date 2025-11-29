@@ -27,6 +27,7 @@ const DeleteItemDialog: React.FC<DeleteItemProps> = ({
 }) => {
   const { toggleDeleteDialog, isOpendeleteDialog } = useDialogs();
   const { clearSelection } = usePatientTableStore();
+  console.log(isOpendeleteDialog);
 
   const toggle = () => {
     clearSelection();

@@ -2,28 +2,28 @@
 
 import type React from 'react';
 import DeleteItemDialog from '@/components/common/Overlays/DeleteItemDialog';
-import useSelectedRowStore from '@/store/table/useSelectedRowStore';
-import useDeletePatient from '@/hooks/patients/useDeletePatient';
+import usePatientsTable from '../hooks/usePatientsTable';
 
 export const DeleteMany: React.FC = () => {
-  const { deletePatient } = useDeletePatient();
-  const { selectedRow } = useSelectedRowStore();
-  const patientName = `${selectedRow.firstName} ${selectedRow.lastName}`;
+  const { selectedRows, handleDeleteSelected } = usePatientsTable();
+
   const alertContent = {
-    alertMessage: `Are you sure you want to delete ${patientName} `,
+    alertMessage: `Are you sure you want to delete all selected patients? `,
   };
 
-  const submitDeletePatient = async () => {
-    await deletePatient(selectedRow._id);
+  const submitDeletePatients = () => {
+    handleDeleteSelected({ selectedRows });
   };
 
-  <DeleteItemDialog
-    id="delete"
-    title="Delete Patient"
-    acceptButtonLabel="Delete"
-    content={alertContent}
-    cancelButtonLabel="Cancel"
-    displayButton={false}
-    onSubmit={submitDeletePatient}
-  />;
+  return (
+    <DeleteItemDialog
+      id="delete-many-patients"
+      title="Delete all selected Patients"
+      acceptButtonLabel="Delete"
+      content={alertContent}
+      cancelButtonLabel="Cancel"
+      displayButton={false}
+      onSubmit={submitDeletePatients}
+    />
+  );
 };

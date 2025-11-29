@@ -14,6 +14,7 @@ import PatientsTableError from './PatientsTable.Error';
 import { type SubmitBody } from '@/models';
 import { type Patient } from '@/models/patients';
 import { DeleteOne } from '../dialogs/DeleteOne';
+import { DeleteMany } from '../dialogs/DeleteMany';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
@@ -51,6 +52,7 @@ const PatientsTable: React.FC = () => {
         onSubmit={submitEditPatient}
       />
       <DeleteOne />
+      <DeleteMany />
     </Box>
   );
 };

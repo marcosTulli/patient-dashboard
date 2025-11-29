@@ -17,13 +17,15 @@ export const DeleteOne: React.FC = () => {
     await deletePatient(selectedRow._id);
   };
 
-  <DeleteItemDialog
-    id={`delete-patient-${selectedRow._id}`}
-    title="Delete Patient"
-    acceptButtonLabel="Delete"
-    content={alertContent}
-    cancelButtonLabel="Cancel"
-    displayButton={false}
-    onSubmit={submitDeletePatient}
-  />;
+  return (
+    <DeleteItemDialog
+      id={`delete-patient-${selectedRow._id}`}
+      title="Delete Patient"
+      acceptButtonLabel="Delete"
+      content={alertContent}
+      cancelButtonLabel="Cancel"
+      displayButton={false}
+      onSubmit={submitDeletePatient}
+    />
+  );
 };

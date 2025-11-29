@@ -9,10 +9,11 @@ import CreateItemDialog from '@/components/common/Overlays/CreateItemDialog';
 import { type SubmitBody } from '@/models';
 import { type Patient } from '@/models/patients';
 import useCreatePatient from '@hooks/patients/useCreatePatient';
+import useDialogs from '@/hooks/overlays/useDialogs';
 
 const PatientsTableControls: React.FC = () => {
-  const { selectedRows, filter, setFilter, clearSelection, handleDeleteSelected } =
-    usePatientsTable();
+  const { selectedRows, filter, setFilter, clearSelection } = usePatientsTable();
+  const { toggleDeleteDialog } = useDialogs();
 
   const { createPatientFormFields } = usePatientsFormFields();
   const { createPatient, isPending } = useCreatePatient();
@@ -29,7 +30,7 @@ const PatientsTableControls: React.FC = () => {
       selectedRows={selectedRows}
       clearSelection={clearSelection}
       filterConfig={filterConfig}
-      onDeleteSelected={handleDeleteSelected}
+      onDeleteSelected={toggleDeleteDialog}
       renderAddDialog={
         <CreateItemDialog
           title="Create New Patient"
