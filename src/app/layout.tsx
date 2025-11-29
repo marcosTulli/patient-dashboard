@@ -16,38 +16,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Patients Dashboard',
+  title: 'Patient Management',
   description: 'Administer patients',
 };
-
-// Script that runs before React to set theme and avoid flash
-const themeScript = `
-  (function() {
-    function getTheme() {
-      const stored = localStorage.getItem('selectedTheme');
-      if (stored === 'light' || stored === 'dark') return stored;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    const theme = getTheme();
-    document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  })();
-`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
       <body
         suppressHydrationWarning={true}
-        className={`min-h-screen flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <NavigationMenu />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateRows: 'auto 1fr auto',
+              minHeight: '100vh',
+            }}
+          >
+            <NavigationMenu />
+            <main>{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
