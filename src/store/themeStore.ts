@@ -30,7 +30,6 @@ const getStoredTheme = (): Themes => {
   return getBrowserTheme();
 };
 
-// Server and client MUST use the same initial value to avoid hydration mismatch
 const DEFAULT_THEME = Themes.dark;
 
 export const themeStore = create<ThemeState>((set) => ({

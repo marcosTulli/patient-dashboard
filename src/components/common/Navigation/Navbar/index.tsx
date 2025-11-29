@@ -2,16 +2,17 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { Box, Paper, Stack, Button } from '@mui/material';
+import { Box, Paper, Stack } from '@mui/material';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
 import { useUser } from '@/hooks/auth';
+import UserMenu from '../../UserMenu';
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
   const isHome = pathName === routes.home;
-  const { user, handleLogout } = useUser();
+  const { user } = useUser();
 
   if (!user?.isDefined) {
     return null;
@@ -54,11 +55,7 @@ const Navbar: React.FC = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <OpenSideBarButton />
-          {user?.isDefined && (
-            <Button size="small" color="inherit" variant="text" onClick={handleLogout}>
-              Logout
-            </Button>
-          )}
+          <UserMenu />
         </Box>
       </Stack>
     </Paper>
