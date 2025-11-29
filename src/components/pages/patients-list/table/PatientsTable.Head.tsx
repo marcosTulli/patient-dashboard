@@ -4,7 +4,8 @@ import type React from 'react';
 import TableHead from '@/components/common/Table/Head';
 import { patientColumns } from '../config';
 import usePatientsTable from '../hooks/usePatientsTable';
-import { type Patient, type SortFields } from '@/models/patients';
+import { type SortFields } from '@/models/patients';
+import { type Patient } from '@/models/domain/patient';
 
 const PatientsTableHead: React.FC = () => {
   const { sort, selectedRows, patients, setSort, toggleSelectAll, getRowId } = usePatientsTable();

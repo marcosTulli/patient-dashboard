@@ -5,8 +5,8 @@ export interface OptionType {
 }
 
 import { type AnySchema } from 'yup';
-import { type Patient } from './patients';
 import { type FormikHelpers } from 'formik';
+import { type PatientDto } from './domain/patient/patientDto';
 
 export interface FieldProps<T = unknown> {
   label?: React.ReactNode;
@@ -38,7 +38,7 @@ export enum FormFieldKey {
 }
 
 export type FormFields = Partial<Record<FormFieldKey, FieldProps>>;
-export type SubmitBody = unknown | Patient;
+export type SubmitBody = unknown | PatientDto;
 
 export interface FormProps {
   formFields: FormFields;

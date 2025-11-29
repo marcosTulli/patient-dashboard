@@ -56,11 +56,18 @@ export class Patient {
   }
 
   phoneNumber() {
-    return this.#phoneNumber;
+    return this.#phoneNumber ?? '-';
   }
 
   dob() {
-    return this.#dob;
+    if (this.#dob) {
+      return new Date(this.#dob).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      });
+    }
+    return '-';
   }
 
   createdAt() {

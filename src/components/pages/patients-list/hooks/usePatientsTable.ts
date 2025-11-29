@@ -1,12 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
-import { type Patient, type PatientListRequest } from '@/models/patients';
+import { type PatientListRequest } from '@/models/patients';
 import { usePatientTableStore } from '../store/usePatientTableStore';
 import useDeleteManyPatients from '@/hooks/patients/useDeleteManyPatients';
 import useDialogs from '@/hooks/overlays/useDialogs';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 import useGetPatientsList from '@/hooks/patients/useGetPatientsList';
+import { type Patient } from '@/models/domain/patient';
 
 function usePatientsTable() {
   const {
@@ -38,7 +39,7 @@ function usePatientsTable() {
   const { toggleEditDialog, toggleDeleteDialog } = useDialogs();
   const { setSelectedRow } = useSelectedRowStore();
 
-  const getRowId = (patient: Patient) => patient._id;
+  const getRowId = (patient: Patient) => patient.id();
 
   const openEditPatientDialog = (row: Patient) => {
     toggleEditDialog();

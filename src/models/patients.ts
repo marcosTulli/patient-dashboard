@@ -1,12 +1,4 @@
-export interface Patient {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber?: string;
-  dob?: string;
-  createdAt: Date;
-}
+import { type PatientDto } from './domain/patient/patientDto';
 
 export interface Pagination {
   page: number;
@@ -59,7 +51,7 @@ export interface PatientListRequest {
 }
 
 export interface PatientListResponse {
-  patients: Patient[];
+  patients: PatientDto[];
   total: number;
 }
 

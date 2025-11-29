@@ -3,6 +3,7 @@ import { type PatientListRequest, type PatientListResponse } from '@/models/pati
 import { getPaginatedPatientsServiceService } from '@/services/patients';
 import React from 'react';
 import { usePatientTableStore } from '@/components/pages/patients-list/store/usePatientTableStore';
+import { Patient } from '@/models/domain/patient';
 
 const useGetPatientsList = () => {
   const { page, take, filter, sort } = usePatientTableStore();
@@ -20,8 +21,10 @@ const useGetPatientsList = () => {
     queryFn: () => getPaginatedPatientsServiceService(requestBody),
   });
 
+  const patients = data?.patients.map((patient) => Patient.FromJSON(patient));
+
   return {
-    patients: data?.patients,
+    patients,
     total: data?.total,
     error,
     isLoading,

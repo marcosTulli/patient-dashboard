@@ -12,15 +12,15 @@ import usePatientsFormFields from '../hooks/usePatientFormFields';
 import useEditPatient from '@/hooks/patients/useEditPatient';
 import PatientsTableError from './PatientsTable.Error';
 import { type SubmitBody } from '@/models';
-import { type Patient } from '@/models/patients';
 import { DeleteOne } from '../dialogs/DeleteOne';
 import { DeleteMany } from '../dialogs/DeleteMany';
+import { type NewPatient } from '@models/domain/patient/patientDto';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
   const { editPatient } = useEditPatient();
   const submitEditPatient = async (values: SubmitBody) => {
-    await editPatient(values as Patient);
+    await editPatient(values as NewPatient);
   };
 
   <PatientsTableError />;

@@ -1,8 +1,8 @@
 import { type PatientFilter, type PatientSort, SortDirection, SortFields } from '@/models/patients';
 import { create } from 'zustand';
 
-type Patient = {
-  _id: string;
+type PatientsIds = {
+  id: () => string;
 };
 
 type PatientTableState = {
@@ -16,7 +16,7 @@ type PatientTableState = {
   setFilter: (filter: Partial<PatientFilter>) => void;
   setSort: (sort: PatientSort) => void;
   toggleRow: (id: string) => void;
-  toggleSelectAll: (patients: Patient[]) => void;
+  toggleSelectAll: (patients: PatientsIds[]) => void;
   clearSelection: () => void;
 };
 
@@ -45,9 +45,9 @@ export const usePatientTableStore = create<PatientTableState>((set) => ({
     }),
   toggleSelectAll: (patients) =>
     set((state) => {
-      const allSelected = patients.every((p) => state.selectedRows.has(p._id));
+      const allSelected = patients.every((p) => state.selectedRows.has(p.id()));
       return {
-        selectedRows: allSelected ? new Set() : new Set(patients.map((p) => p._id)),
+        selectedRows: allSelected ? new Set() : new Set(patients.map((p) => p.id())),
       };
     }),
   clearSelection: () => set({ selectedRows: new Set() }),

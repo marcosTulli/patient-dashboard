@@ -1,7 +1,7 @@
-import { type Patient } from '@/models/patients';
+import { Patient } from '@/models/domain/patient';
 import { create } from 'zustand';
 
-const emptyPatient: Patient = {
+const emptyPatient: Patient = Patient.FromJSON({
   _id: '',
   firstName: '',
   lastName: '',
@@ -9,7 +9,7 @@ const emptyPatient: Patient = {
   phoneNumber: '',
   dob: '',
   createdAt: new Date(),
-};
+});
 interface SelectedRowStore {
   selectedRow: Patient;
   setSelectedRow: (row: Patient) => void;
