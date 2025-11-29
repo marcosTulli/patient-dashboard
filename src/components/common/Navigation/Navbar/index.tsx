@@ -55,8 +55,8 @@ const Navbar: React.FC = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <OpenSideBarButton />
-          <UserMenu />
         </Box>
+        <UserMenu />
       </Stack>
     </Paper>
   );

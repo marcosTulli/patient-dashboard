@@ -4,6 +4,7 @@ import { type Metadata } from 'next';
 import NavigationMenu from '@/components/common/Navigation/Menu';
 import Footer from '@/components/common/Footer';
 import React from 'react';
+import { Box } from '@mui/material';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,17 +29,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateRows: 'auto 1fr auto',
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
               minHeight: '100vh',
+              overflowX: 'hidden',
+              position: 'relative',
             }}
           >
             <NavigationMenu />
-            <main>{children}</main>
+            {children}
             <Footer />
-          </div>
+          </Box>
         </Providers>
       </body>
     </html>
