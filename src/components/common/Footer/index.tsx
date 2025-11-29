@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography } from '@mui/material';
 
 const Footer = () => {
   return (
@@ -8,12 +8,12 @@ const Footer = () => {
       <Box
         component="footer"
         sx={{
-          bgcolor: 'background.surface',
+          bgcolor: 'background.paper',
           px: 2,
           py: 1,
         }}
       >
-        <Typography level="body-sm" color="neutral">
+        <Typography variant="body2" color="text.secondary">
           Patients Dashboard
         </Typography>
       </Box>

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { Box, Sheet, Stack, Button } from '@mui/joy';
+import { Box, Paper, Stack, Button } from '@mui/material';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
@@ -18,9 +18,9 @@ const Navbar: React.FC = () => {
   }
 
   return (
-    <Sheet
+    <Paper
       component="nav"
-      variant="plain"
+      elevation={0}
       sx={{
         width: '100%',
         px: 2,
@@ -55,13 +55,13 @@ const Navbar: React.FC = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <OpenSideBarButton />
           {user?.isDefined && (
-            <Button size="sm" color="neutral" variant="plain" onClick={handleLogout}>
+            <Button size="small" color="inherit" variant="text" onClick={handleLogout}>
               Logout
             </Button>
           )}
         </Box>
       </Stack>
-    </Sheet>
+    </Paper>
   );
 };
 

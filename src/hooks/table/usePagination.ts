@@ -1,6 +1,6 @@
 'use client';
 
-import type React from 'react';
+import { type SelectChangeEvent } from '@mui/material';
 import { type TablePaginationProps } from '@models/table';
 
 export function usePagination({ total, take, page, setPage, setTake }: TablePaginationProps) {
@@ -15,7 +15,8 @@ export function usePagination({ total, take, page, setPage, setTake }: TablePagi
     }
   };
 
-  const handleTakeChange = (_: React.SyntheticEvent | null, newValue: number | null) => {
+  const handleTakeChange = (event: SelectChangeEvent<number>) => {
+    const newValue = event.target.value as number;
     if (newValue) {
       setTake(newValue);
       setPage(1);

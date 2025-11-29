@@ -3,7 +3,9 @@ import { create } from 'zustand';
 
 interface ThemeState {
   selectedTheme: Themes;
+  isHydrated: boolean;
   toggleTheme: () => void;
+  hydrate: () => void;
 }
 
 const getBrowserTheme = (): Themes => {
@@ -17,22 +19,39 @@ const getBrowserTheme = (): Themes => {
   return Themes.light;
 };
 
-const getInitialTheme = (): Themes => {
+const getStoredTheme = (): Themes => {
   if (typeof window === 'undefined') return Themes.dark;
 
   const savedTheme = localStorage.getItem('selectedTheme') as Themes | null;
   if (savedTheme === Themes.dark || savedTheme === Themes.light) {
     return savedTheme;
   }
+
   return getBrowserTheme();
 };
 
+// Server and client MUST use the same initial value to avoid hydration mismatch
+const DEFAULT_THEME = Themes.dark;
+
 export const themeStore = create<ThemeState>((set) => ({
-  selectedTheme: getInitialTheme(),
+  selectedTheme: DEFAULT_THEME,
+  isHydrated: false,
   toggleTheme: () =>
     set((state) => {
       const newTheme = state.selectedTheme === Themes.light ? Themes.dark : Themes.light;
-      localStorage.setItem('selectedTheme', newTheme);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('selectedTheme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        document.documentElement.classList.toggle('dark', newTheme === Themes.dark);
+      }
       return { selectedTheme: newTheme };
     }),
+  hydrate: () => {
+    const theme = getStoredTheme();
+    if (typeof window !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.classList.toggle('dark', theme === Themes.dark);
+    }
+    set({ selectedTheme: theme, isHydrated: true });
+  },
 }));

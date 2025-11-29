@@ -1,6 +1,6 @@
 'use client';
 
-import { TabPanel } from '@mui/joy';
+import { Box } from '@mui/material';
 import React from 'react';
 import SmallLoader from '@components/common/Loader/Small';
 import ErrorContainer from '@components/common/ErrorContainer';
@@ -9,6 +9,7 @@ import { type AccessTypes } from '../models';
 
 interface AuthFormContainerProps {
   value: AccessTypes;
+  currentValue: AccessTypes;
   tabIdPrefix: string;
   isLoading: boolean;
   error: Error | null;
@@ -17,14 +18,17 @@ interface AuthFormContainerProps {
 
 const AuthFormContainer = ({
   value,
+  currentValue,
   tabIdPrefix,
   isLoading,
   error,
   onSubmit,
 }: AuthFormContainerProps) => {
+  if (value !== currentValue) return null;
+
   return (
-    <TabPanel
-      value={value}
+    <Box
+      role="tabpanel"
       id={`${tabIdPrefix}-panel-${value}`}
       aria-labelledby={`${tabIdPrefix}-${value}`}
     >
@@ -36,7 +40,7 @@ const AuthFormContainer = ({
           <AuthForm mode={value} onSubmit={onSubmit} isLoading={isLoading} />
         </>
       )}
-    </TabPanel>
+    </Box>
   );
 };
 

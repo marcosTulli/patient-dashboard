@@ -1,6 +1,6 @@
 'use client';
 
-import { Box } from '@mui/joy';
+import { Box } from '@mui/material';
 import { type TablePaginationProps } from '@models/table';
 import PaginationInfo from './Pagination.info';
 import PageSizeSelect from './Pagination.select';

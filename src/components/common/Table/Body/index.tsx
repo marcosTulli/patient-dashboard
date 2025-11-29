@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Typography } from '@mui/joy';
+import { Checkbox, Typography, useTheme, alpha } from '@mui/material';
 import { type TableBodyProps } from '@/models/table';
 import TableBodySkeleton from './Body.Skeleton';
 import { RowControls } from './Body.RowControls';
@@ -17,6 +17,7 @@ function TableBody<T>({
   onDelete,
   toggleRow,
 }: TableBodyProps<T>) {
+  const theme = useTheme();
   const skeletonColumns = columns.map((i) => ({
     key: i.key as string,
     width: i.width as string,
@@ -42,7 +43,7 @@ function TableBody<T>({
           <tr
             key={rowId}
             style={{
-              backgroundColor: isSelected ? 'var(--joy-palette-primary-softBg)' : undefined,
+              backgroundColor: isSelected ? alpha(theme.palette.primary.main, 0.08) : undefined,
             }}
           >
             {user?.isAuthorized && (
@@ -53,7 +54,7 @@ function TableBody<T>({
 
             {columns?.map((col) => (
               <td key={col.key} style={{ width: col.width }}>
-                <Typography level="body-sm">{col.render(item)}</Typography>
+                <Typography variant="body2">{col.render(item)}</Typography>
               </td>
             ))}
 

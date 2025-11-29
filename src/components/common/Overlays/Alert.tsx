@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { Box, Typography, Button } from '@mui/joy';
+import { Box, Typography, Button } from '@mui/material';
 
 interface AlertProps {
   content: { alertMessage: string };
@@ -37,14 +37,14 @@ const Alert: React.FC<AlertProps> = ({
       }}
     >
       <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-        <Typography level="h3">{content.alertMessage}</Typography>
+        <Typography variant="h5">{content.alertMessage}</Typography>
       </Box>
 
       <Box mt={4} display="flex" alignContent="flex-end" justifyContent="flex-end" gap={1.5}>
-        <Button variant="plain" color="neutral" onClick={toggle}>
+        <Button variant="text" color="inherit" onClick={toggle}>
           {cancelButtonLabel}
         </Button>
-        <Button variant="solid" color="danger" onClick={handleAccept} disabled={isLoading}>
+        <Button variant="contained" color="error" onClick={handleAccept} disabled={isLoading}>
           {acceptButtonLabel}
         </Button>
       </Box>

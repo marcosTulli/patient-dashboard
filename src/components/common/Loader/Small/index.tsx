@@ -1,10 +1,10 @@
-import { Box, CircularProgress } from '@mui/joy';
+import { Box, CircularProgress } from '@mui/material';
 import React from 'react';
 
 const SmallLoader = () => {
   return (
     <Box display="flex" justifyContent="center" mt={4}>
-      <CircularProgress size="lg" aria-label="Loading" />
+      <CircularProgress size={40} aria-label="Loading" />
     </Box>
   );
 };

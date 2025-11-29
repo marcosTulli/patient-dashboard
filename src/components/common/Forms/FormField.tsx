@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Field, type FieldProps as FormikFieldProps } from 'formik';
-import { Input, Select, Option } from '@mui/joy';
+import { TextField, Select, MenuItem } from '@mui/material';
 import { type FormFieldProps } from '@/models';
 
 const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className = '', onClick }) => {
@@ -14,18 +14,25 @@ const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className =
         {({ field, form }: FormikFieldProps<string>) => (
           <Select
             {...field}
-            onChange={(_, value) => form.setFieldValue(field.name, value)}
+            onChange={(e) => form.setFieldValue(field.name, e.target.value)}
             value={field.value ?? ''}
             className={className}
-            placeholder={fieldProps.placeholder}
+            displayEmpty
             disabled={fieldProps.disabled}
             onClick={onClick}
+            size="small"
+            fullWidth
             sx={{ display: fieldProps.hidden ? 'none' : undefined }}
           >
+            {fieldProps.placeholder && (
+              <MenuItem value="" disabled>
+                {fieldProps.placeholder}
+              </MenuItem>
+            )}
             {fieldProps.options!.map((option) => (
-              <Option key={option.id} value={option.value}>
+              <MenuItem key={option.id} value={option.value}>
                 {option.name}
-              </Option>
+              </MenuItem>
             ))}
           </Select>
         )}
@@ -36,13 +43,15 @@ const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className =
   return (
     <Field name={fieldKey}>
       {({ field }: FormikFieldProps<string>) => (
-        <Input
+        <TextField
           {...field}
           type={fieldProps.type || 'text'}
           placeholder={fieldProps.placeholder}
           disabled={fieldProps.disabled}
           onClick={onClick}
           className={className}
+          size="small"
+          fullWidth
           sx={{ display: fieldProps.hidden ? 'none' : undefined }}
         />
       )}

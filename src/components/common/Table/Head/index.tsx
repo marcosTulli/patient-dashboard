@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Checkbox, IconButton, Typography } from '@mui/joy';
+import { Checkbox, IconButton, Typography } from '@mui/material';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { SortDirection, type TableHeadProps } from '@/models/table';
 import { useUser } from '@/hooks/auth';
@@ -44,7 +44,6 @@ function TableHead<TRow, TSortField extends string = string>({
   }> = ({ field, children }) => (
     <th style={{ cursor: 'pointer' }}>
       <IconButton
-        variant="plain"
         onClick={() => handleSort(field)}
         sx={{
           display: 'flex',
@@ -52,11 +51,12 @@ function TableHead<TRow, TSortField extends string = string>({
           gap: 1,
           p: 0,
           minHeight: 'auto',
-          fontWeight: 'lg',
+          fontWeight: 700,
           color: 'text.primary',
+          borderRadius: 1,
           '&:hover': {
             backgroundColor: 'transparent',
-            color: 'primary.500',
+            color: 'primary.main',
           },
         }}
         aria-sort={
@@ -67,7 +67,7 @@ function TableHead<TRow, TSortField extends string = string>({
             : undefined
         }
       >
-        <Typography level="title-sm" fontWeight="lg">
+        <Typography variant="subtitle2" fontWeight={700}>
           {children}
         </Typography>
         {getSortIcon(field)}
@@ -96,7 +96,7 @@ function TableHead<TRow, TSortField extends string = string>({
             </SortableHeader>
           ) : (
             <th key={String(key)} style={{ width }}>
-              <Typography level="title-sm" fontWeight="lg">
+              <Typography variant="subtitle2" fontWeight={700}>
                 {label}
               </Typography>
             </th>
@@ -105,7 +105,7 @@ function TableHead<TRow, TSortField extends string = string>({
 
         {user?.isAuthorized && (
           <th style={{ width: actionsWidth }}>
-            <Typography level="title-sm" fontWeight="lg">
+            <Typography variant="subtitle2" fontWeight={700}>
               Actions
             </Typography>
           </th>

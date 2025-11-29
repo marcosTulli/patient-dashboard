@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Modal, Sheet, Stack } from '@mui/joy';
+import { Drawer, Paper, Stack } from '@mui/material';
 import { useSideBar } from '@/hooks';
 import NavList from '../Routes';
 
@@ -9,16 +9,15 @@ const Sidebar: React.FC = () => {
   const { isSideBarOpen, toggleSideBar } = useSideBar();
 
   return (
-    <Modal open={isSideBarOpen} onClose={toggleSideBar} sx={{ zIndex: 'modal' }}>
-      <Sheet
-        variant="solid"
-        color="neutral"
+    <Drawer open={isSideBarOpen} onClose={toggleSideBar}>
+      <Paper
+        elevation={0}
         sx={{
           width: { xs: '80vw', sm: 280 },
           height: '100vh',
           p: 2,
-          boxShadow: 'lg',
-          bgcolor: 'background.level1',
+          boxShadow: 4,
+          bgcolor: 'background.paper',
           display: 'flex',
           flexDirection: 'column',
           gap: 4,
@@ -27,8 +26,8 @@ const Sidebar: React.FC = () => {
         <Stack>
           <NavList />
         </Stack>
-      </Sheet>
-    </Modal>
+      </Paper>
+    </Drawer>
   );
 };
 

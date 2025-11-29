@@ -1,5 +1,5 @@
 import AuthPageComponent from '@/components/pages/auth';
-import { Box, CircularProgress } from '@mui/joy';
+import { Box, CircularProgress } from '@mui/material';
 import { Suspense } from 'react';
 
 export default function AuthPage() {
@@ -14,7 +14,7 @@ export default function AuthPage() {
             height: '100vh',
           }}
         >
-          <CircularProgress size="lg" />
+          <CircularProgress size={40} />
         </Box>
       }
     >

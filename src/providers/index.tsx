@@ -7,6 +7,7 @@ import ErrorProvider from './ErrorProvider';
 import { ToastProvider } from './ToastProvider';
 import { useAppTheme } from '@/hooks/useApppTheme';
 import { CssVarsProvider } from './CssVars';
+import { ThemeProvider } from '@mui/material';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const { theme } = useAppTheme();
@@ -28,16 +29,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    // <ThemeProvider theme={theme}>
-    <ToastProvider>
-      <QueryClientProvider client={queryClient}>
-        <UIProvider>
-          <CssVarsProvider>
-            <ErrorProvider>{children}</ErrorProvider>
-          </CssVarsProvider>
-        </UIProvider>
-      </QueryClientProvider>
-    </ToastProvider>
-    // </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <ToastProvider>
+        <QueryClientProvider client={queryClient}>
+          <UIProvider>
+            <CssVarsProvider>
+              <ErrorProvider>{children}</ErrorProvider>
+            </CssVarsProvider>
+          </UIProvider>
+        </QueryClientProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }

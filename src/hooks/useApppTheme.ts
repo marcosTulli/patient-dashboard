@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Themes } from '@models';
 import { themeStore } from '@/store/themeStore';
 import { createTheme } from '@mui/material';
@@ -6,6 +7,13 @@ import { breakpoints, darkPalette, lightPalette, typography, components } from '
 export const useAppTheme = () => {
   const store = themeStore();
   const isDarkTheme = store.selectedTheme === Themes.dark;
+
+  // Hydrate theme from localStorage after mount to avoid SSR mismatch
+  useEffect(() => {
+    if (!store.isHydrated) {
+      store.hydrate();
+    }
+  }, [store]);
 
   const theme = createTheme({
     palette: isDarkTheme ? darkPalette : lightPalette,

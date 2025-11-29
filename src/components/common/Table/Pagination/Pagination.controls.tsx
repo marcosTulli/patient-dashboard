@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@mui/joy';
+import { Box, IconButton, Typography } from '@mui/material';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 interface Props {
@@ -16,21 +16,26 @@ const PaginationControls: React.FC<Props> = ({ page, totalPages, onPageChange })
       flexWrap: { xs: 'wrap', sm: 'nowrap' },
     }}
   >
-    <IconButton size="sm" variant="outlined" disabled={page === 1} onClick={() => onPageChange(1)}>
+    <IconButton
+      size="small"
+      disabled={page === 1}
+      onClick={() => onPageChange(1)}
+      sx={{ border: '1px solid', borderColor: 'divider' }}
+    >
       <ChevronsLeft size={16} />
     </IconButton>
 
     <IconButton
-      size="sm"
-      variant="outlined"
+      size="small"
       disabled={page === 1}
       onClick={() => onPageChange(page - 1)}
+      sx={{ border: '1px solid', borderColor: 'divider' }}
     >
       <ChevronLeft size={16} />
     </IconButton>
 
     <Typography
-      level="body-sm"
+      variant="body2"
       sx={{
         display: { xs: 'none', sm: 'inline-flex' },
         px: 1,
@@ -41,7 +46,7 @@ const PaginationControls: React.FC<Props> = ({ page, totalPages, onPageChange })
     </Typography>
 
     <Typography
-      level="body-xs"
+      variant="caption"
       sx={{
         display: { xs: 'inline-flex', sm: 'none' },
         px: 1,
@@ -53,19 +58,19 @@ const PaginationControls: React.FC<Props> = ({ page, totalPages, onPageChange })
     </Typography>
 
     <IconButton
-      size="sm"
-      variant="outlined"
+      size="small"
       disabled={page === totalPages}
       onClick={() => onPageChange(page + 1)}
+      sx={{ border: '1px solid', borderColor: 'divider' }}
     >
       <ChevronRight size={16} />
     </IconButton>
 
     <IconButton
-      size="sm"
-      variant="outlined"
+      size="small"
       disabled={page === totalPages}
       onClick={() => onPageChange(totalPages)}
+      sx={{ border: '1px solid', borderColor: 'divider' }}
     >
       <ChevronsRight size={16} />
     </IconButton>

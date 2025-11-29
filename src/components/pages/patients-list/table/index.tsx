@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { Box, Sheet } from '@mui/joy';
+import { Box, Paper } from '@mui/material';
 import PatientsTableControls from './PatientsTable.Controls';
 import PatientsTableHead from './PatientsTable.Head';
 import PatientsTableBody from './PatientsTable.Body';
@@ -38,10 +38,10 @@ const PatientsTable: React.FC = () => {
   <PatientsTableError />;
   return (
     <Box sx={{ width: '100%', p: 2 }}>
-      <Sheet
+      <Paper
         variant="outlined"
         sx={{
-          borderRadius: 'sm',
+          borderRadius: 1,
           overflow: 'hidden',
         }}
       >
@@ -51,7 +51,7 @@ const PatientsTable: React.FC = () => {
           <PatientsTableBody />
         </PatientsTableContainer>
         <PatientsTablePagination />
-      </Sheet>
+      </Paper>
 
       <EditItemDialog
         title="Edit Patient"

@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { Box } from '@mui/joy';
+import { Box } from '@mui/material';
 import PatientsTableError from './PatientsTable.Error';
 import { type PropsWithChildren } from 'react';
 

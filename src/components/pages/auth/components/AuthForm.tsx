@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, FormControl, FormLabel, Input } from '@mui/joy';
+import { Button, FormControl, InputLabel, TextField, CircularProgress } from '@mui/material';
 import { type LoginRequest, type SignupRequest } from '@/models/auth';
 import { AccessTypes } from '../models';
 import useAuthForm from '../hooks/useAuthForm';
@@ -32,22 +32,27 @@ const AuthForm: React.FC<AuthFormProps> = ({ mode, onSubmit, isLoading }) => {
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       {fields.map((field) => (
-        <FormControl key={field.name} sx={{ mb: 2 }}>
-          <FormLabel>{field.label}</FormLabel>
-          <Input
+        <FormControl key={field.name} fullWidth sx={{ mb: 2 }}>
+          <InputLabel shrink>{field.label}</InputLabel>
+          <TextField
             type={field.type}
             {...register(field.name as keyof FormValues)}
             error={!!errors[field.name as keyof FormValues]}
+            helperText={errors[field.name as keyof FormValues]?.message as string}
+            size="small"
+            fullWidth
+            sx={{ mt: 2 }}
           />
-          {errors[field.name as keyof FormValues] && (
-            <div style={{ color: 'red', fontSize: 12 }}>
-              {errors[field.name as keyof FormValues]?.message as string}
-            </div>
-          )}
         </FormControl>
       ))}
 
-      <Button type="submit" loading={isLoading} fullWidth>
+      <Button
+        type="submit"
+        variant="contained"
+        fullWidth
+        disabled={isLoading}
+        startIcon={isLoading ? <CircularProgress size={20} color="inherit" /> : null}
+      >
         {mode === AccessTypes.login ? 'Login' : 'Sign Up'}
       </Button>
     </form>
