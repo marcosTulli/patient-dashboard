@@ -1,5 +1,5 @@
-import { TextSize, TextType } from '@/components/common/Text/types';
-import { TypographyProps } from '@mui/material';
+import { type TextSize, type TextType } from '@/components/common/Text/types';
+import { type TypographyProps } from '@mui/material';
 
 export const variantMap: Record<TextType, Record<TextSize, TypographyProps['variant']>> = {
   title: {

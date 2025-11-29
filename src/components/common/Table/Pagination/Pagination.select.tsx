@@ -1,4 +1,4 @@
-import { Box, Typography, Select, MenuItem, SelectChangeEvent } from '@mui/material';
+import { Box, Typography, Select, MenuItem, type SelectChangeEvent } from '@mui/material';
 
 interface Props {
   take: number;

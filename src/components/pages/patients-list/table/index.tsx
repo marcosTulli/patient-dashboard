@@ -13,26 +13,13 @@ import useEditPatient from '@/hooks/patients/useEditPatient';
 import PatientsTableError from './PatientsTable.Error';
 import { type SubmitBody } from '@/models';
 import { type Patient } from '@/models/patients';
-import DeleteItemDialog from '@/components/common/Overlays/DeleteItemDialog';
-import useSelectedRowStore from '@/store/table/useSelectedRowStore';
-import useDeletePatient from '@/hooks/patients/useDeletePatient';
+import { DeleteOne } from '../dialogs/DeleteOne';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
   const { editPatient } = useEditPatient();
-  const { deletePatient } = useDeletePatient();
-  const { selectedRow } = useSelectedRowStore();
-  const patientName = `${selectedRow.firstName} ${selectedRow.lastName}`;
-  const alertContent = {
-    alertMessage: `Are you sure you want to delete ${patientName} `,
-  };
-
   const submitEditPatient = async (values: SubmitBody) => {
     await editPatient(values as Patient);
-  };
-
-  const submitDeletePatient = async () => {
-    await deletePatient(selectedRow._id);
   };
 
   <PatientsTableError />;
@@ -63,15 +50,7 @@ const PatientsTable: React.FC = () => {
         formFields={formFields}
         onSubmit={submitEditPatient}
       />
-      <DeleteItemDialog
-        id="delete"
-        title="Delete Patient"
-        acceptButtonLabel="Delete"
-        content={alertContent}
-        cancelButtonLabel="Cancel"
-        displayButton={false}
-        onSubmit={submitDeletePatient}
-      />
+      <DeleteOne />
     </Box>
   );
 };

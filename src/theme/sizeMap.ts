@@ -1,4 +1,4 @@
-import { TextSize, TextType } from '@components/common/Text/types';
+import { type TextSize, type TextType } from '@components/common/Text/types';
 
 export const sizeMap: Record<TextType, Record<TextSize, number>> = {
   title: {
