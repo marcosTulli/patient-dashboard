@@ -1,23 +1,24 @@
 import type { PaletteOptions } from '@mui/material/styles';
 
 const rawColors = {
-  white: '#FFFFFF',
-  black: '#000000',
-  gray: '#94A3B8',
+  // Base colors - matte/warm tones
+  white: '#FAF8F5',
+  black: '#1C1B22',
+  gray: '#8E8A9D',
 
-  // Primary - Fresh green tone
-  primaryLightMain: '#83b452',
-  primaryLightLight: '#a3c97a',
-  primaryLightDark: '#6a9241',
-  primaryDarkMain: '#83b452',
+  // Primary - Purple tone
+  primaryLightMain: '#5E438F',
+  primaryLightLight: '#7B5FAD',
+  primaryLightDark: '#4A3571',
+  primaryDarkMain: '#7B5FAD',
 
-  // Secondary - Complementary golden/amber tone
-  secondaryLightMain: '#e8b42b',
-  secondaryLightLight: '#f0c653',
-  secondaryLightDark: '#c89a1f',
-  secondaryDarkLight: '#f4d890',
+  // Secondary - Soft pink/lavender
+  secondaryLightMain: '#DCB3D5',
+  secondaryLightLight: '#E8CDE3',
+  secondaryLightDark: '#C499BE',
+  secondaryDarkLight: '#EFE0EC',
 
-  // Success - Modern green
+  // Success - Muted green
   successLightMain: '#10B981',
   successLightLight: '#34D399',
   successLightDark: '#059669',
@@ -35,34 +36,34 @@ const rawColors = {
   errorLightDark: '#DC2626',
   errorDarkLight: '#FCA5A5',
 
-  // Modern neutral palette
-  neutralWhite: '#FFFFFF',
-  neutralOverlay: '#F8FAFC',
-  neutralBorder: '#E2E8F0',
-  neutralDisable: '#CBD5E1',
-  neutralBlocked: '#F1F5F9',
-  neutralContrast: '#0F172A',
-  neutralBlack: '#1E293B',
+  // Neutral palette - warm/matte tones
+  neutralWhite: '#FAF8F5',
+  neutralOverlay: '#F5F3F0',
+  neutralBorder: '#DDD9D4',
+  neutralDisable: '#C4C0BB',
+  neutralBlocked: '#EDEAE6',
+  neutralContrast: '#1C1B22',
+  neutralBlack: '#2A2833',
 
-  // Modern text colors
-  textHeader: '#0F172A',
-  textBody: '#334155',
-  textBodyRegular: '#475569',
-  textGrey: '#64748B',
-  textContrast: '#FFFFFF',
-  textLinkLight: '#3B82F6',
-  textLinkDark: '#60A5FA',
+  // Text colors - softer tones
+  textHeader: '#1C1B22',
+  textBody: '#3D3A47',
+  textBodyRegular: '#524E5C',
+  textGrey: '#6E6A78',
+  textContrast: '#FAF8F5',
+  textLinkLight: '#5E438F',
+  textLinkDark: '#9B7DC9',
 
-  // Modern surface colors - clean, minimal backgrounds
-  surface0: '#FAFBFC',
-  surface1: '#f5f5f5ff',
-  surface2: '#F8FAFC',
-  surface3: '#F5F7FA',
+  // Surface colors - warm/beige undertones
+  surface0: '#FAF8F5',
+  surface1: '#F5F3F0',
+  surface2: '#F0EDE9',
+  surface3: '#EBE8E3',
 
-  // Dark mode surfaces
-  darkPaper: '#1E293B',
-  darkDivider: '#334155',
-  darkSelected: '#475569',
+  // Dark mode surfaces - soft dark with purple undertone
+  darkPaper: '#252432',
+  darkDivider: '#3D3A4A',
+  darkSelected: '#4A475A',
 };
 
 const semanticColors = {
