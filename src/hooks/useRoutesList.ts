@@ -13,6 +13,8 @@ const useRoutesList = () => {
         return routes.patientsList;
       case Navigation.Apointments:
         return routes.appointments;
+      case Navigation.SessionNotes:
+        return routes.sessionNotes;
       default:
         return routes.home;
     }

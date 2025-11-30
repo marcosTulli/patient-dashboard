@@ -13,7 +13,7 @@ export function useGetNotes() {
     staleTime: 5 * 60 * 1000,
   });
 
-  const notes = data?.data?.map((noteDto) => Note.FromJSON(noteDto) ?? null);
+  const notes = data?.data?.map((noteDto) => Note.FromJSON(noteDto) ?? []);
 
   return { notes, isLoading, error };
 }

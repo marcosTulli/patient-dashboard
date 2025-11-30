@@ -25,7 +25,7 @@ export class Note {
     return new Note(
       json.id,
       json.client_name,
-      json.session_date,
+      new Date(json.session_date),
       json.quick_notes,
       json.session_duration,
     );
