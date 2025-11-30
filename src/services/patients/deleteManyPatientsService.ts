@@ -1,10 +1,9 @@
 import { type DeletePatientsRequest } from '@/models/patients';
 import { HttpClientInstance } from '../utils/httpClient';
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+import { env } from '@/config/env';
 
 export const deleteManyPatientsService = (body: DeletePatientsRequest) =>
   HttpClientInstance.post<void>({
-    location: `${baseUrl}/patients/delete`,
+    location: `${env.patientsApiUrl}/patients/delete`,
     body,
   });

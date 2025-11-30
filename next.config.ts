@@ -22,7 +22,6 @@ const nextConfig = {
     prependData: `@import "variables.scss";`,
   },
   transpilePackages: ['@mui/material'],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpack: (config: any) => {
     return config;
   },

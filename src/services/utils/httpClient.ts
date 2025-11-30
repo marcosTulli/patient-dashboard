@@ -5,11 +5,12 @@ import {
   type IPostRequestParams,
 } from '@/models';
 import { getRequest, patchRequest, postRequest, deleteRequest } from './requests';
+import { env } from '@/config/env';
 
 class HttpClient {
   private jsonHeaders: Record<string, string> = {
     'Content-Type': 'application/json;charset=UTF-8',
-    'x-api-key': process.env.NEXT_PUBLIC_API_KEY || '',
+    'x-api-key': env.patientsApiKey,
   };
 
   private buildHeaders(customHeaders?: Record<string, string>, withToken?: boolean) {

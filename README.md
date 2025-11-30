@@ -55,11 +55,11 @@ Make sure you have the following installed on your machine:
 Create a `.env.local` file in the root of your project and add the following environment variables:
 
 \`\`\`
-NEXT_PUBLIC_API_URL=your_api_base_url
-NEXT_PUBLIC_API_KEY=your_api_key # This might be optional depending on your API setup
+NEXT_PUBLIC_PATIENTS_API_URL=your_api_base_url
+NEXT_PUBLIC_PATIENTS_API_KEY=your_api_key # This might be optional depending on your API setup
 \`\`\`
 
-- `NEXT_PUBLIC_API_URL`: The base URL for your backend API.
+- `NEXT_PUBLIC_PATIENTS_API_URL`: The base URL for your backend API.
 
 ### Running the Development Server
 
