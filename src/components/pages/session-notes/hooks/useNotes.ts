@@ -31,10 +31,6 @@ export function useNotes() {
     toggleDeleteDialog();
   };
 
-  const getNoteById = (id: string) => {
-    return notes?.find((note) => note.id() === id);
-  };
-
   return {
     notes,
     isLoading,
@@ -42,7 +38,6 @@ export function useNotes() {
     noteToDelete,
     handleCreateNote,
     deleteNote,
-    getNoteById,
     handleConfirmDelete,
     handleDeleteClick,
   };
