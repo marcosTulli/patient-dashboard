@@ -69,11 +69,6 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
         required
         fullWidth
         variant="outlined"
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            bgcolor: 'background.paper',
-          },
-        }}
       />
 
       <DatePicker
@@ -91,11 +86,6 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
           textField: {
             required: true,
             fullWidth: true,
-            sx: {
-              '& .MuiOutlinedInput-root': {
-                bgcolor: 'background.paper',
-              },
-            },
           },
         }}
       />
@@ -111,11 +101,6 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
         variant="outlined"
         inputProps={{ maxLength: 500 }}
         helperText={`${quickNotes.length}/500 characters`}
-        sx={{
-          '& .MuiOutlinedInput-root': {
-            bgcolor: 'background.paper',
-          },
-        }}
       />
 
       <TextField
@@ -128,9 +113,6 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
         variant="outlined"
         inputProps={{ min: 1 }}
         sx={{
-          '& .MuiOutlinedInput-root': {
-            bgcolor: 'background.paper',
-          },
           '& input[type=number]': {
             MozAppearance: 'textfield',
           },
