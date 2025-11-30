@@ -1,12 +1,29 @@
-'use client';
 import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import { type Note } from '@/models/domain/note';
 import { useNotes } from './hooks/useNotes';
 import { NoteCard } from './components/NoteCard';
+import { TitleLarge } from '@/components/common/Text/components';
 
 export const NotesGrid: React.FC = () => {
-  const { notes, isLoading } = useNotes();
+  const { notes, isLoading, handleDeleteClick } = useNotes();
+
+  if (!notes) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+        width="100%"
+        maxWidth="1200px"
+      >
+        <TitleLarge sx={{ color: 'text.secondary' }}>
+          No notes yet. Create your first note!
+        </TitleLarge>
+      </Box>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -48,7 +65,7 @@ export const NotesGrid: React.FC = () => {
             },
           }}
         >
-          <NoteCard note={note} onDelete={() => {}} />
+          <NoteCard note={note} onDelete={handleDeleteClick} />
         </Box>
       ))}
     </Box>

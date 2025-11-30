@@ -8,6 +8,7 @@ import { ToastProvider } from './ToastProvider';
 import { useAppTheme } from '@/hooks/useApppTheme';
 import { CssVarsProvider } from './CssVars';
 import { ThemeProvider } from '@mui/material';
+import { DatePickerProvider } from './DatePickerProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const { theme } = useAppTheme();
@@ -34,7 +35,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         <QueryClientProvider client={queryClient}>
           <UIProvider>
             <CssVarsProvider>
-              <ErrorProvider>{children}</ErrorProvider>
+              <DatePickerProvider>
+                <ErrorProvider>{children}</ErrorProvider>
+              </DatePickerProvider>
             </CssVarsProvider>
           </UIProvider>
         </QueryClientProvider>
