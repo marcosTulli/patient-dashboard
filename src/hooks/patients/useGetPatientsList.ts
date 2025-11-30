@@ -4,6 +4,7 @@ import { getPaginatedPatientsServiceService } from '@/services/patients';
 import React from 'react';
 import { usePatientTableStore } from '@/components/pages/patients-list/store/usePatientTableStore';
 import { Patient } from '@/models/domain/patient';
+import { queryKeys } from '@/config/queryKeys';
 
 const useGetPatientsList = () => {
   const { page, take, filter, sort } = usePatientTableStore();
@@ -17,7 +18,7 @@ const useGetPatientsList = () => {
   );
 
   const { data, error, isLoading, isFetching } = useQuery<PatientListResponse, Error>({
-    queryKey: ['patients', requestBody],
+    queryKey: [queryKeys.patients, requestBody],
     queryFn: () => getPaginatedPatientsServiceService(requestBody),
   });
 

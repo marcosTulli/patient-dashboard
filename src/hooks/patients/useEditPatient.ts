@@ -3,6 +3,7 @@ import { mutationHandlers } from '../utils';
 import { editPatientService } from '@/services/patients/editPatientService';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 import { type PatientDto } from '@/models/domain/patient/patientDto';
+import { queryKeys } from '@/config/queryKeys';
 
 // TODO Put this somewhere else
 function formatDob(dob?: string | Date): string | undefined {
@@ -32,7 +33,7 @@ function useEditPatient() {
 
   const { onSuccess, onError } = mutationHandlers({
     queryClient,
-    queryKey: ['patients'],
+    queryKey: [queryKeys.patients],
     successMessage: 'Successfully edited patient',
     errorMessage: 'Failed to edit patient',
   });

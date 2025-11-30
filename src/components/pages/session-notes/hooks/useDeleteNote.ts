@@ -1,3 +1,4 @@
+import { queryKeys } from '@/config/queryKeys';
 import { mutationHandlers } from '@/hooks/utils';
 import { deleteNotesService } from '@/services/supabase/session-notes/deleteNoteService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -7,7 +8,7 @@ function useDeleteNote() {
 
   const { onSuccess } = mutationHandlers({
     queryClient,
-    queryKey: ['session-notes'],
+    queryKey: [queryKeys.sessionNotes],
     successMessage: 'Note deleted succesfully',
     errorMessage: 'Unable to delete note',
   });

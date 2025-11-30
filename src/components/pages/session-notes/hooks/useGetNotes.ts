@@ -1,10 +1,11 @@
+import { queryKeys } from '@/config/queryKeys';
 import { Note } from '@/models/domain/note';
 import { getNotesService } from '@/services/supabase/session-notes/getNotesService';
 import { useQuery } from '@tanstack/react-query';
 
 export function useGetNotes() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['session-notes'],
+    queryKey: [queryKeys.sessionNotes],
     queryFn: getNotesService,
     retry: false,
     refetchOnWindowFocus: false,
