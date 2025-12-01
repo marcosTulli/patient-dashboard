@@ -3,5 +3,4 @@ export const routes = {
   auth: '/auth',
   patientsList: '/patients-list',
   sessionNotes: '/session-notes',
-  appointments: '/apointments',
 };

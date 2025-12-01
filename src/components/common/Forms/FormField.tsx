@@ -3,10 +3,15 @@
 import * as React from 'react';
 import { Field, type FieldProps as FormikFieldProps } from 'formik';
 import { TextField, Select, MenuItem } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { type FormFieldProps } from '@/models';
 
 const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className = '', onClick }) => {
   const isSelect = fieldProps.as === 'select' && Array.isArray(fieldProps.options);
+  const isDate = fieldProps.type === 'date';
+
+  const threeYearsAgo = new Date();
+  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
 
   if (isSelect) {
     return (
@@ -35,6 +40,37 @@ const FormField: React.FC<FormFieldProps> = ({ fieldKey, fieldProps, className =
               </MenuItem>
             ))}
           </Select>
+        )}
+      </Field>
+    );
+  }
+
+  if (isDate) {
+    return (
+      <Field name={fieldKey}>
+        {({ field, form }: FormikFieldProps<string | Date | null>) => (
+          <DatePicker
+            value={field.value ? new Date(field.value) : null}
+            onChange={(newValue) => {
+              if (newValue && typeof newValue === 'object' && 'toDate' in newValue) {
+                const dateValue = (newValue as { toDate: () => Date }).toDate();
+                form.setFieldValue(field.name, dateValue);
+              } else {
+                form.setFieldValue(field.name, newValue);
+              }
+            }}
+            maxDate={threeYearsAgo}
+            disabled={fieldProps.disabled}
+            slotProps={{
+              textField: {
+                size: 'small',
+                fullWidth: true,
+                className,
+                placeholder: fieldProps.placeholder,
+                sx: { display: fieldProps.hidden ? 'none' : undefined },
+              },
+            }}
+          />
         )}
       </Field>
     );

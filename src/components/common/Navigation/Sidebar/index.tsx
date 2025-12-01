@@ -23,8 +23,8 @@ const Sidebar: React.FC = () => {
           gap: 4,
         }}
       >
-        <Stack>
-          <NavList />
+        <Stack alignItems="flex-start" sx={{ width: '100%' }}>
+          <NavList variant="sidebar" />
         </Stack>
       </Paper>
     </Drawer>

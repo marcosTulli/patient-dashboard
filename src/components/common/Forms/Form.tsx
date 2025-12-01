@@ -35,24 +35,26 @@ const Form: React.FC<FormProps> = ({
     >
       {({ handleSubmit, isValid }) => (
         <FormikForm onSubmit={handleSubmit}>
-          {fields.map(([fieldKey, fieldProps]) => (
-            <Box key={fieldKey} sx={{ height: 108, mb: 2 }}>
-              <FormLabel fieldKey={fieldKey} fieldProps={fieldProps} />
-              <FormField fieldKey={fieldKey} fieldProps={fieldProps} />
-              <Typography color="error" sx={{ mt: 0.5, mb: 1, ml: 0.5 }} aria-live="polite">
-                <ErrorMessage name={fieldKey} />
-              </Typography>
-            </Box>
-          ))}
+          <Box sx={{ p: 2 }}>
+            {fields.map(([fieldKey, fieldProps]) => (
+              <Box key={fieldKey} sx={{ height: 108, mb: 2 }}>
+                <FormLabel fieldKey={fieldKey} fieldProps={fieldProps} />
+                <FormField fieldKey={fieldKey} fieldProps={fieldProps} />
+                <Typography color="error" sx={{ mt: 0.5, mb: 1, ml: 0.5 }} aria-live="polite">
+                  <ErrorMessage name={fieldKey} />
+                </Typography>
+              </Box>
+            ))}
 
-          <DialogButtons
-            onClickCancel={toggle}
-            cancelButtonVariant="text"
-            cancelButtonLabel={cancelButtonLabel}
-            acceptButtonLabel={acceptButtonLabel}
-            acceptButtonVariant="contained"
-            disabled={!isValid || isLoading}
-          />
+            <DialogButtons
+              onClickCancel={toggle}
+              cancelButtonVariant="text"
+              cancelButtonLabel={cancelButtonLabel}
+              acceptButtonLabel={acceptButtonLabel}
+              acceptButtonVariant="contained"
+              disabled={!isValid || isLoading}
+            />
+          </Box>
         </FormikForm>
       )}
     </Formik>

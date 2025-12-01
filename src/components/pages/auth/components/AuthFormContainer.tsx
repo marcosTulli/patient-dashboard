@@ -31,9 +31,19 @@ const AuthFormContainer = ({
       role="tabpanel"
       id={`${tabIdPrefix}-panel-${value}`}
       aria-labelledby={`${tabIdPrefix}-${value}`}
+      sx={{ minHeight: 300 }}
     >
       {isLoading ? (
-        <SmallLoader />
+        <Box
+          sx={{
+            minHeight: 300,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <SmallLoader />
+        </Box>
       ) : (
         <>
           <ErrorContainer error={error} />

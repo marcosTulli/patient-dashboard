@@ -12,7 +12,7 @@ const OpenSideBarButton: React.FC = () => {
 
   return (
     !isSideBarOpen &&
-    user?.isAuthorized && (
+    user?.isDefined && (
       <IconButton
         aria-label="open drawer"
         onClick={toggleSideBar}
