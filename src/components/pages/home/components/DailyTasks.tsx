@@ -1,6 +1,5 @@
 'use client';
 import {
-  Box,
   Typography,
   Paper,
   List,
@@ -8,36 +7,32 @@ import {
   ListItemIcon,
   ListItemText,
   Checkbox,
-  LinearProgress,
 } from '@mui/material';
 
-export function GettingStarted() {
+export function DailyTasks() {
   return (
     <Paper sx={{ p: 3, flex: '1 1 300px' }}>
       <Typography variant="h6" gutterBottom>
-        Getting Started
+        Daily Tasks
       </Typography>
-      <Box sx={{ mb: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-          <Typography variant="body2">Profile completion</Typography>
-          <Typography variant="body2" color="primary">
-            75%
-          </Typography>
-        </Box>
-        <LinearProgress variant="determinate" value={75} />
-      </Box>
       <List dense>
         <ListItem disablePadding>
           <ListItemIcon sx={{ minWidth: 36 }}>
             <Checkbox edge="start" checked disabled size="small" />
           </ListItemIcon>
-          <ListItemText primary="Create your account" />
+          <ListItemText
+            primary="Complete session note for Sarah Johnson"
+            secondary="Morning session"
+          />
         </ListItem>
         <ListItem disablePadding>
           <ListItemIcon sx={{ minWidth: 36 }}>
             <Checkbox edge="start" checked disabled size="small" />
           </ListItemIcon>
-          <ListItemText primary="Add your first patient" />
+          <ListItemText
+            primary="Review treatment plan for Michael Chen"
+            secondary="Follow-up required"
+          />
         </ListItem>
         <ListItem disablePadding>
           <ListItemIcon sx={{ minWidth: 36 }}>

@@ -4,13 +4,12 @@ import { routes } from '@/config/routes';
 import { Box } from '@mui/material';
 import {
   Activity,
-  Features,
-  GettingStarted,
+  DailyTasks,
   Hero,
   HomeNavigation,
   Sessions,
   Stats,
-  Tips,
+  Articles,
 } from '@components/pages/home/components';
 
 export default function Home() {
@@ -21,12 +20,11 @@ export default function Home() {
       <Stats />
       <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap', mb: 5 }}>
         <Activity />
-        <GettingStarted />
+        <DailyTasks />
       </Box>
       <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
         <Sessions />
-        <Tips />
-        <Features />
+        <Articles />
       </Box>
     </ProtectedPage>
   );
