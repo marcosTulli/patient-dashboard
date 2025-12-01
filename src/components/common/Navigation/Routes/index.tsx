@@ -1,18 +1,30 @@
 'use client';
 
 import React from 'react';
-import { Button, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useSideBar } from '@/hooks';
 import useRoutesList from '@/hooks/useRoutesList';
 import { usePathname } from 'next/navigation';
+import NavLinkButton from '../NavLinkButton';
 
-const NavList: React.FC = () => {
+interface NavListProps {
+  variant?: 'navbar' | 'sidebar';
+}
+
+const NavList: React.FC<NavListProps> = ({ variant = 'navbar' }) => {
   const { isSideBarOpen, toggleSideBar } = useSideBar();
   const { routesList } = useRoutesList();
   const pathName = usePathname();
 
+  const isSidebar = variant === 'sidebar';
+
   return (
-    <>
+    <Stack
+      direction={isSidebar ? 'column' : 'row'}
+      alignItems="flex-start"
+      spacing={isSidebar ? 0 : 1}
+      sx={{ width: '100%' }}
+    >
       {routesList.map((route) => {
         const handleClick = () => {
           if (isSideBarOpen) toggleSideBar();
@@ -20,20 +32,17 @@ const NavList: React.FC = () => {
         };
 
         return (
-          <Button
+          <NavLinkButton
             key={route.label}
-            variant="text"
-            onClick={handleClick}
-            sx={{
-              color: 'text.secondary',
-              bgcolor: pathName === route.path ? 'primary.main' : 'transparent',
-            }}
-          >
-            <Typography variant="body2">{route.label}</Typography>
-          </Button>
+            Icon={route.Icon}
+            handleClick={handleClick}
+            isPath={pathName === route.path}
+            label={route.label}
+            variant={variant}
+          />
         );
       })}
-    </>
+    </Stack>
   );
 };
 
