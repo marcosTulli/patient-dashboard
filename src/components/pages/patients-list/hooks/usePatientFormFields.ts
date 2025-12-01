@@ -26,6 +26,9 @@ const usePatientsFormFields = (): {
   createPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>;
   editPatientFormFields: Partial<Record<FormFieldKey, FieldProps>>;
 } => {
+  const threeYearsAgo = new Date();
+  threeYearsAgo.setFullYear(threeYearsAgo.getFullYear() - 3);
+
   const validation = {
     firstName: () =>
       Yup.string()
@@ -46,7 +49,11 @@ const usePatientsFormFields = (): {
           'Phone number can only contain numbers, spaces, dashes, and an optional leading +',
         ),
 
-    dob: () => Yup.date().nullable().required().max(new Date(), 'DOB cannot be in the future'),
+    dob: () =>
+      Yup.date()
+        .nullable()
+        .required('Date of birth is required')
+        .max(threeYearsAgo, 'Patient must be at least 3 years old'),
   };
 
   const { selectedRow } = useSelectedRowStore();
@@ -114,7 +121,7 @@ const usePatientsFormFields = (): {
     },
     [FormFieldKey.DOB]: {
       ...commonFields[FormFieldKey.DOB],
-      value: '',
+      value: threeYearsAgo,
     },
   };
 
