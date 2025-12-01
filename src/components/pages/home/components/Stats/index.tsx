@@ -1,7 +1,7 @@
 'use client';
 import { Box, Typography } from '@mui/material';
 import { StatCard } from './StatCard';
-import { useStats } from '../../hooks/useStats';
+import { useStats } from '../../hooks';
 
 export function Stats() {
   const { statsConfig } = useStats();
