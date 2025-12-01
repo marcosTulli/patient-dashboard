@@ -2,25 +2,26 @@
 
 import * as React from 'react';
 import { usePathname } from 'next/navigation';
-import { Box, Sheet, Stack, Button } from '@mui/joy';
+import { Box, Paper, Stack } from '@mui/material';
 import { routes } from '@/config/routes';
 import OpenSideBarButton from './OpenSidebarButton';
 import NavList from '../Routes';
 import { useUser } from '@/hooks/auth';
+import UserMenu from '../../UserMenu';
 
 const Navbar: React.FC = () => {
   const pathName = usePathname();
   const isHome = pathName === routes.home;
-  const { user, handleLogout } = useUser();
-  
+  const { user } = useUser();
+
   if (!user?.isDefined) {
     return null;
   }
 
   return (
-    <Sheet
+    <Paper
       component="nav"
-      variant="plain"
+      elevation={0}
       sx={{
         width: '100%',
         px: 2,
@@ -54,19 +55,10 @@ const Navbar: React.FC = () => {
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <OpenSideBarButton />
-          {user?.isDefined && (
-            <Button
-              size="sm"
-              color="neutral"
-              variant="plain"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
-          )}
         </Box>
+        <UserMenu />
       </Stack>
-    </Sheet>
+    </Paper>
   );
 };
 

@@ -1,10 +1,9 @@
-import { Patient } from '@/models/patients';
-import HttpClientInstance from '@/services/utils/httpClient';
+import { env } from '@/config/env';
+import { type NewPatient } from '@/models/domain/patient/patientDto';
+import { HttpClientInstance } from '@/services/utils/httpClient';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-
-export const createPatientService = (body: Patient) =>
-  HttpClientInstance.post<Patient>({
-    location: `${baseUrl}/patients/create`,
+export const createPatientService = (body: NewPatient) =>
+  HttpClientInstance.post<NewPatient>({
+    location: `${env.patientsApiUrl}/patients/create`,
     body,
   });

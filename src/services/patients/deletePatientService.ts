@@ -1,8 +1,7 @@
-import HttpClientInstance from '@/services/utils/httpClient';
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+import { env } from '@/config/env';
+import { HttpClientInstance } from '@/services/utils/httpClient';
 
 export const deletePatientService = (id: string) =>
   HttpClientInstance.delete({
-    location: `${baseUrl}/patients/${id}`,
+    location: `${env.patientsApiUrl}/patients/${id}`,
   });

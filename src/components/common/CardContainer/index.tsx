@@ -1,7 +1,7 @@
 'use client';
 
-import { Box, Card, CardContent } from '@mui/joy';
-import React, { PropsWithChildren } from 'react';
+import { Box, Card, CardContent } from '@mui/material';
+import React, { type PropsWithChildren } from 'react';
 
 const CardContainer: React.FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -11,7 +11,7 @@ const CardContainer: React.FC<PropsWithChildren> = ({ children }) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bgcolor="background.body"
+      bgcolor="background.default"
       p={2}
     >
       <Card
@@ -21,7 +21,7 @@ const CardContainer: React.FC<PropsWithChildren> = ({ children }) => {
         aria-labelledby="access-card"
         sx={{
           width: { xs: '90%', sm: 400 },
-          bgcolor: 'background.surface',
+          bgcolor: 'background.paper',
           minHeight: 500,
           display: 'flex',
           flexDirection: 'column',

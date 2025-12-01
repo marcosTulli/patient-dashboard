@@ -1,4 +1,4 @@
-import { Typography } from '@mui/joy';
+import { Typography } from '@mui/material';
 
 interface Props {
   startItem: number;
@@ -7,13 +7,8 @@ interface Props {
   itemName: string;
 }
 
-const PaginationInfo: React.FC<Props> = ({
-  startItem,
-  endItem,
-  total,
-  itemName,
-}) => (
-  <Typography level="body-sm">
+const PaginationInfo: React.FC<Props> = ({ startItem, endItem, total, itemName }) => (
+  <Typography variant="body2">
     Showing {startItem}-{endItem} of {total} {itemName}
   </Typography>
 );

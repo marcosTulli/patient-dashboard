@@ -2,7 +2,7 @@
 
 import { routes } from '@/config/routes';
 import { useUser } from '@/hooks/auth';
-import { Box, CircularProgress } from '@mui/joy';
+import { Box, CircularProgress } from '@mui/material';
 import React from 'react';
 
 type ProtectedPageProps = {
@@ -10,10 +10,7 @@ type ProtectedPageProps = {
   redirectTo?: string;
 };
 
-export function ProtectedPage({
-  children,
-  redirectTo = routes.auth,
-}: ProtectedPageProps) {
+export function ProtectedPage({ children, redirectTo = routes.auth }: ProtectedPageProps) {
   const { isAuthenticated, isReady } = useUser({ redirectTo });
 
   if (!isReady) {
@@ -26,7 +23,7 @@ export function ProtectedPage({
           height: '100vh',
         }}
       >
-        <CircularProgress size="lg" />
+        <CircularProgress size={40} />
       </Box>
     );
   }

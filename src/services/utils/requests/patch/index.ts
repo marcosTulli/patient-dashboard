@@ -1,4 +1,4 @@
-import { IPatchRequestParams } from '@/models';
+import { type IPatchRequestParams } from '@/models';
 import axios from 'axios';
 
 export async function patchRequest<T>({

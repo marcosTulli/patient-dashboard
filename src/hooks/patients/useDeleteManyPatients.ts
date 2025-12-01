@@ -3,13 +3,14 @@
 import { deleteManyPatientsService } from '@/services/patients';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { mutationHandlers } from '@/hooks/utils/mutationHandlers';
+import { queryKeys } from '@/config/queryKeys';
 
 function useDeleteManyPatients() {
   const queryClient = useQueryClient();
 
   const { onSuccess, onError } = mutationHandlers({
     queryClient,
-    queryKey: ['patients'],
+    queryKey: [queryKeys.patients],
     successMessage: 'Successfully deleted selected patients',
     errorMessage: 'Failed to delete selected patients',
   });

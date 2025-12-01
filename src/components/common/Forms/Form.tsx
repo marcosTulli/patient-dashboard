@@ -2,12 +2,12 @@
 
 import * as React from 'react';
 import { ErrorMessage, Formik, Form as FormikForm } from 'formik';
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography } from '@mui/material';
 
 import FormLabel from './FormLabel';
 import DialogButtons from '../Overlays/DialogButtons';
 import useForm from '@/hooks/forms/useForm';
-import { FormProps, SubmitBody } from '@/models';
+import { type FormProps, type SubmitBody } from '@/models';
 import FormField from './FormField';
 
 const Form: React.FC<FormProps> = ({
@@ -39,11 +39,7 @@ const Form: React.FC<FormProps> = ({
             <Box key={fieldKey} sx={{ height: 108, mb: 2 }}>
               <FormLabel fieldKey={fieldKey} fieldProps={fieldProps} />
               <FormField fieldKey={fieldKey} fieldProps={fieldProps} />
-              <Typography
-                color="danger"
-                sx={{ mat: 0.5, mb: 1, ml: 0.5 }}
-                aria-live="polite"
-              >
+              <Typography color="error" sx={{ mt: 0.5, mb: 1, ml: 0.5 }} aria-live="polite">
                 <ErrorMessage name={fieldKey} />
               </Typography>
             </Box>
@@ -51,10 +47,10 @@ const Form: React.FC<FormProps> = ({
 
           <DialogButtons
             onClickCancel={toggle}
-            cancelButtonVariant="plain"
+            cancelButtonVariant="text"
             cancelButtonLabel={cancelButtonLabel}
             acceptButtonLabel={acceptButtonLabel}
-            acceptButtonVariant="solid"
+            acceptButtonVariant="contained"
             disabled={!isValid || isLoading}
           />
         </FormikForm>

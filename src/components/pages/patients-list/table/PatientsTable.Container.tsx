@@ -1,9 +1,9 @@
 'use client';
 
 import type React from 'react';
-import { Box } from '@mui/joy';
+import { Box } from '@mui/material';
 import PatientsTableError from './PatientsTable.Error';
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 const PatientsTableContainer: React.FC<PropsWithChildren> = ({ children }) => {
   <PatientsTableError />;

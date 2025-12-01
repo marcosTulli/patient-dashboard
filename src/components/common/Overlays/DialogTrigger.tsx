@@ -1,13 +1,7 @@
 // DialogTrigger.js
 import * as React from 'react';
-import {
-  Button,
-  Modal,
-  ModalDialog,
-  DialogTitle,
-  DialogContent,
-} from '@mui/joy';
-import { DialogTriggerProps } from '@/models';
+import { Button, Dialog, DialogTitle, DialogContent } from '@mui/material';
+import { type DialogTriggerProps } from '@/models';
 
 const DialogTrigger: React.FC<DialogTriggerProps> = ({
   id,
@@ -23,25 +17,27 @@ const DialogTrigger: React.FC<DialogTriggerProps> = ({
   return (
     <div key={id}>
       {displayButton && (
-        <Button variant="solid" color="primary" onClick={toggle}>
+        <Button variant="contained" color="primary" onClick={toggle}>
           {openDialogButtonLabel}
         </Button>
       )}
-      <Modal open={isOpen} onClose={toggle}>
-        <ModalDialog
-          sx={{
+      <Dialog
+        open={isOpen}
+        onClose={toggle}
+        PaperProps={{
+          sx: {
             width: '600px',
             maxWidth: '90vw',
             display: 'flex',
             flexDirection: 'column',
-          }}
-        >
-          <DialogTitle>{title}</DialogTitle>
-          <DialogContent sx={{ flexGrow: 1, overflowY: 'auto', p: 0 }}>
-            {renderContent ? renderContent() : children}
-          </DialogContent>
-        </ModalDialog>
-      </Modal>
+          },
+        }}
+      >
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent sx={{ flexGrow: 1, overflowY: 'auto', p: 2 }}>
+          {renderContent ? renderContent() : children}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -21,8 +21,7 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "variables.scss";`,
   },
-  transpilePackages: ['@mui/joy'],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transpilePackages: ['@mui/material'],
   webpack: (config: any) => {
     return config;
   },

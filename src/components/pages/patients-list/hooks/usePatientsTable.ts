@@ -1,12 +1,13 @@
 'use client';
 
 import { useMemo } from 'react';
-import { type Patient, type PatientListRequest } from '@/models/patients';
+import { type PatientListRequest } from '@/models/patients';
 import { usePatientTableStore } from '../store/usePatientTableStore';
 import useDeleteManyPatients from '@/hooks/patients/useDeleteManyPatients';
 import useDialogs from '@/hooks/overlays/useDialogs';
 import useSelectedRowStore from '@/store/table/useSelectedRowStore';
 import useGetPatientsList from '@/hooks/patients/useGetPatientsList';
+import { type Patient } from '@/models/domain/patient';
 
 function usePatientsTable() {
   const {
@@ -35,11 +36,11 @@ function usePatientsTable() {
 
   const { patients, total, error, isLoading, isFetching } = useGetPatientsList();
   const { deleteManyPatients } = useDeleteManyPatients();
-  const {toggleEditDialog, toggledeleteDialog} = useDialogs();
-  const {setSelectedRow} = useSelectedRowStore();
+  const { toggleEditDialog, toggleDeleteDialog } = useDialogs();
+  const { setSelectedRow } = useSelectedRowStore();
 
-  const getRowId = (patient: Patient) => patient._id;
-  
+  const getRowId = (patient: Patient) => patient.id();
+
   const openEditPatientDialog = (row: Patient) => {
     toggleEditDialog();
     setSelectedRow(row);
@@ -47,18 +48,13 @@ function usePatientsTable() {
 
   const handleDelete = (row: Patient) => {
     setSelectedRow(row);
-    toggledeleteDialog();
+    toggleDeleteDialog();
   };
 
-  const handleDeleteSelected = ({
-    selectedRows,
-  }: {
-    selectedRows: Set<string>;
-  }) => {
+  const handleDeleteSelected = ({ selectedRows }: { selectedRows: Set<string> }) => {
     const requestBody = { ids: Array.from(selectedRows) };
     deleteManyPatients(requestBody);
     clearSelection();
-
   };
 
   return {

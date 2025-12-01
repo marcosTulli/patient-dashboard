@@ -1,9 +1,10 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Providers } from '@/providers';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import NavigationMenu from '@/components/common/Navigation/Menu';
 import Footer from '@/components/common/Footer';
 import React from 'react';
+import { Box } from '@mui/material';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,25 +17,32 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Patients Dashboard',
+  title: 'Patient Management',
   description: 'Administer patients',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full dark">
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <body
         suppressHydrationWarning={true}
-        className={`min-h-screen flex flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <NavigationMenu />
-          <main className="flex-1 w-full">{children}</main>
-          <Footer />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              minHeight: '100vh',
+              overflowX: 'hidden',
+              position: 'relative',
+            }}
+          >
+            <NavigationMenu />
+            {children}
+            <Footer />
+          </Box>
         </Providers>
       </body>
     </html>

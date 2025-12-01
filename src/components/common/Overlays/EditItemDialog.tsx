@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { CreateItemDialogProps } from '@/models';
+import { type CreateItemDialogProps } from '@/models';
 import useDialogs from '@/hooks/overlays/useDialogs';
 import DialogTrigger from './DialogTrigger';
 import Form from '../Forms/Form';

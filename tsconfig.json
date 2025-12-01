@@ -20,10 +20,26 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@components": ["./src/components/index.tsx"],
+      "@components/*": ["./src/components/*"],
+      "@hooks": ["./src/hooks/index.ts"],
       "@hooks/*": ["./src/hooks/*"],
-      "@store/*": ["./src/store/*"],
+      "@services": ["./src/services/index.ts"],
+      "@services/*": ["./src/services/*"],
+      "@models": ["./src/models/index.ts"],
       "@models/*": ["./src/models/*"],
-      "@components/*": ["./src/components/*"]
+      "@styles": ["./src/styles/index.scss"],
+      "@styles/*": ["./src/styles/*"],
+      "@pages": ["./src/pages/index.ts"],
+      "@pages/*": ["./src/pages/*"],
+      "@store": ["./src/store/index.ts"],
+      "@store/*": ["./src/store/*"],
+      "@theme": ["./src/theme/index.ts"],
+      "@theme/*": ["./src/theme/*"],
+      "@config": ["./src/config/index.ts"],
+      "@config/*": ["./src/config/*"],
+      "@utils": ["./src/utils/index.ts"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

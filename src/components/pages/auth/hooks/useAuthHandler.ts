@@ -1,10 +1,10 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import useAuthToken from '@/hooks/auth/token';
+import { useAuthToken } from '@/hooks/auth/token';
 import { useLogin, useSignup } from '@/hooks/auth/';
 import React from 'react';
-import { LoginRequest, SignupRequest } from '@/models/auth';
+import { type LoginRequest, type SignupRequest } from '@/models/auth';
 import { routes } from '@/config/routes';
 import { AccessTypes } from '../models';
 
@@ -47,8 +47,7 @@ export function useAuthHandler(mode: 'login' | 'signup') {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginToken, signupToken, mode, redirectTo, router]);
 
-  const isLoading =
-    mode === AccessTypes.login ? isLoginPending : isSignupPending;
+  const isLoading = mode === AccessTypes.login ? isLoginPending : isSignupPending;
   const error = mode === AccessTypes.login ? loginError : signupError;
 
   return { handleSubmit, isLoading, error };

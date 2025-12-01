@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Typography } from '@mui/joy';
+import { Typography } from '@mui/material';
 
 type FieldProps = {
   label?: React.ReactNode;
@@ -20,8 +20,8 @@ const FormLabel: React.FC<FormLabelProps> = ({ fieldKey, fieldProps }) => {
     <Typography
       component="label"
       htmlFor={fieldKey}
-      level="body-sm"
-      fontWeight="md"
+      variant="body2"
+      fontWeight={500}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -31,7 +31,7 @@ const FormLabel: React.FC<FormLabelProps> = ({ fieldKey, fieldProps }) => {
     >
       {fieldProps.label}
       {fieldProps.isRequired && (
-        <Typography color="danger" component="span">
+        <Typography color="error" component="span">
           *
         </Typography>
       )}

@@ -6,24 +6,20 @@ import { filterConfig } from '../config';
 import usePatientsTable from '../hooks/usePatientsTable';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
 import CreateItemDialog from '@/components/common/Overlays/CreateItemDialog';
-import { SubmitBody } from '@/models';
-import { Patient } from '@/models/patients';
+import { type SubmitBody } from '@/models';
 import useCreatePatient from '@hooks/patients/useCreatePatient';
+import useDialogs from '@/hooks/overlays/useDialogs';
+import { type NewPatient } from '@/models/domain/patient/patientDto';
 
 const PatientsTableControls: React.FC = () => {
-  const {
-    selectedRows,
-    filter,
-    setFilter,
-    clearSelection,
-    handleDeleteSelected,
-  } = usePatientsTable();
+  const { selectedRows, filter, setFilter, clearSelection } = usePatientsTable();
+  const { toggleDeleteManyDialog } = useDialogs();
 
   const { createPatientFormFields } = usePatientsFormFields();
   const { createPatient, isPending } = useCreatePatient();
 
   const handleSubmit = async (values: SubmitBody) => {
-    await createPatient(values as Patient);
+    await createPatient(values as NewPatient);
   };
 
   return (
@@ -34,7 +30,7 @@ const PatientsTableControls: React.FC = () => {
       selectedRows={selectedRows}
       clearSelection={clearSelection}
       filterConfig={filterConfig}
-      onDeleteSelected={handleDeleteSelected}
+      onDeleteSelected={toggleDeleteManyDialog}
       renderAddDialog={
         <CreateItemDialog
           title="Create New Patient"

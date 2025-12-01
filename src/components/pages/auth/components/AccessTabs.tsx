@@ -1,18 +1,16 @@
 'use client';
 
-import { TabList, Tab } from '@mui/joy';
+import { Tab } from '@mui/material';
 import React from 'react';
 import { tabs } from '../config/tabsConfig';
 
 const AccessTabs: React.FC = () => {
   return (
-    <TabList>
+    <>
       {tabs.map(({ id, value, label, panelId }) => (
-        <Tab key={id} id={id} value={value} aria-controls={panelId}>
-          {label}
-        </Tab>
+        <Tab key={id} id={id} value={value} label={label} aria-controls={panelId} />
       ))}
-    </TabList>
+    </>
   );
 };
 

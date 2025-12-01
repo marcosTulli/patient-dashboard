@@ -1,9 +1,9 @@
 'use client';
 
 import { getFormFields, getFormSchema } from '@/config/forms/authFormConfig';
-import { LoginRequest, SignupRequest } from '@/models/auth';
+import { type LoginRequest, type SignupRequest } from '@/models/auth';
 import { ValidationError } from 'yup';
-import { AccessTypes } from '../models';
+import { type AccessTypes } from '../models';
 
 type FormValues = LoginRequest | SignupRequest;
 

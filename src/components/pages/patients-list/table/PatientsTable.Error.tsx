@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography } from '@mui/material';
 import usePatientsTable from '../hooks/usePatientsTable';
 
 const PatientsTableError: React.FC = () => {
@@ -9,9 +9,7 @@ const PatientsTableError: React.FC = () => {
   return (
     error && (
       <Box sx={{ p: 3 }}>
-        <Typography color="danger">
-          Error loading patients: {error.message}
-        </Typography>
+        <Typography color="error">Error loading patients: {error.message}</Typography>
       </Box>
     )
   );

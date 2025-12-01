@@ -6,8 +6,12 @@ function useDialogs() {
   const toggleCreateDialog = () => {
     state.toggle({ dialog: dialogs.create });
   };
-  const toggledeleteDialog = () => {
+  const toggleDeleteDialog = () => {
     state.toggle({ dialog: dialogs.delete });
+  };
+
+  const toggleDeleteManyDialog = () => {
+    state.toggle({ dialog: dialogs.deleteMany });
   };
   const toggleEditDialog = () => {
     state.toggle({ dialog: dialogs.edit });
@@ -22,9 +26,10 @@ function useDialogs() {
   return {
     ...state,
     toggleCreateDialog,
-    toggledeleteDialog,
+    toggleDeleteDialog,
     toggleEditDialog,
     toggleAlertDialog,
+    toggleDeleteManyDialog,
     toggleRemoveFormItemDialog,
   };
 }

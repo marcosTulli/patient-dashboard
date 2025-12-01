@@ -1,12 +1,4 @@
-export interface Patient {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber?: string;
-  dob?: string;
-  createdAt: Date
-}
+import { type PatientDto } from './domain/patient/patientDto';
 
 export interface Pagination {
   page: number;
@@ -42,16 +34,10 @@ export enum SortFields {
   phoneNumber = 'phoneNumber',
   dob = 'dob',
   id = '_id',
-  createdAt = 'createdAt'
+  createdAt = 'createdAt',
 }
 
-export type SortFieldsType =
-  | 'firstName'
-  | 'lastName'
-  | 'email'
-  | 'phone'
-  | 'dob'
-  | '_id';
+export type SortFieldsType = 'firstName' | 'lastName' | 'email' | 'phone' | 'dob' | '_id';
 
 export interface PatientSort {
   field: SortFields;
@@ -65,7 +51,7 @@ export interface PatientListRequest {
 }
 
 export interface PatientListResponse {
-  patients: Patient[];
+  patients: PatientDto[];
   total: number;
 }
 

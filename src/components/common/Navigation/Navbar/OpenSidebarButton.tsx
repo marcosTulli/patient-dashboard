@@ -4,7 +4,7 @@ import * as React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useSideBar } from '@hooks/index';
 import { useUser } from '@/hooks/auth';
-import { IconButton } from '@mui/joy';
+import { IconButton } from '@mui/material';
 
 const OpenSideBarButton: React.FC = () => {
   const { isSideBarOpen, toggleSideBar } = useSideBar();
@@ -14,7 +14,6 @@ const OpenSideBarButton: React.FC = () => {
     !isSideBarOpen &&
     user?.isAuthorized && (
       <IconButton
-        variant="plain"
         aria-label="open drawer"
         onClick={toggleSideBar}
         sx={{

@@ -25,12 +25,12 @@ const DeleteItemDialog: React.FC<DeleteItemProps> = ({
   displayButton,
   id,
 }) => {
-  const { toggledeleteDialog, isOpendeleteDialog } = useDialogs();
+  const { toggleDeleteDialog, isOpendeleteDialog } = useDialogs();
   const { clearSelection } = usePatientTableStore();
 
   const toggle = () => {
     clearSelection();
-    toggledeleteDialog();
+    toggleDeleteDialog();
   };
 
   return (

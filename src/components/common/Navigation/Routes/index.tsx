@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { IconButton, Typography } from '@mui/joy';
+import { Button, Typography } from '@mui/material';
 import { useSideBar } from '@/hooks';
 import useRoutesList from '@/hooks/useRoutesList';
 
@@ -18,15 +18,15 @@ const NavList: React.FC = () => {
         };
 
         return (
-          <IconButton
+          <Button
             key={route.label}
-            variant="plain"
-            color="neutral"
+            variant="text"
+            color="inherit"
             onClick={handleClick}
-            sx={{ color: 'neutral.300' }}
+            sx={{ color: 'text.secondary' }}
           >
-            <Typography level="body-sm">{route.label}</Typography>
-          </IconButton>
+            <Typography variant="body2">{route.label}</Typography>
+          </Button>
         );
       })}
     </>

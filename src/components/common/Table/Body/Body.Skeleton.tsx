@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from '@mui/joy';
+import { Skeleton } from '@mui/material';
 
 interface SkeletonColumnProps {
   key: string;

@@ -1,6 +1,6 @@
 import { useAuthTokenStore } from '@/store/auth-token';
 
-export default function useAuthToken() {
+export function useAuthToken() {
   const { authToken, clearAuthToken, setAuthToken } = useAuthTokenStore();
 
   return {

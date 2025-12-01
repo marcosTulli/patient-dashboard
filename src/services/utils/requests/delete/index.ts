@@ -1,4 +1,4 @@
-import { IDeleteRequestParams } from '@/models';
+import { type IDeleteRequestParams } from '@/models';
 import axios from 'axios';
 
 export async function deleteRequest<T>({

@@ -1,16 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import {
-  QueryClient,
-  QueryClientProvider,
-  MutationCache,
-} from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, MutationCache } from '@tanstack/react-query';
 import UIProvider from './UIProvider';
 import ErrorProvider from './ErrorProvider';
 import { ToastProvider } from './ToastProvider';
+import { useAppTheme } from '@/hooks/useApppTheme';
+import { CssVarsProvider } from './CssVars';
+import { ThemeProvider } from '@mui/material';
+import { DatePickerProvider } from './DatePickerProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const { theme } = useAppTheme();
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -29,12 +30,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <ToastProvider>
-      <QueryClientProvider client={queryClient}>
-        <UIProvider>
-          <ErrorProvider>{children}</ErrorProvider>
-        </UIProvider>
-      </QueryClientProvider>
-    </ToastProvider>
+    <ThemeProvider theme={theme}>
+      <ToastProvider>
+        <QueryClientProvider client={queryClient}>
+          <UIProvider>
+            <CssVarsProvider>
+              <DatePickerProvider>
+                <ErrorProvider>{children}</ErrorProvider>
+              </DatePickerProvider>
+            </CssVarsProvider>
+          </UIProvider>
+        </QueryClientProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }

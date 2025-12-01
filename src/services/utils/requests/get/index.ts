@@ -1,14 +1,9 @@
 import axios from 'axios';
-import { IGetRequestParams } from '@/models';
+import { type IGetRequestParams } from '@/models';
+import { env } from '@/config/env';
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
-
-export async function getRequest<T>({
-  location,
-  params,
-  headers,
-}: IGetRequestParams): Promise<T> {
-  const response = await axios.get(baseUrl + location, {
+export async function getRequest<T>({ location, params, headers }: IGetRequestParams): Promise<T> {
+  const response = await axios.get(env.patientsApiUrl + location, {
     params,
     headers,
     paramsSerializer: {

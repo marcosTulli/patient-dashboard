@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { undefinedUser, useUserStore } from '@/store/user';
 import { jwtDecode } from 'jwt-decode';
-import { CustomJwtPayload, Roles, User } from '@/models';
+import { type CustomJwtPayload, Roles, type User } from '@/models';
 import { useAuthTokenStore } from '@/store/auth-token';
 import { routes } from '@/config/routes';
 
@@ -32,10 +32,9 @@ export function useUser(options: Options = {}) {
   const { authToken, setAuthToken, clearAuthToken } = useAuthTokenStore();
   const { storedUser, setUser } = useUserStore();
 
-
   const handleLogout = () => {
     clearAuthToken();
-    setUser({user: undefinedUser});
+    setUser({ user: undefinedUser });
     router.replace(routes.auth);
   };
 

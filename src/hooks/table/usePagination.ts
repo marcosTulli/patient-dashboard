@@ -1,15 +1,9 @@
 'use client';
 
-import type React from 'react';
-import { TablePaginationProps } from '@models/table';
+import { type SelectChangeEvent } from '@mui/material';
+import { type TablePaginationProps } from '@models/table';
 
-function usePagination({
-  total,
-  take,
-  page,
-  setPage,
-  setTake,
-}: TablePaginationProps) {
+export function usePagination({ total, take, page, setPage, setTake }: TablePaginationProps) {
   const totalPages = Math.ceil(total / take);
   const startItem = (page - 1) * take + 1;
   const endItem = Math.min(page * take, total);
@@ -21,10 +15,8 @@ function usePagination({
     }
   };
 
-  const handleTakeChange = (
-    _: React.SyntheticEvent | null,
-    newValue: number | null,
-  ) => {
+  const handleTakeChange = (event: SelectChangeEvent<number>) => {
+    const newValue = event.target.value as number;
     if (newValue) {
       setTake(newValue);
       setPage(1);
@@ -40,5 +32,3 @@ function usePagination({
     handleTakeChange,
   };
 }
-
-export default usePagination;

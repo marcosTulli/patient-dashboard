@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Dropdown, MenuButton, Menu, MenuItem, IconButton } from '@mui/joy';
+import React, { useState } from 'react';
+import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/material';
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
 
 interface RowControlsProps<T> {
@@ -10,35 +10,60 @@ interface RowControlsProps<T> {
   onDelete?: (item: T) => void;
 }
 
-export function RowControls<T>({
-  item,
-  onEdit,
-  onDelete,
-}: RowControlsProps<T>) {
+export function RowControls<T>({ item, onEdit, onDelete }: RowControlsProps<T>) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   if (!onEdit && !onDelete) return null;
 
   return (
-    <Dropdown>
-      <MenuButton
-        slots={{ root: IconButton }}
-        slotProps={{ root: { variant: 'plain', size: 'sm' } }}
-      >
+    <>
+      <IconButton size="small" onClick={handleClick}>
         <MoreVertical size={16} />
-      </MenuButton>
-      <Menu placement="right-start">
+      </IconButton>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
         {onEdit && (
-          <MenuItem onClick={() => onEdit(item)}>
-            <Edit size={16} />
-            Edit
+          <MenuItem
+            onClick={() => {
+              onEdit(item);
+              handleClose();
+            }}
+          >
+            <ListItemIcon>
+              <Edit size={16} />
+            </ListItemIcon>
+            <ListItemText>Edit</ListItemText>
           </MenuItem>
         )}
         {onDelete && (
-          <MenuItem onClick={() => onDelete(item)} color="danger">
-            <Trash2 size={16} />
-            Delete
+          <MenuItem
+            onClick={() => {
+              onDelete(item);
+              handleClose();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <ListItemIcon sx={{ color: 'error.main' }}>
+              <Trash2 size={16} />
+            </ListItemIcon>
+            <ListItemText>Delete</ListItemText>
           </MenuItem>
         )}
       </Menu>
-    </Dropdown>
+    </>
   );
 }

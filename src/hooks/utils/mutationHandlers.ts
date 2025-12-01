@@ -1,6 +1,6 @@
 'use client';
 
-import { QueryClient } from '@tanstack/react-query';
+import { type QueryClient } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
 
 interface MutationHandlerOptions {

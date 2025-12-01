@@ -1,11 +1,10 @@
-import { AuthResponse } from '@/models/auth/auth-response';
-import { LoginRequest } from '@/models/auth/login';
-import HttpClientInstance from '@/services/utils/httpClient';
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+import { env } from '@/config/env';
+import { type AuthResponse } from '@/models/auth/auth-response';
+import { type LoginRequest } from '@/models/auth/login';
+import { HttpClientInstance } from '@/services/utils/httpClient';
 
 export const loginService = (body: LoginRequest) =>
   HttpClientInstance.post<AuthResponse>({
-    location: `${baseUrl}/auth/login`,
+    location: `${env.patientsApiUrl}/auth/login`,
     body,
   });

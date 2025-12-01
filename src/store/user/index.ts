@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { User, UserState } from '@/models';
+import { type User, type UserState } from '@/models';
 
 export const undefinedUser: User = {
   id: '',

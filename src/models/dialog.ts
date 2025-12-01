@@ -1,11 +1,11 @@
-import { FormFields, SubmitBody } from './form';
+import { type FormFields, type SubmitBody } from './form';
 
 export interface DialogButtonsProps {
   onClickCancel: () => void;
   cancelButtonLabel: string;
-  cancelButtonVariant?: 'plain' | 'outlined' | 'soft' | 'solid';
+  cancelButtonVariant?: 'text' | 'outlined' | 'contained';
   acceptButtonLabel: string;
-  acceptButtonVariant?: 'plain' | 'outlined' | 'soft' | 'solid';
+  acceptButtonVariant?: 'text' | 'outlined' | 'contained';
   disabled?: boolean;
 }
 
@@ -28,5 +28,5 @@ export interface CreateItemDialogProps {
   acceptButtonLabel: string;
   openDialogButtonLabel: string;
   cancelButtonLabel: string;
-  displayButton: boolean
+  displayButton: boolean;
 }

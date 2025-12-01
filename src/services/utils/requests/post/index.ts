@@ -1,4 +1,4 @@
-import { IPostRequestParams } from '@/models';
+import { type IPostRequestParams } from '@/models';
 import axios from 'axios';
 
 export const postRequest = async <T>({

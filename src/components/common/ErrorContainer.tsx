@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 
 interface Error {
@@ -12,7 +12,7 @@ const ErrorContainer: React.FC<ErrorContainerProps> = ({ error }) => {
   return (
     <Box minHeight={40} mb={2}>
       {error && (
-        <Typography color="danger" role="alert" aria-live="assertive">
+        <Typography color="error" role="alert" aria-live="assertive">
           {error.message || 'Authorization failed'}
         </Typography>
       )}

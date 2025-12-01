@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { Box, Sheet } from '@mui/joy';
+import { Box, Paper } from '@mui/material';
 import PatientsTableControls from './PatientsTable.Controls';
 import PatientsTableHead from './PatientsTable.Head';
 import PatientsTableBody from './PatientsTable.Body';
@@ -11,37 +11,25 @@ import EditItemDialog from '@/components/common/Overlays/EditItemDialog';
 import usePatientsFormFields from '../hooks/usePatientFormFields';
 import useEditPatient from '@/hooks/patients/useEditPatient';
 import PatientsTableError from './PatientsTable.Error';
-import { SubmitBody } from '@/models';
-import { Patient } from '@/models/patients';
-import DeleteItemDialog from '@/components/common/Overlays/DeleteItemDialog';
-import useSelectedRowStore from '@/store/table/useSelectedRowStore';
-import useDeletePatient from '@/hooks/patients/useDeletePatient';
+import { type SubmitBody } from '@/models';
+import { DeleteOne } from '../dialogs/DeleteOne';
+import { DeleteMany } from '../dialogs/DeleteMany';
+import { type PatientDto } from '@/models/domain/patient/patientDto';
 
 const PatientsTable: React.FC = () => {
   const { editPatientFormFields: formFields } = usePatientsFormFields();
   const { editPatient } = useEditPatient();
-  const { deletePatient } = useDeletePatient();
-  const { selectedRow } = useSelectedRowStore();
-  const patientName = `${selectedRow.firstName} ${selectedRow.lastName}`;
-  const alertContent = {
-    alertMessage: `Are you sure you want to delete ${patientName} `,
-  };
-
   const submitEditPatient = async (values: SubmitBody) => {
-    await editPatient(values as Patient);
-  };
-
-  const submitDeletePatient = async () => {
-    await deletePatient(selectedRow._id);
+    await editPatient(values as PatientDto);
   };
 
   <PatientsTableError />;
   return (
     <Box sx={{ width: '100%', p: 2 }}>
-      <Sheet
+      <Paper
         variant="outlined"
         sx={{
-          borderRadius: 'sm',
+          borderRadius: 1,
           overflow: 'hidden',
         }}
       >
@@ -51,7 +39,7 @@ const PatientsTable: React.FC = () => {
           <PatientsTableBody />
         </PatientsTableContainer>
         <PatientsTablePagination />
-      </Sheet>
+      </Paper>
 
       <EditItemDialog
         title="Edit Patient"
@@ -63,15 +51,8 @@ const PatientsTable: React.FC = () => {
         formFields={formFields}
         onSubmit={submitEditPatient}
       />
-      <DeleteItemDialog
-        id="delete"
-        title="Delete Patient"
-        acceptButtonLabel="Delete"
-        content={alertContent}
-        cancelButtonLabel="Cancel"
-        displayButton={false}
-        onSubmit={submitDeletePatient}
-      />
+      <DeleteOne />
+      <DeleteMany />
     </Box>
   );
 };
