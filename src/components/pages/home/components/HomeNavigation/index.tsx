@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import NotesIcon from '@mui/icons-material/Notes';
 import { NavigationCard } from './NavigationCard';
-import { TitleSmall } from '@/components/common/Text/components';
+import { TitleSmall } from '@components/common/Text/components';
 
 export function HomeNavigation() {
   const NavigationConfig = [

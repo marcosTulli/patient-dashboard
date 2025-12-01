@@ -1,7 +1,7 @@
 'use client';
 import { Typography, Paper, List, Divider, Box } from '@mui/material';
 import { ActivityListItem } from './ActivityListItem';
-import { useGetRecentActivity } from '../../hooks';
+import { useGetRecentActivity } from '../../../hooks';
 
 export function Activity() {
   const { activityList } = useGetRecentActivity();

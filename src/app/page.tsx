@@ -7,9 +7,9 @@ import {
   DailyTasks,
   Hero,
   HomeNavigation,
-  Sessions,
   Stats,
   Articles,
+  Apointments,
 } from '@components/pages/home/components';
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
         <DailyTasks />
       </Box>
       <Box sx={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
-        <Sessions />
+        <Apointments />
         <Articles />
       </Box>
     </ProtectedPage>

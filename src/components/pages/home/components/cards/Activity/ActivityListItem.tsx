@@ -2,7 +2,7 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import React from 'react';
 import { ActivityIcon } from './ActivityIcon';
-import { type RecentActivity } from '../../utils/recentActivity';
+import { type RecentActivity } from '../../../utils/recentActivity';
 
 type ActivityListItemProps = Omit<RecentActivity, 'id'>;
 

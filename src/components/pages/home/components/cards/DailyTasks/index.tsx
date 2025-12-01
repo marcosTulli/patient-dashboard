@@ -1,7 +1,7 @@
 'use client';
 import { Typography, Paper, List } from '@mui/material';
 import { Task } from './Task';
-import { useGetTasks } from '../../hooks';
+import { useGetTasks } from '../../../hooks';
 
 export function DailyTasks() {
   const { tasks } = useGetTasks();

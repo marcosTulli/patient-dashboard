@@ -1,7 +1,7 @@
 import { Avatar } from '@mui/material';
 import React from 'react';
-import { activityColorMap, type ActivityType } from '../../utils';
-import { activityIconMap } from '../../utils/activityIconMap';
+import { activityColorMap, type ActivityType } from '../../../utils';
+import { activityIconMap } from '../../../utils/activityIconMap';
 
 interface ActivityIconProps {
   activityType: ActivityType;
