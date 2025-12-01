@@ -1,17 +1,13 @@
 'use client';
 
-import { Typography, Paper, List, ListItem, ListItemText, Link } from '@mui/material';
-import ArticleIcon from '@mui/icons-material/Article';
+import { List, ListItem, ListItemText, Link } from '@mui/material';
 import { useGetArticles } from '../../../hooks';
+import { HomeCard } from '../../HomeCard';
 
 export function Articles() {
   const { articles } = useGetArticles();
   return (
-    <Paper sx={{ p: 3, flex: '1 1 300px' }}>
-      <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <ArticleIcon fontSize="small" />
-        Trending Articles
-      </Typography>
+    <HomeCard title={'        Trending Articles'}>
       <List dense disablePadding>
         {articles.map((article, index) => (
           <ListItem key={index} disablePadding sx={{ mb: 1 }}>
@@ -32,6 +28,6 @@ export function Articles() {
           </ListItem>
         ))}
       </List>
-    </Paper>
+    </HomeCard>
   );
 }

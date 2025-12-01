@@ -1,20 +1,18 @@
 'use client';
-import { Typography, Paper, List } from '@mui/material';
+import { List } from '@mui/material';
 import { Task } from './Task';
 import { useGetTasks } from '../../../hooks';
+import { HomeCard } from '../../HomeCard';
 
 export function DailyTasks() {
   const { tasks } = useGetTasks();
   return (
-    <Paper sx={{ p: 3, flex: '1 1 300px' }}>
-      <Typography variant="h6" gutterBottom>
-        Daily Tasks
-      </Typography>
+    <HomeCard title={'Daily Tasks'}>
       <List dense>
         {tasks.map((task) => (
           <Task key={task.primary} {...task} />
         ))}
       </List>
-    </Paper>
+    </HomeCard>
   );
 }

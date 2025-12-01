@@ -1,15 +1,14 @@
 'use client';
-import { Typography, Paper, List, Divider, Box } from '@mui/material';
+import { List, Divider, Box } from '@mui/material';
 import { ActivityListItem } from './ActivityListItem';
 import { useGetRecentActivity } from '../../../hooks';
+import { HomeCard } from '../../HomeCard';
 
 export function Activity() {
   const { activityList } = useGetRecentActivity();
   return (
-    <Paper sx={{ p: 3, flex: '2 1 400px' }}>
-      <Typography variant="h6" gutterBottom>
-        Recent Activity
-      </Typography>
+    <HomeCard title={'Recent Activity'}>
+      {' '}
       <List>
         {activityList.map(({ id, activityType, primary, secondary }, index) => {
           const isLast = index === activityList.length - 1;
@@ -25,6 +24,6 @@ export function Activity() {
           );
         })}
       </List>
-    </Paper>
+    </HomeCard>
   );
 }
