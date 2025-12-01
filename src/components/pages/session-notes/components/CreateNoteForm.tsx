@@ -1,8 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { Box, TextField, Button } from '@mui/material';
+import { Box, TextField, Button, Autocomplete } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { type NoteDTO } from '@/models/domain/note/noteDTO';
+import usePatientSearchQuery from '@/hooks/shared/usePatientSearchQuery';
+import useGetAllPatients from '../../patients-list/hooks/useGetAllPatients';
+import { type Patient } from '@/models/domain/patient';
 
 interface CreateNoteFormProps {
   onSubmit: (note: Omit<NoteDTO, 'id'>) => void;
@@ -10,15 +13,19 @@ interface CreateNoteFormProps {
 }
 
 export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCancel }) => {
-  const [clientName, setClientName] = useState('');
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [sessionDate, setSessionDate] = useState<Date | null>(new Date());
   const [quickNotes, setQuickNotes] = useState('');
   const [sessionDuration, setSessionDuration] = useState<string>('');
 
+  const { patientSearchQuery, setPatientSearchQuery, clearPatientSearchQuery } =
+    usePatientSearchQuery();
+  const { patients, isLoading } = useGetAllPatients();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!clientName.trim() || !sessionDate || !quickNotes.trim() || !sessionDuration) {
+    if (!selectedPatient || !sessionDate || !quickNotes.trim() || !sessionDuration) {
       return;
     }
 
@@ -28,26 +35,28 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
     }
 
     onSubmit({
-      client_name: clientName.trim(),
+      client_name: `${selectedPatient.firstName()} ${selectedPatient.lastName()}`,
       session_date: sessionDate,
       quick_notes: quickNotes.trim(),
       session_duration: duration,
     });
 
     // Reset form
-    setClientName('');
+    setSelectedPatient(null);
     setSessionDate(new Date());
     setQuickNotes('');
     setSessionDuration('');
+    setPatientSearchQuery('');
   };
 
   const isFormValid =
-    clientName.trim() !== '' &&
+    selectedPatient !== null &&
     sessionDate !== null &&
     quickNotes.trim() !== '' &&
     sessionDuration !== '' &&
     !isNaN(parseInt(sessionDuration, 10)) &&
     parseInt(sessionDuration, 10) > 0 &&
+    parseInt(sessionDuration, 10) <= 120 &&
     quickNotes.length <= 500;
 
   return (
@@ -62,13 +71,23 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
         overflowX: 'hidden',
       }}
     >
-      <TextField
-        label="Client Name"
-        value={clientName}
-        onChange={(e) => setClientName(e.target.value)}
-        required
-        fullWidth
-        variant="outlined"
+      <Autocomplete
+        options={patients || []}
+        getOptionLabel={(option: Patient) =>
+          `${option.firstName()} ${option.lastName()} - ${option.email()}`
+        }
+        getOptionKey={(option: Patient) => option.id()}
+        value={selectedPatient}
+        onChange={(_, newValue) => setSelectedPatient(newValue)}
+        inputValue={patientSearchQuery}
+        onInputChange={(_, newInputValue) => setPatientSearchQuery(newInputValue)}
+        onBlur={clearPatientSearchQuery}
+        loading={isLoading}
+        renderInput={(params) => (
+          <TextField {...params} label="Client Name" required fullWidth variant="outlined" />
+        )}
+        noOptionsText="No matching patients"
+        isOptionEqualToValue={(option, value) => option.id() === value.id()}
       />
 
       <DatePicker
@@ -126,6 +145,7 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
           },
         }}
       />
+
       <Button
         variant="outlined"
         color="secondary"
@@ -138,6 +158,7 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
       >
         Cancel
       </Button>
+
       <Button
         type="submit"
         variant="contained"
