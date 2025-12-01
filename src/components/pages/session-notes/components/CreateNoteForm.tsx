@@ -69,6 +69,7 @@ export const CreateNoteForm: React.FC<CreateNoteFormProps> = ({ onSubmit, onCanc
         gap: 2.5,
         width: '100%',
         overflowX: 'hidden',
+        p: 2,
       }}
     >
       <Autocomplete

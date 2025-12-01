@@ -26,15 +26,16 @@ const DialogTrigger: React.FC<DialogTriggerProps> = ({
         onClose={toggle}
         PaperProps={{
           sx: {
-            width: '600px',
-            maxWidth: '90vw',
+            width: { xs: '100%', sm: '500px' },
+            maxWidth: { xs: 'calc(100% - 32px)', sm: '90vw' },
+            m: { xs: 2, sm: 4 },
             display: 'flex',
             flexDirection: 'column',
           },
         }}
       >
         <DialogTitle>{title}</DialogTitle>
-        <DialogContent sx={{ flexGrow: 1, overflowY: 'auto', p: 2 }}>
+        <DialogContent sx={{ flexGrow: 1, overflowY: 'auto', overflowX: 'hidden', p: 0 }}>
           {renderContent ? renderContent() : children}
         </DialogContent>
       </Dialog>

@@ -16,7 +16,7 @@ export function HomeNavigation() {
     },
     {
       href: routes.sessionNotes,
-      title: 'Session Nootes',
+      title: 'Session Notes',
       label: 'View and manage notes',
       icon: <NotesIcon />,
     },
