@@ -1,50 +1,56 @@
 'use client';
 
 import React from 'react';
-import { Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LabelSmall } from '@/components/common/Text/components';
+import Link from 'next/link';
+import { useSideBar } from '@/hooks';
+import { usePathname } from 'next/navigation';
 
 interface NavLinkButtonProps {
   variant?: 'navbar' | 'sidebar';
   label: string;
   Icon: React.ComponentType;
-  isPath: boolean;
-  handleClick: () => void;
+  path: string;
 }
 
-const NavLinkButton: React.FC<NavLinkButtonProps> = ({
-  variant = 'navbar',
-  label,
-  Icon,
-  isPath,
-  handleClick,
-}) => {
+const NavLinkButton: React.FC<NavLinkButtonProps> = ({ variant = 'navbar', label, Icon, path }) => {
   const isSidebar = variant === 'sidebar';
+  const { isSideBarOpen, toggleSideBar } = useSideBar();
+  const activePath = usePathname();
+  const isActivePath = activePath === path;
+
+  const handleLinkClick = React.useCallback(() => {
+    if (isSideBarOpen) {
+      toggleSideBar();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSideBarOpen]);
 
   return (
-    <Button
-      type="button"
-      variant="text"
-      onClick={handleClick}
-      sx={{
-        color: isPath ? 'primary.contrastText' : 'text.secondary',
-        bgcolor: isPath ? 'primary.main' : 'transparent',
-        justifyContent: 'flex-start',
-        width: isSidebar ? '100%' : 'auto',
-        gap: 1,
-        borderRadius: 1,
-        '&:hover': {
-          bgcolor: isPath ? 'primary.dark' : 'action.hover',
-        },
-      }}
-    >
-      <Icon />
-      {isSidebar ? (
-        <LabelSmall>{label}</LabelSmall>
-      ) : (
-        <Typography variant="body2">{label}</Typography>
-      )}
-    </Button>
+    <Link href={path} onClick={handleLinkClick} style={{ textDecoration: 'none', outline: 'none' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          px: 2,
+          py: 1,
+          color: 'text.secondary',
+          backgroundColor: isActivePath ? 'primary.main' : 'transparent',
+          justifyContent: 'flex-start',
+          width: isSidebar ? '100%' : 'auto',
+          gap: 2,
+          borderRadius: 1,
+        }}
+      >
+        <Icon />
+        {isSidebar ? (
+          <LabelSmall>{label}</LabelSmall>
+        ) : (
+          <Typography variant="body2">{label}</Typography>
+        )}
+      </Box>
+    </Link>
   );
 };
 

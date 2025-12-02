@@ -47,7 +47,13 @@ const Alert: React.FC<AlertProps> = ({
           mt: 2,
         }}
       >
-        <Button variant="text" color="inherit" onClick={toggle} fullWidth sx={{ width: { sm: 'auto' } }}>
+        <Button
+          variant="text"
+          color="inherit"
+          onClick={toggle}
+          fullWidth
+          sx={{ width: { sm: 'auto' } }}
+        >
           {cancelButtonLabel}
         </Button>
         <Button
